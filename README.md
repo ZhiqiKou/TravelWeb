@@ -15,3 +15,6 @@
 
 ## 前端素材
 素材来源：http://www.17sucai.com/pins/24378.html ， 为了防止侵权，并适应项目的需要，已经将素材改的面目全非了
+
+## 设计流程
+![思维导图](https://github.com/ZhiqiKou/TravelWeb/blob/master/Travel%20Web.png)
