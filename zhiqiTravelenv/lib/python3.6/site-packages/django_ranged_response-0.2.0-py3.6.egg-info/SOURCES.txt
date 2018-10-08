@@ -1,0 +1,10 @@
+setup.cfg
+setup.py
+django_ranged_response.egg-info/PKG-INFO
+django_ranged_response.egg-info/SOURCES.txt
+django_ranged_response.egg-info/dependency_links.txt
+django_ranged_response.egg-info/not-zip-safe
+django_ranged_response.egg-info/requires.txt
+django_ranged_response.egg-info/top_level.txt
+ranged_response/__init__.py
+test/test_response.py

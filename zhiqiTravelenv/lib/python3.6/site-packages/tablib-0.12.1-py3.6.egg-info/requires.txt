@@ -1,0 +1,9 @@
+odfpy
+openpyxl
+unicodecsv
+xlrd
+xlwt
+pyyaml
+
+[pandas]
+pandas

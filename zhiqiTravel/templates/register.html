@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>注册</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-------------jquery库-------------->
+  	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<!-------------Amazeui--------------->
+    <script type="text/javascript" src="js/amazeui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/amazeui.css">
+    <!------------核心样式-------------->
+    <link rel="stylesheet" type="text/css" href="css/user.css">    
+</head>
+<body>
+
+<!-------------------登录------------------->
+<div id="log_register">
+	
+	<div class="lr_box">
+		
+		<div class="tag">
+			<ul>
+				<li><a href="login.html">登录</a></li>
+				<li><a class="cur" href="register.html">注册</a></li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+		<table class="table_list">
+			<tbody>
+				<tr>
+					<td><input class="text" name="passport" type="text" placeholder="手机号"></td>
+				</tr>
+				<tr>
+					<td><input class="text" type="password" placeholder="您的密码"></td>
+				</tr>
+				<tr>
+					<td><input style="width:60%;" class="text" type="password" placeholder="验证码"><a style="margin-left:30px;" href="#">获取验证</a></td>
+				</tr>
+				<tr>
+					<td><input class="submit" type="submit" value="注册"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</div>
+
+</body>
+</html>
