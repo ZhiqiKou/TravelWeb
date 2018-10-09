@@ -40,9 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'diarys',
+    'news',
+    'operation',
+    'scenicspots',
+    'users',
+
     'xadmin',
     'crispy_forms',
 ]
+
+AUTH_USER_MODEL = 'users.MyUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
