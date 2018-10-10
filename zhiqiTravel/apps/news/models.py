@@ -18,3 +18,10 @@ class News(models.Model):
                                                                 ),
                                       default='hot', verbose_name='资讯分类')
     add_times = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = '新闻信息'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.title

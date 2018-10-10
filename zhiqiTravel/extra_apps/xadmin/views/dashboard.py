@@ -33,7 +33,8 @@ class WidgetTypeSelect(forms.Widget):
         super(WidgetTypeSelect, self).__init__(attrs)
         self._widgets = widgets
 
-    def render(self, name, value, attrs=None):
+    # 修改bug, 添加renderer
+    def render(self, name, value, attrs=None, renderer=None):
         if value is None:
             value = ''
         final_attrs = self.build_attrs(attrs, extra_attrs={'name': name})
