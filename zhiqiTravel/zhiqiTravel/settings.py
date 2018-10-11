@@ -50,9 +50,14 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'DjangoUeditor',
+    'captcha',
 ]
 
 AUTH_USER_MODEL = 'users.MyUser'
+
+# 更改验证码类型
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

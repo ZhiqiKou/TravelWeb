@@ -16,16 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path,include
 from django.views.static import serve
-
 import xadmin
-
+from users.views import *
 from zhiqiTravel.settings import MEDIA_ROOT
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    re_path(r'^xadmin/', xadmin.site.urls),
+    # 工具
+    re_path(r'^captcha/', include('captcha.urls')),
+    path('xadmin/', xadmin.site.urls),
     path('ueditor/', include('DjangoUeditor.urls')),
+
     path('news/', include(('news.urls', 'news'))),
+
+    # 用户相关
+    path('register/', RegisterView.as_view(), name='register'),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
 ]

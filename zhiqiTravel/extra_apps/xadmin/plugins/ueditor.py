@@ -1,4 +1,4 @@
-# @Time    : 18-10-11 上午10:06
+# @Time    : 18-10-11
 # @Author  : Zhiqi Kou
 # @Email   : zhiqi1028@gmail.com
 
