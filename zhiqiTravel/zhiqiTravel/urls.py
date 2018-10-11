@@ -24,6 +24,7 @@ from zhiqiTravel.settings import MEDIA_ROOT
 urlpatterns = [
     # path('admin/', admin.site.urls),
     re_path(r'^xadmin/', xadmin.site.urls),
+    path('ueditor/', include('DjangoUeditor.urls')),
     path('news/', include(('news.urls', 'news'))),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),

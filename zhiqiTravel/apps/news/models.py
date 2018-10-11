@@ -1,12 +1,18 @@
 from django.db import models
 
+from DjangoUeditor.models import UEditorField
+
 from datetime import datetime
 
 
 # Create your models here.
 class News(models.Model):
-    title = models.CharField(max_length=20, verbose_name='标题')
-    content = models.TextField(verbose_name='内容')
+    title = models.CharField(max_length=50, verbose_name='标题')
+    content = UEditorField(verbose_name='内容',
+                           width=600,
+                           height=300,
+                           imagePath="news/ueditor/",
+                           filePath="news/ueditor/", default='')
     image = models.ImageField(upload_to='news/%Y/%m', max_length=100, verbose_name='缩略图')
     checknum = models.IntegerField(verbose_name='查看数', default=0)
     classification = models.CharField(max_length=10, choices=(('hot', '热点'),
@@ -22,6 +28,10 @@ class News(models.Model):
     class Meta:
         verbose_name = '新闻信息'
         verbose_name_plural = verbose_name
+
+    def get_content_text(self):
+
+        self.content
 
     def __str__(self):
         return self.title

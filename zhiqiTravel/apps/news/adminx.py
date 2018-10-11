@@ -12,12 +12,13 @@ class NewsAdmin:
     """
     新闻后台管理
     """
-    list_display = ['title', 'content', 'image', 'checknum', 'classification', 'add_times']
+    list_display = ['title', 'checknum', 'classification', 'add_times']
     list_filter = ['checknum', 'classification', 'add_times']
     search_fields = ['title', 'checknum', 'classification', 'add_times']
     fields = ['title', 'content', 'image', 'checknum', 'classification', 'add_times']
     readonly_fields = ['checknum']
     model_icon = 'fa fa-newspaper-o'
+    style_fields = {"content": "ueditor"}
 
 
 class GlobalSettings:

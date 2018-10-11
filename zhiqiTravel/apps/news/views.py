@@ -20,6 +20,7 @@ class NewsView(View):
             'classification': news_type,
         })
 
+
 class NewsDetails(View):
     """
     新闻详情页

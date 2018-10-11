@@ -40,7 +40,9 @@
 							<div class="pic"><a href="{% url 'news:news_detail' new.id %}"><img class="scale-effect" src="{{ MEDIA_URL }}{{ new.image}}"></a></div>
 							<div class="con">
 								<h3><a href="{% url 'news:news_detail' new.id %}">{{ new.title }}</a></h3>
-								<p>{{ new.content|truncatechars:"50"  }}<a href="{% url 'news:news_detail' new.id %}">详细信息</a></p>
+								<p>{{ new.content|striptags|truncatechars:"100"  }}
+                                    <a href="{% url 'news:news_detail' new.id %}">详细信息</a>
+                                </p>
 							</div>
 							<div class="share">
 								<div class="bdsharebuttonbox">
