@@ -1,16 +1,33 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
-from django.http import HttpResponsePermanentRedirect
-from django.urls import reverse
 
 from .forms import *
 from .models import *
+from utils.send_email import send_register_email
+
 
 # Create your views here.
+class IndexView(View):
+    """
+    首页
+    """
+    def get(self, request):
+        return render(request, 'index.html', {})
+
+
 class RegisterView(View):
+
+    """
+    注册
+    """
     def get(self, request):
         register_form = RegisterForm()
         hashkey = CaptchaStore.generate_key()
@@ -37,9 +54,12 @@ class RegisterView(View):
             user_profile.is_active = False
             user_profile.password = make_password(password)
             user_profile.save()
+
+            send_register_email(user_name)
+
             #return render(request, 'login.html')
-            # 重定向,暂时定为全部新闻页面
-            return HttpResponsePermanentRedirect(reverse('news:all'))
+            messages.add_message(request, messages.SUCCESS, '注册成功！请在邮箱中点击激活链接激活账号！')
+            return render(request, 'register.html', {})
         else:
             hashkey = CaptchaStore.generate_key()
             image_url = captcha_image_url(hashkey)
@@ -47,3 +67,53 @@ class RegisterView(View):
                 'register_form': register_form,
                 'hashkey': hashkey,
                 'image_url': image_url})
+
+
+class ActiveView(View):
+    """
+    激活
+    """
+    def get(self, request, active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                user = MyUser.objects.get(email=email)
+                user.is_active = True
+                user.save()
+        return render(request, 'register.html', {})
+
+
+class LoginView(View):
+    """登陆"""
+    def get(self, request):
+        return render(request, 'login.html', {})
+
+    def post(self, request):
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            username = request.POST.get('username', '')
+            password = request.POST.get('password', '')
+            is_keep = request.POST.get('is_keep', '')
+            user = authenticate(username=username, password=password)
+            # 如果用户存在
+            if user is not None and user.is_active:
+                login(request, user)
+                # 如果保持登陆状态
+                if not is_keep:
+                    # 关闭浏览器session实效
+                    request.session.set_expiry(0)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return render(request, 'login.html', {'msg': '用户名或密码错误！'})
+        else:
+            return render(request, 'login.html', {'login_form': login_form})
+
+
+class LogoutView(View):
+    """
+    退出
+    """
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(reverse('index'))

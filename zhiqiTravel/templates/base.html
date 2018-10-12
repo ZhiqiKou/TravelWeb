@@ -20,10 +20,14 @@
 <div id="toolbar">
     <div class="cw1200">
         <ul class="fl">
-            <li class="tb"><p>您好，欢迎访问Zhiqi Travel Website！</p></li>
-			<li class="tb"><a href="#" data-am-modal="{target: '#my-alert'}">签到</a><span>|</span></li>
-            <li class="tb"><a href="login.html">登录</a><span>|</span></li>
-            <li class="tb"><a href="register.html">注册</a></li>
+            {% if request.user.is_authenticated %}
+            <li class="tb"><p>您好:{{ request.user.username }}，欢迎访问Zhiqi Travel Website！</p></li>
+			<li class="tb"><a style="color: red" href="#" data-am-modal="{target: '#my-alert'}">签到</a>
+{#                <span>|</span></li>#}
+            {% else %}
+            <li class="tb"><a href="{% url 'login' %}">登录</a><span>|</span></li>
+            <li class="tb"><a href="{% url 'register' %}">注册</a></li>
+            {% endif %}
         </ul>
 		<!-------------------签到弹出层------------------->
 		<div id="sign_layer">
@@ -42,6 +46,7 @@
 			</div>
 		</div>
         <ul class="fr">
+            {% if request.user.is_authenticated %}
             <li class="tb">
 				<a href="#">我的河洛</a>
 				<!-------------------用户------------------->
@@ -61,15 +66,17 @@
 							<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
 							<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
 							<li><a href="my_info.html"><i class="i7"></i>设置</a></li>
-							<li><a href="#"><i class="i8"></i>退出</a></li>
+							<li><a href="{% url 'logout' %}"><i class="i8"></i>退出</a></li>
 						</ul>
 					</div>
 				</div>
 				<span>|</span>
 			</li>
             <li class="tb"><a href="shop_car.html"><i class="cart_ico"></i>购物车</a><span>|</span></li>
-            <li class="tb"><a href="news_list.html">用户帮助中心</a><span>|</span></li>
+            <li class="tb"><a href="news_list.html">用户帮助中心</a>
+            {% else %}
             <li class="tb"><img src="{% static 'images/tel_ico.gif' %}"/><font>40000-40000</font></li>
+            {% endif %}
         </ul>
         <div class="clear"></div>
     </div>
@@ -99,7 +106,7 @@
             <!-------------------导航------------------->
             <div class="nav">
                 <ul>
-                    <li><a title="" class="cur" href="index.html">首页</a></li>
+                    <li><a title="" class="cur" href="{% url 'index' %}">首页</a></li>
                     <li><a class="tta" title="" href="scenic_list.html">洛阳旅游</a></li>
                     <li><a title="" href="mall_list.html">特产商城</a></li>
                     <li><a title="" href="note_list.html">美丽乡村</a></li>

@@ -22,15 +22,21 @@ from zhiqiTravel.settings import MEDIA_ROOT
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+
     # 工具
     re_path(r'^captcha/', include('captcha.urls')),
     path('xadmin/', xadmin.site.urls),
     path('ueditor/', include('DjangoUeditor.urls')),
 
+    # 网站页面
+    path('', IndexView.as_view(), name = 'index'),
     path('news/', include(('news.urls', 'news'))),
 
     # 用户相关
     path('register/', RegisterView.as_view(), name='register'),
+    path('active/<slug:active_code>', ActiveView.as_view(), name='active'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
 ]

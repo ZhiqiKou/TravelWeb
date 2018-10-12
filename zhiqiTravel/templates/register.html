@@ -13,7 +13,19 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
 </head>
 <body>
+{% if messages %}
 
+<ul class="messages">
+
+    {%for message in messages %}
+
+    <li{%if message.tags %} class="{{ message.tags }}"{% endif %}>{{message }}</li>
+
+    {%endfor %}
+
+</ul>
+
+{% endif %}
 <!-------------------登录------------------->
 <div id="log_register">
 	
@@ -21,7 +33,7 @@
 		
 		<div class="tag">
 			<ul>
-				<li><a href="login.html">登录</a></li>
+				<li><a href="{% url 'login' %}">登录</a></li>
 				<li><a class="cur" href="register.html">注册</a></li>
 				<div class="clear"></div>
 			</ul>
@@ -29,15 +41,15 @@
 		<table class="table_list">
 			<form method="post" action="{% url 'register' %}">
 				<tr>
-					<td><input class="text" name="email" type="text" value="{{ register_form.email.value }}"  placeholder="登陆邮箱"></td>
+					<td><input class="text" name="email" type="text" placeholder="登陆邮箱"></td>
 				</tr>
 				<tr>
-					<td><input class="text" name="password" type="password" value="{{ register_form.password.value }}"  placeholder="8-20位非中文字符密码"></td>
+					<td><input class="text" name="password" type="password" placeholder="8-20位非中文字符密码"></td>
 				</tr>
 				<tr>
 					<td>
-                        <input style="width:60%;" id="id_captcha_1" class="form-control user_captcha text" placeholder="请输入验证码" autocomplete="off" autocapitalize="off" spellcheck="false" name="captcha_1" type="text" >
-                        <img style="margin-left:20px;" class="captcha" alt="captcha" src="{{image_url}}">
+                        <input style="width:60%;" id="id_captcha_1" class="form-control user_captcha text" placeholder="请输入计算结果" autocomplete="off" autocapitalize="off" spellcheck="false" name="captcha_1" type="text" >
+                        <img style="margin-left:10px;" class="captcha" alt="captcha" src="{{image_url}}">
                         <input id="id_captcha_0" name="captcha_0" value="{{hashkey}}" type="hidden">
                         {{form.captcha.errors}}
 				</tr>

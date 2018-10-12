@@ -1,121 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>首页</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-------------jquery库-------------->
-  	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-    <!-------------Amazeui--------------->
-    <script type="text/javascript" src="js/amazeui.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/amazeui.css">
-    <!------------核心样式-------------->
-    <link rel="stylesheet" type="text/css" href="css/style.css">    
-</head>
-<body>
-</div>
-<!-------------------工具栏------------------->
-<div id="toolbar">
-    <div class="cw1200">
-        <ul class="fl">
-            <li class="tb"><p>您好，欢迎访问Zhiqi Travel Website！</p></li>
-			<li class="tb"><a href="#" data-am-modal="{target: '#my-alert'}">签到</a><span>|</span></li>
-            <li class="tb"><a href="login.html">登录</a><span>|</span></li>
-            <li class="tb"><a href="register.html">注册</a></li>
-        </ul>
-		<!-------------------签到弹出层------------------->
-		<div id="sign_layer">
-			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-			  <div class="am-modal-dialog">
-				<div class="win-m">
-					<p class="p1">签到成功</p>
-					<p class="p1">获得<span class="already-sign">20</span>积分</p>
-					<p class="p2">每天签到都可以获得积分哦</p>
-					<div class="am-modal-footer">
-					  <span class="am-modal-btn">知道了</span>
-					</div>
-				</div>
-				
-			  </div>
-			</div>
-		</div>
-        <ul class="fr">
-            <li class="tb">
-				<a href="#">我的河洛</a>
-				<!-------------------用户------------------->
-				<div class="user">
-					<a class="user-hd" href="#">
-						<img src="images/user_head_pic.jpg"/><b></b>
-						<div class="clear"></div>
-					</a>
-					<div class="user-bd">
-						<div class="integral"><img src="images/integral_ico.png"/>当前积分 609</div>
-						<ul class="nav_sort">
-							<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
-							<li><a href="write_note.html"><i class="i2"></i>写游记</a></li>
-							<li><a href="my_note.html"><i class="i9"></i>我的游记</a></li>
-							<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
-							<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
-							<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
-							<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
-							<li><a href="my_info.html"><i class="i7"></i>设置</a></li>
-							<li><a href="#"><i class="i8"></i>退出</a></li>
-						</ul>
-					</div>
-				</div>
-				<span>|</span>
-			</li>
-            <li class="tb"><a href="shop_car.html"><i class="cart_ico"></i>购物车</a><span>|</span></li>
-            <li class="tb"><a href="news_list.html">用户帮助中心</a><span>|</span></li>
-            <li class="tb"><img src="images/tel_ico.gif"/><font>40000-40000</font></li>
-        </ul>
-        <div class="clear"></div>
-    </div>
-</div>
-<!-------------------版头------------------->
-<div id="header">
-    <div class="cw1200">
-        <!-------------------logo------------------->
-        <div class="logo fl"><a title="" href="index.html"><img alt="" src="images/t_logo.jpg"></a></div>
-        <div class="search_nav fl">
-            <!-------------------搜索------------------->
-            <div class="search radius6">
-				<form name="searchform" method="post" action="/e/search/index.php">
-					<input name='ecmsfrom' type='hidden' value='9'>
-					<input type="hidden" name="show" value="title,newstext">
-					<select name="classid" id="choose">
-						<option value="0">景区</option>
-						<option value="1">特产</option>
-						<option value="4">游记</option>
-						<option value="22">文章</option>
-					</select> 
-					<input class="inp_srh" name="keyboard"  placeholder="请输入您要搜索的关键词" >
-					<input class="btn_srh" type="submit" name="submit" value="搜索">
-				</form>
-			</div>
-			<script type="text/javascript" src="js/jquery.select.js"></script>
-            <!-------------------导航------------------->
-            <div class="nav">
-                <ul>
-                    <li><a title="" class="cur" href="index.html">首页</a></li>
-                    <li><a class="tta" title="" href="scenic_list.html">洛阳旅游</a></li>
-                    <li><a title="" href="mall_list.html">特产商城</a></li>
-                    <li><a title="" href="note_list.html">美丽乡村</a></li>
-                    <li><a title="" href="news_list.html">新闻资讯</a></li>
-					<li><a title="" href="https://github.com/ZhiqiKou/TravelWeb">项目地址</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-<!------------------banner-------------------->
-<script src="js/jquery.superslide.2.1.1.js" type="text/javascript"></script>
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <!------------------banner-------------------->
+<script src="{% static 'js/jquery.superslide.2.1.1.js' %}" type="text/javascript"></script>
 <div class="h_banner">
 	<ul class="h_b_list">
-		<li><a style="background:url(images/banner1.jpg) no-repeat center;" href="#"></a></li>
-		<li><a style="background:url(images/banner2.png) no-repeat center;" href="#"></a></li>
-		<li><a style="background:url(images/banner3.jpg) no-repeat center;" href="#"></a></li>
-		<li><a style="background:url(images/banner4.png) no-repeat center;" href="#"></a></li>
+		<li><a style="background:url({% static 'images/banner1.jpg' %}) no-repeat center;" href="#"></a></li>
+		<li><a style="background:url({% static 'images/banner2.png' %}) no-repeat center;" href="#"></a></li>
+		<li><a style="background:url({% static 'images/banner3.jpg' %}) no-repeat center;" href="#"></a></li>
+		<li><a style="background:url({% static 'images/banner4.png' %}) no-repeat center;" href="#"></a></li>
 	</ul>
 	<a class="prev" href="javascript:void(0)"></a>
 	<a class="next" href="javascript:void(0)"></a>
@@ -187,7 +80,7 @@ $(".h_banner").slide({ titCell:".num ul" , mainCell:".h_b_list" , effect:"fold",
                     <div class="clear"></div>
                 </ul>
                 <div class="more"><a href="scenic_list.html">热门景区<span>+</span></a></div>
-                
+
             </div>
             <div class="box">
                 <ul>
@@ -308,11 +201,11 @@ $(".h_banner").slide({ titCell:".num ul" , mainCell:".h_b_list" , effect:"fold",
                         <img alt="" class="scale-effect" src="images/t5.jpg"/>
                         <p>大麦茶</p>
                     </a>
-                </li>       
+                </li>
             </ul>
         </div>
     </div>
-</div>  
+</div>
 <!------------------美丽乡村-------------------->
 <div id="h_note">
     <div class="cw1200">
@@ -383,7 +276,7 @@ $(".h_banner").slide({ titCell:".num ul" , mainCell:".h_b_list" , effect:"fold",
                         </div>
                     </div>
                 </li>
-                
+
                 <div class="clear"></div>
             </ul>
         </div>
@@ -406,7 +299,7 @@ $(".h_banner").slide({ titCell:".num ul" , mainCell:".h_b_list" , effect:"fold",
         <div class="hot_news fr">
             <div class="title"><img src="images/h_title7.png"/></div>
             <div class="con">
-     
+
                 <div data-am-widget="slider" class="pic am-slider am-slider-c4" data-am-slider='{"controlNav":false}'>
                     <ul class="am-slides">
                         <li>
@@ -438,18 +331,4 @@ $(".h_banner").slide({ titCell:".num ul" , mainCell:".h_b_list" , effect:"fold",
         <div class="clear"></div>
     </div>
 </div>
-<!-----------------版底---------------->
-<div id="footer">
-    <div class="cw1200">
-        <div class="line"><img alt="" src="images/b_line.png"/></div>
-        <div class="b_logo"><img alt="" src="images/b_logo.png"/></div>
-        <div class="con">
-            <p>Zhiqi文化旅游发展有限公司 版权所有</p>
-            <p>地址：河南省洛阳市Zhiqi文化游客接待中心　邮编：000000　电话：0000-00000000　业务电话：0000-00000000</p>
-            <p>Copyright 2019 zhiqi All Rights Reserved | 豫ICP备00000000号　技术支持：zhiqi</p>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>
-</body>
-</html>
+{% endblock %}

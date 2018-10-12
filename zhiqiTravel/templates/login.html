@@ -1,15 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+{% load staticfiles %}
 <head>
     <title>登录</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-------------jquery库-------------->
-  	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+  	<script type="text/javascript" src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
 	<!-------------Amazeui--------------->
-    <script type="text/javascript" src="js/amazeui.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/amazeui.css">
+    <script type="text/javascript" src="{% static 'js/amazeui.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/amazeui.css' %}">
     <!------------核心样式-------------->
-    <link rel="stylesheet" type="text/css" href="css/user.css">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
 </head>
 <body>
 
@@ -20,24 +21,26 @@
 		
 		<div class="tag">
 			<ul>
-				<li><a class="cur" href="login.html">登录</a></li>
-				<li><a href="register.html">注册</a></li>
+				<li><a class="cur" href="{% url 'login' %}">登录</a></li>
+				<li><a href="{% url 'register' %}">注册</a></li>
 				<div class="clear"></div>
 			</ul>
 		</div>
 		<table class="table_list">
+            <form method="post" action="{% url 'login' %}">
 			<tbody>
 				<tr>
-					<td><input class="text" name="passport" type="text" placeholder="手机号"></td>
+					<td><input class="text" name="username" type="text" placeholder="登陆邮箱"></td>
 				</tr>
 				<tr>
-					<td><input class="text" type="password" placeholder="您的密码"></td>
+					<td><input class="text" name="password" type="password" placeholder="您的密码"></td>
 				</tr>
+                <div style="color:red">{% for key,error in register_form.errors.items %}{{ error }}{% endfor %}{{ msg }}</div>
 				<tr>
 					<td>
 						<label class="am-checkbox">
-							<input type="checkbox" id="checkbox_a1" class="chk_1"> 
-							<label for="checkbox_a1"></label> 记住密码
+							<input name="is_keep" type="checkbox" id="checkbox_a1" class="chk_1">
+							<label for="checkbox_a1"></label> 保持登陆状态
 						</label>
 						<a class="back" href="#">找回密码</a>
 					</td>
@@ -46,6 +49,8 @@
 					<td><input class="submit" type="submit" value="登录"></td>
 				</tr>
 			</tbody>
+                {% csrf_token %}
+            </form>
 		</table>
 
 	</div>
