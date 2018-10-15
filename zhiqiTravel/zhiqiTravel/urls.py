@@ -31,7 +31,7 @@ urlpatterns = [
     # 网站页面
     path('', IndexView.as_view(), name='index'),
     path('news/', include(('news.urls', 'news'))),
-
+    path('scenicspots/', include(('scenicspots.urls', 'scenicspots'))),
 
     # 用户相关
     path('register/', RegisterView.as_view(), name='register'),

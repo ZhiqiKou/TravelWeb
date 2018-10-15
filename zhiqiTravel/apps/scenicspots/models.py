@@ -1,5 +1,7 @@
 from django.db import models
 
+from DjangoUeditor.models import UEditorField
+
 from datetime import datetime
 
 
@@ -9,7 +11,11 @@ class Spots(models.Model):
     旅游景区
     """
     name = models.CharField(max_length=30, verbose_name='名称')
-    content = models.TextField(verbose_name='内容')
+    content = UEditorField(verbose_name='内容',
+                           width=600,
+                           height=300,
+                           imagePath="Scenic/ueditor/",
+                           filePath="Scenic/ueditor/", default='')
     image = models.ImageField(upload_to='spots/thumbnail/%Y/%m', max_length=100, verbose_name='缩略图')
     picture = models.ImageField(upload_to='spots/mainfigure/%Y/%m', max_length=100, verbose_name='主图')
     classification = models.CharField(max_length=10, choices=(('natural', '景区'),
@@ -19,7 +25,7 @@ class Spots(models.Model):
     businessHours = models.CharField(max_length=10, default='全年', verbose_name='开放时间')
     address = models.CharField(max_length=50, verbose_name='地址')
     price = models.FloatField(verbose_name='价格')
-    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+    add_times = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '旅游景区'
