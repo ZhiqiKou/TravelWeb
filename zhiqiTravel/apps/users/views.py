@@ -74,7 +74,7 @@ class ActiveView(View):
     激活
     """
     def get(self, request, active_code):
-        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        all_records = EmailVerifyRecord.objects.filter(send_type='register', code=active_code)
         if all_records:
             for record in all_records:
                 email = record.email
@@ -117,3 +117,76 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect(reverse('index'))
+
+
+class ForgetPwdView(View):
+    """
+    忘记密码
+    """
+    def get(self, request):
+        forget_form = ForgetForm()
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+        return render(request, 'forget_pwd.html', {
+            'forget_form': forget_form,
+            'hashkey': hashkey,
+            'image_url': image_url,
+        })
+
+    def post(self, request):
+        forget_form = ForgetForm(request.POST)
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
+        if forget_form.is_valid():
+            email = request.POST.get('email', '')
+            send_register_email(email, 'find')
+            messages.add_message(request, messages.SUCCESS, '邮件发送成功！请点击邮件中的链接找回密码')
+            return render(request, 'forget_pwd.html', {
+                'hashkey': hashkey,
+                'image_url': image_url,
+            })
+        else:
+
+            return render(request, 'forget_pwd.html', {
+                'forget_form': forget_form,
+                'hashkey': hashkey,
+                'image_url': image_url,
+            })
+
+
+class ResetView(View):
+    def get(self, request, find_code):
+        all_records = EmailVerifyRecord.objects.filter(send_type='find', code=find_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                return render(request, 'new_pwd.html', {
+                    'email': email,
+                })
+
+
+class NewPwdView(View):
+    """
+    修改用户密码
+    """
+    def post(self, request):
+        newpwd_form = NewPwdForm(request.POST)
+        if newpwd_form.is_valid():
+            pwd1 = request.POST.get('pwd1', '')
+            pwd2 = request.POST.get('pwd2', '')
+            email = request.POST.get('email', '')
+            if pwd1 != pwd2:
+                return render(request, 'new_pwd.html', {
+                    'email': email,
+                    'msg': '两次输入的密码不一致',
+                })
+            user = MyUser.objects.get(email=email)
+            user.password = make_password(pwd2)
+            user.save()
+            return HttpResponseRedirect(reverse('login'))
+        else:
+            email = request.POST.get('email', '')
+            return render(request, 'new_pwd.html', {
+                'email': email,
+                'newpwd_form': newpwd_form,
+            })

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+{% load staticfiles %}
+<head>
+    <title>忘记密码</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-------------jquery库-------------->
+  	<script type="text/javascript" src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+	<!-------------Amazeui--------------->
+    <script type="text/javascript" src="{% static 'js/amazeui.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/amazeui.css' %}">
+    <!------------核心样式-------------->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+</head>
+<body>
+{% if messages %}
+
+<ul class="messages">
+
+    {%for message in messages %}
+
+    <li{%if message.tags %} class="{{ message.tags }}"{% endif %}>{{message }}</li>
+
+    {%endfor %}
+
+</ul>
+
+{% endif %}
+<!-------------------登录------------------->
+<div id="log_register">
+	
+	<div class="lr_box">
+		
+		<div class="tag">
+			<ul>
+				<li><a>找回密码</a></li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+		<table class="table_list">
+			<form method="post" action="{% url 'forget_pwd' %}">
+				<tr>
+					<td><input class="text" name="email" type="text" placeholder="登陆邮箱"></td>
+				</tr>
+				<tr>
+					<td>
+                        <input style="width:60%;" id="id_captcha_1" class="form-control user_captcha text" placeholder="请输入计算结果" autocomplete="off" autocapitalize="off" spellcheck="false" name="captcha_1" type="text" >
+                        <img style="margin-left:10px;" class="captcha" alt="captcha" src="{{image_url}}">
+                        <input id="id_captcha_0" name="captcha_0" value="{{hashkey}}" type="hidden">
+                        {{form.captcha.errors}}
+				</tr>
+                <div style="color:red">{% for key,error in forget_form.errors.items %}{{ error }}{% endfor %}{{ msg }}</div>
+				<tr>
+					<td><input class="submit" type="submit" value="确定"></td>
+				</tr>
+            {% csrf_token %}
+			</form>
+		</table>
+
+	</div>
+
+</div>
+
+{# ajax 更新验证码 #}
+<script>
+    $('.captcha').click(function () {
+    $.getJSON("/captcha/refresh/", function (result) {
+        $('.captcha').attr('src', result['image_url']);
+        $('#id_captcha_0').val(result['key'])
+    });
+});
+</script>
+</body>
+</html>
+

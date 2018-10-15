@@ -37,6 +37,9 @@ urlpatterns = [
     path('active/<slug:active_code>', ActiveView.as_view(), name='active'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('forget_pwd', ForgetPwdView.as_view(), name='forget_pwd'),
+    path('find/<slug:find_code>', ResetView.as_view(), name='find'),
+    path('new_pwd/', NewPwdView.as_view(), name='new_pwd'),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
 ]

@@ -34,3 +34,11 @@ def send_register_email(email, send_type='register'):
                      '请点击下面的链接激活你的账号: \n' \
                      'http://127.0.0.1:8000/active/{1}'.format(email, ran_str)
         send_mail(email_title, email_body, EMAIL_FROM, [email])
+
+    elif send_type == 'find':
+        email_title = 'Zhiqi Travel 找回密码'
+        email_body = '你好!\n' \
+                     '你找回密码的邮箱为：{0}。\n' \
+                     '请点击下面的链接找回你的密码: \n' \
+                     'http://127.0.0.1:8000/find/{1}'.format(email, ran_str)
+        send_mail(email_title, email_body, EMAIL_FROM, [email])
