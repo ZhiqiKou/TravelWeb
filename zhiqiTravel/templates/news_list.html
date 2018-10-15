@@ -56,8 +56,8 @@
 
 					</ul>
 				</div>
-
-			</div>{% endblock %}
+			</div>
+            {% endblock %}
 		</div>
 		<div class="w380 fr">
 			<!------------------公共盒子-------------------->
@@ -86,7 +86,7 @@
 					<div class="con">
 						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
 						<div class="name"><img src="{% static 'images/f_t_culture.png' %}"/></div>
-						<div class="more"><a href="#">更多>></a></div>
+						<div class="more"><a href="?classification=culture">更多>></a></div>
 					</div>
 					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
@@ -94,24 +94,14 @@
 				<!------------------公共推荐-------------------->
 				<div id="public_recom">
 					<ul>
+                        {% for cul in culture %}
 						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
+							<a href="{% url 'news:news_detail' cul.id %}">
+								<div class="pic"><img class="scale-effect" src="{{ MEDIA_URL }}{{ cul.image }}"/></div>
+								<p>{{ cul.title|truncatechars:"8" }}</p>
 							</a>
 						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
+                        {% endfor %}
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -123,32 +113,22 @@
 					<div class="con">
 						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
 						<div class="name"><img src="{% static 'images/f_t_project.png' %}"/></div>
-						<div class="more"><a href="#">更多>></a></div>
+						<div class="more"><a href="?classification=specialty">更多>></a></div>
 					</div>
 					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
 				</div>
 				<!------------------公共推荐-------------------->
 				<div id="public_recom">
-					<ul>
+										<ul>
+                        {% for spe in specialty %}
 						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
+							<a href="{% url 'news:news_detail' spe.id %}">
+								<div class="pic"><img class="scale-effect" src="{{ MEDIA_URL }}{{ spe.image }}"/></div>
+								<p>{{ spe.title|truncatechars:"8" }}</p>
 							</a>
 						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
+                        {% endfor %}
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -160,7 +140,7 @@
 					<div class="con">
 						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
 						<div class="name"><img src="{% static 'images/f_t_food.png' %}"/></div>
-						<div class="more"><a href="#">更多>></a></div>
+						<div class="more"><a href="?classification=food">更多>></a></div>
 					</div>
 					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
@@ -168,24 +148,14 @@
 				<!------------------公共推荐-------------------->
 				<div id="public_recom">
 					<ul>
+                        {% for fo in food %}
 						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
+							<a href="{% url 'news:news_detail' fo.id %}">
+								<div class="pic"><img class="scale-effect" src="{{ MEDIA_URL }}{{ fo.image }}"/></div>
+								<p>{{ fo.title|truncatechars:"8" }}</p>
 							</a>
 						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
+                        {% endfor %}
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -197,7 +167,7 @@
 					<div class="con">
 						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
 						<div class="name"><img src="{% static 'images/f_t_life.png' %}"/></div>
-						<div class="more"><a href="#">更多>></a></div>
+						<div class="more"><a href="?classification=life">更多>></a></div>
 					</div>
 					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
@@ -205,24 +175,14 @@
 				<!------------------公共推荐-------------------->
 				<div id="public_recom">
 					<ul>
+                        {% for li in life %}
 						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
+							<a href="{% url 'news:news_detail' li.id %}">
+								<div class="pic"><img class="scale-effect"  src="{{ MEDIA_URL }}{{ li.image }}"/></div>
+								<p>{{ li.title|truncatechars:"8" }}</p>
 							</a>
 						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<div class="pic"><img class="scale-effect" src="{% static 'images/2016122223895.jpg' %}"/></div>
-								<p>洛阳古城慢时</p>
-							</a>
-						</li>
+                        {% endfor %}
 						<div class="clear"></div>
 					</ul>
 				</div>
