@@ -29,8 +29,9 @@ urlpatterns = [
     path('ueditor/', include('DjangoUeditor.urls')),
 
     # 网站页面
-    path('', IndexView.as_view(), name = 'index'),
+    path('', IndexView.as_view(), name='index'),
     path('news/', include(('news.urls', 'news'))),
+
 
     # 用户相关
     path('register/', RegisterView.as_view(), name='register'),
