@@ -25,6 +25,9 @@ class Spots(models.Model):
     businessHours = models.CharField(max_length=10, default='全年', verbose_name='开放时间')
     address = models.CharField(max_length=50, verbose_name='地址')
     price = models.FloatField(verbose_name='价格')
+    # 小数点后6位，总共9位数,默认位置设为洛阳市政府
+    x = models.DecimalField(decimal_places=6, max_digits=9, default=112.460033, verbose_name='经度')
+    y = models.DecimalField(decimal_places=6, max_digits=9, default=34.624376, verbose_name='纬度')
     add_times = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
@@ -42,7 +45,6 @@ class Gallery(models.Model):
     spots = models.ForeignKey(Spots, verbose_name='景区', on_delete=models.CASCADE)
     title = models.CharField(max_length=100, verbose_name='标题')
     image = models.ImageField(upload_to='spots/banner/%Y/%m', verbose_name='轮播图', max_length=100)
-    index = models.IntegerField(default=100, verbose_name='顺序')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:

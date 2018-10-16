@@ -7,5 +7,5 @@ from .views import *
 
 urlpatterns = [
     path('all/', ScenicListView.as_view(), name='all'),
-    path('detail/<int:news_id>/', ScenicDetails.as_view(), name='scenic_detail')
+    path('detail/<int:scenic_id>/', ScenicDetails.as_view(), name='scenic_detail')
 ]
