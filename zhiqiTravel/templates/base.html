@@ -22,7 +22,7 @@
         <ul class="fl">
             {% if request.user.is_authenticated %}
             <li class="tb"><p>您好:{{ request.user.username }}，欢迎访问Zhiqi Travel Website！</p></li>
-			<li class="tb"><a style="color: red" href="#" data-am-modal="{target: '#my-alert'}">签到</a>
+			<li class="tb" ><a style="color: red" id="check" href="#" >签到</a>
 {#                <span>|</span></li>#}
             {% else %}
             <li class="tb"><a href="{% url 'login' %}">登录</a><span>|</span></li>
@@ -31,17 +31,16 @@
         </ul>
 		<!-------------------签到弹出层------------------->
 		<div id="sign_layer">
-			<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+			<div class="am-modal am-modal-alert" tabindex="-1" style="display: none;margin-top: 0px" id="my-alert">
 			  <div class="am-modal-dialog">
 				<div class="win-m">
-					<p class="p1">签到成功</p>
-					<p class="p1">获得<span class="already-sign">20</span>积分</p>
-					<p class="p2">每天签到都可以获得积分哦</p>
+					<p class="p1"></p>
+					<p>获得<span class="already-sign p3" style="color: red;font-size: 30px; margin: 10px"></span>积分</p>
+					<p class="p2"></p>
 					<div class="am-modal-footer">
-					  <span class="am-modal-btn">知道了</span>
+					  <span class="am-modal-btn" id="know">知道了</span>
 					</div>
 				</div>
-				
 			  </div>
 			</div>
 		</div>
@@ -56,7 +55,7 @@
 						<div class="clear"></div>
 					</a>
 					<div class="user-bd">
-						<div class="integral"><img src="{% static 'images/integral_ico.png' %}"/>当前积分 609</div>
+						<div class="integral"><img src="{% static 'images/integral_ico.png' %}"/>当前积分 {{ request.user.integral }}</div>
 						<ul class="nav_sort">
 							<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
 							<li><a href="write_note.html"><i class="i2"></i>写游记</a></li>
@@ -135,4 +134,49 @@
 </div>
 </body>
 {% block script2 %}{% endblock %}
+
+<script type="text/javascript">
+$(document).ready(function(){
+ $("#check").click(function(){
+     $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+     $.ajax({
+         type: "POST",
+         data: {'user': '{{ request.user.username }}'},
+         url: {% url 'check' %},
+         cache: false,
+         dataType: "json",
+         success:function (data) {
+             if(data.status == "success"){
+                 $(".p1").text("签到成功")
+                 $(".p3").text("20")
+                 $(".p2").text("每天签到都可以获得积分哦")
+             }
+             else
+             {
+                 $(".p1").text("签到失败")
+                 $(".p3").text("0")
+                 $(".p2").text("今天已经签过了呦")
+
+             }
+             $("#my-alert").removeClass("am-modal-out")
+             $("#my-alert").addClass("am-modal-active")
+             $("#my-alert")[0].style.display="block"
+             $("#my-alert")[0].style.marginTop=0
+         },
+         error:function (){
+             alert('error')
+         },
+     });
+});
+
+ $("#know").click(function(){
+     $("#my-alert").removeClass("am-modal-active")
+     $("#my-alert").addClass("am-modal-out")
+     $("#my-alert")[0].style.display="none"
+     $("#my-alert")[0].style.marginTop=0
+     window.location.reload()
+ });
+});
+
+</script>
 </html>

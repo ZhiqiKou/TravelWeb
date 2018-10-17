@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+import json
+from datetime import datetime
 
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
@@ -155,6 +157,7 @@ class ForgetPwdView(View):
 
 
 class ResetView(View):
+    """找回密码页面"""
     def get(self, request, find_code):
         all_records = EmailVerifyRecord.objects.filter(send_type='find', code=find_code)
         if all_records:
@@ -190,3 +193,19 @@ class NewPwdView(View):
                 'email': email,
                 'newpwd_form': newpwd_form,
             })
+
+
+class CheckView(View):
+    def post(self, request):
+        username = request.POST['user']
+        user = MyUser.objects.filter(username=username)
+        now = datetime.now().strftime('%Y-%m-%d')
+        for now_user in user:
+            if str(now_user.check_time) != now:
+                now_user.integral += 20
+                now_user.check_time = now
+                now_user.save()
+                result = json.dumps({"status":"success", "msg":"签到成功"}, ensure_ascii=False)
+            else:
+                result = json.dumps({"status": "fail", "msg": "签到失败，今天已经签过了"}, ensure_ascii=False)
+            return HttpResponse(result)

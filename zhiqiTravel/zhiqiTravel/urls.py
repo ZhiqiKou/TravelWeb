@@ -29,18 +29,30 @@ urlpatterns = [
     path('ueditor/', include('DjangoUeditor.urls')),
 
     # 网站页面
+    # 主页
     path('', IndexView.as_view(), name='index'),
+    # 新闻资讯
     path('news/', include(('news.urls', 'news'))),
+    # 旅游页面
     path('scenicspots/', include(('scenicspots.urls', 'scenicspots')), name='scenicspots'),
 
     # 用户相关
+    # 注册
     path('register/', RegisterView.as_view(), name='register'),
+    # 激活
     path('active/<slug:active_code>', ActiveView.as_view(), name='active'),
+    # 登陆
     path('login/', LoginView.as_view(), name='login'),
+    # 登出
     path('logout/', LogoutView.as_view(), name='logout'),
+    # 忘记密码
     path('forget_pwd', ForgetPwdView.as_view(), name='forget_pwd'),
+    # 找回密码页面
     path('find/<slug:find_code>', ResetView.as_view(), name='find'),
+    # 修改密码
     path('new_pwd/', NewPwdView.as_view(), name='new_pwd'),
+    # 签到页面
+    path('check/', CheckView.as_view(), name='check'),
 
-    re_path(r'media/(?P<path>.*)$',serve,{"document_root":MEDIA_ROOT}),
+    re_path(r'media/(?P<path>.*)$',serve,{"document_root": MEDIA_ROOT}),
 ]

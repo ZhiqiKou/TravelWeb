@@ -25,6 +25,8 @@ class MyUser(AbstractUser):
     birthday = models.DateField(null=True, blank=True, verbose_name='生日')
     signature = models.CharField(max_length=300, verbose_name='个人签名', default='')
     portrait = models.ImageField(upload_to=user_directory_path, default='image/default.jpg', max_length=100)
+    integral = models.IntegerField(default=0, verbose_name='积分')
+    check_time = models.DateField(default='1970-01-01', verbose_name='签到时间')
 
     class Meta:
         verbose_name = '用户信息'
