@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b83fcaf4-674f-4fba-88b8-580ee2b7587d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0002_myuser_integral.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0003_myuser_check_time.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../templates/project.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/project.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/scenic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/scenic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhiqiTravel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/zhiqiTravel/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/forms/boundfield.py" beforeDir="false" afterPath="$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/forms/boundfield.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -64,7 +57,7 @@
         <counts>
           <entry key="Django Console" value="17" />
           <entry key="dummy" value="1" />
-          <entry key="html" value="2755" />
+          <entry key="html" value="2765" />
           <entry key="py" value="7297" />
           <entry key="py@zhiqiTravel" value="311" />
         </counts>
@@ -72,7 +65,7 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CommandLine" value="151" />
-          <entry key="HTML" value="2755" />
+          <entry key="HTML" value="2765" />
           <entry key="PLAIN_TEXT" value="161" />
           <entry key="Python" value="7314" />
         </counts>
@@ -117,8 +110,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="169" column="3" lean-forward="true" selection-start-line="169" selection-start-column="3" selection-end-line="169" selection-end-column="3" />
+            <state relative-caret-position="225">
+              <caret line="152" column="23" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
@@ -374,7 +367,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.7703349" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16494845" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.12113402" />
       <window_info anchor="bottom" x="67" y="455" width="1523" height="240" id="Debug" order="3" weight="0.38015464" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -774,8 +767,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="169" column="3" lean-forward="true" selection-start-line="169" selection-start-column="3" selection-end-line="169" selection-end-column="3" />
+        <state relative-caret-position="225">
+          <caret line="152" column="23" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />

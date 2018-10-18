@@ -150,6 +150,8 @@ $(document).ready(function(){
                  $(".p1").text("签到成功")
                  $(".p3").text("20")
                  $(".p2").text("每天签到都可以获得积分哦")
+                 {#局部刷新#}
+                 $(".integral").load(location.href + " .integral");
              }
              else
              {
@@ -174,7 +176,7 @@ $(document).ready(function(){
      $("#my-alert").addClass("am-modal-out")
      $("#my-alert")[0].style.display="none"
      $("#my-alert")[0].style.marginTop=0
-     window.location.reload()
+
  });
 });
 
