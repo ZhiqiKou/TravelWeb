@@ -64,7 +64,7 @@
 							<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
 							<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
 							<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
-							<li><a href="my_info.html"><i class="i7"></i>设置</a></li>
+							<li><a href="{% url 'setting' 'info' %}"><i class="i7"></i>设置</a></li>
 							<li><a href="{% url 'logout' %}"><i class="i8"></i>退出</a></li>
 						</ul>
 					</div>
@@ -176,7 +176,6 @@ $(document).ready(function(){
      $("#my-alert").addClass("am-modal-out")
      $("#my-alert")[0].style.display="none"
      $("#my-alert")[0].style.marginTop=0
-
  });
 });
 

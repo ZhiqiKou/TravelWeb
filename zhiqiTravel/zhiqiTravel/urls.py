@@ -27,6 +27,11 @@ urlpatterns = [
     re_path(r'^captcha/', include('captcha.urls')),
     path('xadmin/', xadmin.site.urls),
     path('ueditor/', include('DjangoUeditor.urls')),
+    # 获取省市区信息
+    path('province/', ProvinceView.as_view(), name='province'),
+    path('city_<int:pid>/', CityView.as_view(), name='city'),
+    path('county_<int:pid>/', CountyView.as_view(), name='county'),
+
 
     # 网站页面
     # 主页
@@ -53,6 +58,8 @@ urlpatterns = [
     path('new_pwd/', NewPwdView.as_view(), name='new_pwd'),
     # 签到页面
     path('check/', CheckView.as_view(), name='check'),
+    # 设置
+    path('setting/<slug:setting_type>', SettingView.as_view(), name='setting'),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root": MEDIA_ROOT}),
 ]

@@ -21,8 +21,8 @@ class MyUser(AbstractUser):
                                                                         ('female', '女'),
                                                                         ('secret', '保密'),
                                                                         ), default='secret')
-    city = models.CharField(max_length=10, verbose_name='居住城市', default='')
-    birthday = models.DateField(null=True, blank=True, verbose_name='生日')
+    city = models.CharField(max_length=50, verbose_name='居住城市', default='河南/洛阳/老城区')
+    birthday = models.DateField(default='1970-01-01', verbose_name='生日')
     signature = models.CharField(max_length=300, verbose_name='个人签名', default='')
     portrait = models.ImageField(upload_to=user_directory_path, default='image/default.jpg', max_length=100)
     integral = models.IntegerField(default=0, verbose_name='积分')
@@ -88,3 +88,7 @@ class Banner(models.Model):
         verbose_name_plural = verbose_name
 
 
+class AreaInfo(models.Model):
+    id = models.AutoField(auto_created=False, primary_key=True, serialize=False, verbose_name='ID')
+    title = models.CharField(max_length=30, verbose_name='名称')
+    Parent = models.ForeignKey('self', null=True, blank=True,on_delete=models.CASCADE, verbose_name='父级名称')

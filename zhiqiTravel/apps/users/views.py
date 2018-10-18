@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -196,6 +196,9 @@ class NewPwdView(View):
 
 
 class CheckView(View):
+    """
+    签到
+    """
     def post(self, request):
         username = request.POST['user']
         user = MyUser.objects.filter(username=username)
@@ -209,3 +212,74 @@ class CheckView(View):
             else:
                 result = json.dumps({"status": "fail", "msg": "签到失败，今天已经签过了"}, ensure_ascii=False)
             return HttpResponse(result)
+
+
+class ProvinceView(View):
+    """
+    获得所有省
+    """
+    def get(self, requset):
+        pros = AreaInfo.objects.filter(Parent=0)
+        pro_list = []
+        for pro in pros:
+            pro_list.append([pro.id, pro.title])
+        return JsonResponse({'prov': pro_list})
+
+
+class CityView(View):
+    """
+    获得所有市
+    """
+    def get(self, requset, pid):
+        print(pid)
+        citys = AreaInfo.objects.filter(Parent=pid)
+        city_list = []
+        for city in citys:
+            city_list.append([city.id, city.title])
+        return JsonResponse({'city': city_list})
+
+
+class CountyView(View):
+    """
+    获得所有区/县
+    """
+    def get(self, requset, pid):
+        countys = AreaInfo.objects.filter(Parent=pid)
+        county_list = []
+        for county in countys:
+            county_list.append([county.id, county.title])
+        return JsonResponse({'coun': county_list})
+
+
+class SettingView(View):
+    """
+    个人信息
+    """
+    def get(self, request, setting_type):
+        city = request.user.city
+        user_prov = city.split('/')[0]
+        user_city = city.split('/')[1]
+        user_coun = city.split('/')[2]
+        if setting_type == 'info':
+            return render(request, 'my_info.html', {
+                'user_prov':user_prov,
+                'user_city': user_city,
+                'user_coun': user_coun,
+
+                'setting_type': 'info',
+            })
+        elif setting_type == 'head':
+            return render(request, 'my_head.html', {
+                'setting_type': 'head',
+            })
+        elif setting_type == 'contact':
+            return render(request, 'my_contact.html', {
+                'setting_type': 'contact',
+            })
+        else:
+            return render(request, 'security.html', {
+                'setting_type': 'security',
+            })
+
+    def post(self, request, setting_type):
+        pass
