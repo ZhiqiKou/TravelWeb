@@ -11,17 +11,18 @@ def user_directory_path(instance, filename):
     return os.path.join(instance.user.id, 'image', filename)
 
 
+
 # Create your models here.
 class MyUser(AbstractUser):
     """
     用户表
     """
-    nickname = models.CharField(max_length=50, verbose_name='昵称', default='')
+    nickname = models.CharField(max_length=15, verbose_name='昵称', default='')
     gender = models.CharField(max_length=6, verbose_name='性别', choices=(('male', '男'),
                                                                         ('female', '女'),
                                                                         ('secret', '保密'),
                                                                         ), default='secret')
-    city = models.CharField(max_length=50, verbose_name='居住城市', default='河南/洛阳/老城区')
+    city_addr = models.CharField(max_length=6, verbose_name='居住地代码', default='410302')
     birthday = models.DateField(default='1970-01-01', verbose_name='生日')
     signature = models.CharField(max_length=300, verbose_name='个人签名', default='')
     portrait = models.ImageField(upload_to=user_directory_path, default='image/default.jpg', max_length=100)
@@ -42,7 +43,7 @@ class TheContact(models.Model):
     """
     user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE)
     name = models.CharField(max_length=30, verbose_name='姓名', default='')
-    city = models.CharField(max_length=10, verbose_name='所在地区', default='')
+    city_addr = models.CharField(max_length=50, verbose_name='所在地区', default='')
     address = models.CharField(max_length=100, verbose_name='详细地址', default='')
     mobile = models.CharField(max_length=11, verbose_name='手机号', null=True, blank=True)
     zip_code = models.CharField(max_length=6, verbose_name='邮政编码', default='000000')

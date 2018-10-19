@@ -2,21 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b83fcaf4-674f-4fba-88b8-580ee2b7587d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0004_auto_20181018_1601.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0005_auto_20181018_1623.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0006_auto_20181018_1627.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/apps/users/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/userbase.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0007_auto_20181019_1452.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/apps/users/migrations/0008_auto_20181019_1523.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../templates/project.html" beforeDir="false" afterPath="$PROJECT_DIR$/../templates/project.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/diarys/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/diarys/migrations/0002_diary_user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/diarys/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/diarys/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/news/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/news/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/news/migrations/0002_auto_20181011_0944.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/news/migrations/0003_auto_20181011_1059.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/news/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/news/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/0002_auto_20181009_1624.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/operation/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/operation/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/scenicspots/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/scenicspots/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/scenicspots/migrations/0002_auto_20181015_1654.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/scenicspots/migrations/0003_auto_20181016_1625.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/scenicspots/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/scenicspots/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/shop/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/shop/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0002_myuser_integral.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0003_myuser_check_time.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0004_auto_20181018_1601.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0005_auto_20181018_1623.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/0006_auto_20181018_1627.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/users/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/migrations/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/users/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/my_contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/my_contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/my_head.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/my_head.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/my_info.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/my_info.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zhiqiTravel/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/zhiqiTravel/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/forms/boundfield.py" beforeDir="false" afterPath="$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/forms/boundfield.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -49,38 +65,38 @@
         <counts>
           <entry key="css" value="8" />
           <entry key="dtd" value="1" />
-          <entry key="html" value="43" />
+          <entry key="html" value="44" />
           <entry key="jpeg" value="1" />
           <entry key="jpg" value="3" />
           <entry key="js" value="1" />
-          <entry key="py" value="151" />
+          <entry key="py" value="168" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="8" />
           <entry key="DTD" value="1" />
-          <entry key="HTML" value="43" />
+          <entry key="HTML" value="44" />
           <entry key="Image" value="4" />
           <entry key="JavaScript" value="1" />
-          <entry key="Python" value="151" />
+          <entry key="Python" value="168" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Django Console" value="17" />
           <entry key="dummy" value="1" />
-          <entry key="html" value="3543" />
-          <entry key="py" value="8216" />
-          <entry key="py@zhiqiTravel" value="318" />
+          <entry key="html" value="4209" />
+          <entry key="py" value="8919" />
+          <entry key="py@zhiqiTravel" value="353" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CommandLine" value="154" />
-          <entry key="HTML" value="3543" />
-          <entry key="PLAIN_TEXT" value="165" />
-          <entry key="Python" value="8233" />
+          <entry key="CommandLine" value="178" />
+          <entry key="HTML" value="4209" />
+          <entry key="PLAIN_TEXT" value="176" />
+          <entry key="Python" value="8936" />
         </counts>
       </usages-collector>
     </session>
@@ -90,22 +106,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/zhiqiTravel/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+            <state relative-caret-position="296">
+              <caret line="63" column="72" lean-forward="true" selection-start-line="63" selection-start-column="72" selection-end-line="63" selection-end-column="72" />
               <folding>
                 <element signature="e#635#667#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/users/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-481">
-              <caret line="23" column="70" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
-              <folding>
-                <marker date="1539851107003" expanded="true" signature="3452:3457" ph="..." />
               </folding>
             </state>
           </provider>
@@ -114,8 +118,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="260" column="38" lean-forward="true" selection-start-line="260" selection-start-column="38" selection-end-line="260" selection-end-column="38" />
+            <state relative-caret-position="99">
+              <caret line="288" column="42" lean-forward="true" selection-start-line="288" selection-start-column="42" selection-end-line="288" selection-end-column="42" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <element signature="e#567#681#0" />
@@ -125,28 +129,41 @@
                 <element signature="e#3788#3912#0" />
                 <element signature="e#3946#5032#0" />
                 <element signature="e#5062#5414#0" />
-                <element signature="e#5445#6301#0" />
+                <element signature="e#6360#6971#0" />
+                <element signature="e#7035#7051#1" />
+                <element signature="e#7067#7233#0" />
                 <element signature="e#7306#7571#0" />
                 <element signature="e#7594#7875#0" />
-                <element signature="e#8180#8313#0" />
                 <element signature="e#8363#8458#0" />
                 <element signature="e#7681#7776#0" />
                 <element signature="e#7803#7898#0" />
-                <marker date="1539852266644" expanded="true" signature="6386:6387" ph="..." />
-                <marker date="1539852266644" expanded="true" signature="7056:7891" ph="..." />
-                <marker date="1539852266644" expanded="true" signature="7915:7920" ph="..." />
+                <marker date="1539939927149" expanded="true" signature="6387:6388" ph="..." />
+                <marker date="1539939927149" expanded="true" signature="7057:7892" ph="..." />
+                <marker date="1539939927149" expanded="true" signature="7916:7921" ph="..." />
+                <marker date="1539939927149" expanded="true" signature="9077:9082" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base.html">
+        <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/shortcuts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1093">
-              <caret line="144" column="30" selection-start-line="144" selection-start-column="30" selection-end-line="144" selection-end-column="30" />
+            <state relative-caret-position="145">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/users/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
               <folding>
-                <element signature="e#6519#7187#0#HTML" />
+                <element signature="e#79#103#0" expanded="true" />
+                <marker date="1539932103578" expanded="true" signature="399:400" ph="..." />
+                <marker date="1539932103578" expanded="true" signature="677:682" ph="..." />
               </folding>
             </state>
           </provider>
@@ -155,30 +172,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/my_info.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="8" column="66" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
-              <folding>
-                <element signature="e#305#424#0#HTML" />
-                <element signature="e#430#1085#0#HTML" />
-                <element signature="e#1091#1697#0#HTML" />
-                <element signature="e#1208#1226#0#HTML" expanded="true" />
-                <element signature="e#1389#1407#0#HTML" expanded="true" />
-                <element signature="e#1572#1590#0#HTML" expanded="true" />
-                <element signature="e#1703#1837#0#HTML" />
-                <element signature="e#1843#1978#0#HTML" />
-                <element signature="e#2241#2455#0#HTML" />
-                <element signature="e#2657#3141#0#HTML" />
-                <element signature="e#3081#3519#0#HTML" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/forget_pwd.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="40" column="62" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="64" />
+            <state relative-caret-position="240">
+              <caret line="130" column="126" selection-start-line="130" selection-start-column="126" selection-end-line="130" selection-end-column="126" />
             </state>
           </provider>
         </entry>
@@ -206,6 +201,7 @@
       <find>p2</find>
       <find>integral</find>
       <find>当前</find>
+      <find>user_id</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -240,7 +236,6 @@
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/apps/utils/send_email.py" />
         <option value="$PROJECT_DIR$/templates/forget_pwd.html" />
-        <option value="$PROJECT_DIR$/apps/users/forms.py" />
         <option value="$PROJECT_DIR$/templates/new_pwd.html" />
         <option value="$PROJECT_DIR$/apps/scenicspots/apps.py" />
         <option value="$PROJECT_DIR$/apps/scenicspots/__init__.py" />
@@ -262,8 +257,10 @@
         <option value="$PROJECT_DIR$/templates/userbase.html" />
         <option value="$PROJECT_DIR$/zhiqiTravel/urls.py" />
         <option value="$PROJECT_DIR$/apps/users/models.py" />
-        <option value="$PROJECT_DIR$/templates/my_info.html" />
+        <option value="$PROJECT_DIR$/apps/users/migrations/0007_auto_20181019_1452.py" />
+        <option value="$PROJECT_DIR$/apps/users/forms.py" />
         <option value="$PROJECT_DIR$/apps/users/views.py" />
+        <option value="$PROJECT_DIR$/templates/my_info.html" />
       </list>
     </option>
   </component>
@@ -274,9 +271,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="275" />
-    <option name="y" value="54" />
-    <option name="width" value="1360" />
+    <option name="x" value="181" />
+    <option name="y" value="27" />
+    <option name="width" value="930" />
     <option name="height" value="703" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -302,12 +299,8 @@
             <path>
               <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
               <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
-              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -395,16 +388,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1328" height="752" extended-state="6" />
+    <frame x="67" y="25" width="1851" height="901" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27216175" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23327805" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.7703349" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.61087865" />
-      <window_info anchor="bottom" x="67" y="455" width="1523" height="240" id="Debug" order="3" weight="0.23840207" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.41881442" />
+      <window_info anchor="bottom" x="67" y="455" width="1523" height="240" id="Debug" order="3" visible="true" weight="0.40592784" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32871014" />
@@ -414,7 +407,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32854864" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.6539075" />
-      <window_info anchor="bottom" id="manage.py@zhiqiTravel" order="13" visible="true" weight="0.17224881" />
+      <window_info anchor="bottom" id="manage.py@zhiqiTravel" order="13" weight="0.61082476" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -428,66 +421,25 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/apps/users/views.py</url>
+          <line>291</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/news/admin.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/news/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/template/context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="269" selection-start-line="269" selection-end-line="269" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/activities.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2448" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/core/exceptions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="104" column="37" lean-forward="true" selection-start-line="104" selection-start-column="37" selection-end-line="104" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/db/models/fields/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1558" column="26" selection-start-line="1558" selection-start-column="26" selection-end-line="1558" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/db/backends/base/schema.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="238" selection-start-line="238" selection-end-line="238" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/scenicspots/migrations/0003_auto_20181016_1545.py" />
-    <entry file="file://$PROJECT_DIR$/apps/scenicspots/migrations/0004_gallery_index.py" />
-    <entry file="file://$PROJECT_DIR$/apps/scenicspots/migrations/0002_auto_20181015_1654.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/scenicspots/migrations/0001_initial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/media/spots/mainfigure/2018/10/659ac7198618367a4cec2e7a2e738bd4b21ce578_kdiRbAp.jpg" />
-    <entry file="file://$PROJECT_DIR$/media/spots/mainfigure/2018/10/659ac7198618367a4cec2e7a2e738bd4b21ce578_DQK3MNA.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/media/spots/thumbnail/2018/10/timg_7Squhac.jpeg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -527,16 +479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/scenicspots/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="19" column="82" selection-start-line="19" selection-start-column="82" selection-end-line="19" selection-end-column="82" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/scenic.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -558,18 +500,6 @@
             <marker date="1539658575198" expanded="true" signature="144:806" ph="..." />
             <marker date="1539658575198" expanded="false" signature="832:837" ph="..." />
             <marker date="1539658575198" expanded="true" signature="1366:1367" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
-          <folding>
-            <element signature="e#79#103#0" expanded="true" />
-            <marker date="1539586312785" expanded="true" signature="376:377" ph="..." />
-            <marker date="1539586312785" expanded="true" signature="654:659" ph="..." />
           </folding>
         </state>
       </provider>
@@ -735,20 +665,116 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/forget_pwd.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="40" column="62" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/core/handlers/exception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/utils/deprecation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="90" selection-start-line="90" selection-end-line="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/forms/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="265" selection-start-line="265" selection-end-line="265" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/migrations/0008_auto_20181019_1416.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/diarys/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/operation/migrations/0002_auto_20181019_1432.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-720" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/scenicspots/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-82">
+          <caret line="57" column="6" selection-start-line="57" selection-start-column="6" selection-end-line="57" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/operation/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1152" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/scenicspots/migrations/0003_auto_20181016_1625.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="27" column="30" lean-forward="true" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/operation/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1040">
+          <caret line="44" column="40" lean-forward="true" selection-start-line="44" selection-start-column="40" selection-end-line="44" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/migrations/0007_auto_20181019_1452.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="20" column="69" selection-start-line="20" selection-start-column="69" selection-end-line="20" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/migrations/0008_auto_20181019_1523.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="15" column="50" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/news/migrations/0003_auto_20181011_1059.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-94" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/users/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-481">
-          <caret line="23" column="70" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
+        <state relative-caret-position="177">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
           <folding>
-            <marker date="1539851107003" expanded="true" signature="3452:3457" ph="..." />
+            <element signature="e#0#28#0" expanded="true" />
+            <marker date="1539933823366" expanded="true" signature="334:336" ph="..." />
+            <marker date="1539933823366" expanded="true" signature="3460:3465" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1093">
-          <caret line="144" column="30" selection-start-line="144" selection-start-column="30" selection-end-line="144" selection-end-column="30" />
+        <state relative-caret-position="157">
+          <caret line="138" column="17" lean-forward="true" selection-start-line="138" selection-start-column="11" selection-end-line="138" selection-end-column="17" />
           <folding>
             <element signature="e#6519#7187#0#HTML" />
           </folding>
@@ -757,45 +783,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zhiqiTravel/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="61" column="37" selection-start-line="61" selection-start-column="37" selection-end-line="61" selection-end-column="37" />
+        <state relative-caret-position="296">
+          <caret line="63" column="72" lean-forward="true" selection-start-line="63" selection-start-column="72" selection-end-line="63" selection-end-column="72" />
           <folding>
             <element signature="e#635#667#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/my_info.html">
+    <entry file="file://$PROJECT_DIR$/apps/users/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="8" column="66" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+        <state relative-caret-position="267">
+          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
           <folding>
-            <element signature="e#305#424#0#HTML" />
-            <element signature="e#430#1085#0#HTML" />
-            <element signature="e#1091#1697#0#HTML" />
-            <element signature="e#1208#1226#0#HTML" expanded="true" />
-            <element signature="e#1389#1407#0#HTML" expanded="true" />
-            <element signature="e#1572#1590#0#HTML" expanded="true" />
-            <element signature="e#1703#1837#0#HTML" />
-            <element signature="e#1843#1978#0#HTML" />
-            <element signature="e#2241#2455#0#HTML" />
-            <element signature="e#2657#3141#0#HTML" />
-            <element signature="e#3081#3519#0#HTML" />
+            <element signature="e#79#103#0" expanded="true" />
+            <marker date="1539932103578" expanded="true" signature="399:400" ph="..." />
+            <marker date="1539932103578" expanded="true" signature="677:682" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/forget_pwd.html">
+    <entry file="file://$PROJECT_DIR$/templates/my_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="40" column="62" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="64" />
+        <state relative-caret-position="240">
+          <caret line="130" column="126" selection-start-line="130" selection-start-column="126" selection-end-line="130" selection-end-column="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/shortcuts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/users/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="260" column="38" lean-forward="true" selection-start-line="260" selection-start-column="38" selection-end-line="260" selection-end-column="38" />
+        <state relative-caret-position="99">
+          <caret line="288" column="42" lean-forward="true" selection-start-line="288" selection-start-column="42" selection-end-line="288" selection-end-column="42" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#567#681#0" />
@@ -805,16 +830,18 @@
             <element signature="e#3788#3912#0" />
             <element signature="e#3946#5032#0" />
             <element signature="e#5062#5414#0" />
-            <element signature="e#5445#6301#0" />
+            <element signature="e#6360#6971#0" />
+            <element signature="e#7035#7051#1" />
+            <element signature="e#7067#7233#0" />
             <element signature="e#7306#7571#0" />
             <element signature="e#7594#7875#0" />
-            <element signature="e#8180#8313#0" />
             <element signature="e#8363#8458#0" />
             <element signature="e#7681#7776#0" />
             <element signature="e#7803#7898#0" />
-            <marker date="1539852266644" expanded="true" signature="6386:6387" ph="..." />
-            <marker date="1539852266644" expanded="true" signature="7056:7891" ph="..." />
-            <marker date="1539852266644" expanded="true" signature="7915:7920" ph="..." />
+            <marker date="1539939927149" expanded="true" signature="6387:6388" ph="..." />
+            <marker date="1539939927149" expanded="true" signature="7057:7892" ph="..." />
+            <marker date="1539939927149" expanded="true" signature="7916:7921" ph="..." />
+            <marker date="1539939927149" expanded="true" signature="9077:9082" ph="..." />
           </folding>
         </state>
       </provider>

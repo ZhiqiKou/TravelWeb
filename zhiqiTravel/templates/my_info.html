@@ -11,19 +11,19 @@
 				        <table class="table_list">
                             <tr>
                             <th>昵称：</th>
-                            <td><input class="text" type="text" value="{{ request.user.username }}"/></td>
+                            <td><input class="text" type="text" name="nickname" value="{{ request.user.nickname }}"/></td>
                         </tr>
                             <tr>
                                 <th>性别：</th>
                                 <td>
                                     <label class="am-radio">
-                                        <input class="radio" type="radio" name="radio3" value="" {% if request.user.gender == 'male' %}checked="true"{% endif %} data-am-ucheck checked> 男
+                                        <input class="radio" type="radio" name="gender" value="male" {% if request.user.gender == 'male' %}checked="true"{% endif %} data-am-ucheck checked> 男
                                     </label>
                                     <label class="am-radio">
-                                        <input class="radio" type="radio" name="radio3" value="" {% if request.user.gender == 'female' %}checked="true"{% endif %} data-am-ucheck> 女
+                                        <input class="radio" type="radio" name="gender" value="famale" {% if request.user.gender == 'female' %}checked="true"{% endif %} data-am-ucheck> 女
                                     </label>
                                     <label class="am-radio">
-                                        <input class="radio" type="radio" name="radio3" value="" {% if request.user.gender == 'secret' %}checked="true"{% endif %} data-am-ucheck> 保密
+                                        <input class="radio" type="radio" name="gender" value="secret" {% if request.user.gender == 'secret' %}checked="true"{% endif %} data-am-ucheck> 保密
                                     </label>
                                 </td>
                             </tr>
@@ -31,25 +31,27 @@
                                 <th>居住城市：</th>
                                 <td>
                                     <select id="pro" class="am-radio" style="padding: 0">
-                                        <option value="">{{ user_prov }}</option>
+{#                                        <option value="">{{ user_prov }}</option>#}
                                     </select>
                                     <select id="city" class="am-radio" style="padding: 0">
-                                        <option value="">{{ user_city }}</option>
+{#                                        <option value="">{{ user_city }}</option>#}
                                     </select>
                                     <select id="county" class="am-radio" style="padding: 0">
                                         <option value="">{{ user_coun }}</option>
                                     </select>
+                                    <div id="city_addr"></div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>出生日期：</th>
-                                <td><input type="date"  class="text" value="{{ request.user.birthday|date:"Y-m-d" }}"></td>
+                                <td><input type="date"  class="text" name="birthday" value="{{ request.user.birthday|date:"Y-m-d" }}"></td>
                             </tr>
                             <tr>
                                 <th>个人签名：</th>
-                                <td><textarea placeholder="例：一场说走就走的旅行，不必在乎终点！">{{ request.user.signature }}</textarea></td>
+                                <td><textarea name="signature" placeholder="例：一场说走就走的旅行，不必在乎终点！">{{ request.user.signature }}</textarea></td>
                             </tr>
                         </table>
+                {% csrf_token %}
                     <div class="operation"><input type="submit" class="save" value="保存" /></div>
                 </form>
 			</div>
@@ -64,9 +66,44 @@
             $.get('{% url "province" %}', function (dic) {
                 pro = $('#pro')
                 $.each(dic.prov, function (index, item) {
-                    pro.append('<option value=' + item[0] + '>' + item[1] + '</option>');
-                })
-            })
+                    if(item[1] === '{{ user_prov }}'){
+                        pro.append('<option value=' + item[0] + ' selected >' + item[1] + '</option>');
+                    }
+                    else {
+                        pro.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                    }
+                });
+                    {# 获取市 #}
+                    $.get('/city_' + $('#pro').find("option:selected").val() + '/', function (dict) {
+                        city = $('#city');
+                        city.empty();
+                        $('#county').empty();
+                        $.each(dict.city, function (index, item) {
+                            if(item[1] === '{{ user_city }}'){
+                                city.append('<option value=' + item[0] + ' selected >' + item[1] + '</option>');
+                            }
+                            else {
+                                city.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                            }
+
+                         });
+                            {# 获取区/县 #}
+                            $.get('/county_' + $('#city').find("option:selected").val() + '/', function (dict) {
+                                county = $('#county');
+                                county.empty();
+                                $.each(dict.coun, function (index, item) {
+                                        if(item[1] === '{{ user_city }}'){
+                                            county.append('<option value=' + item[0]+ ' selected >' + item[1] + '</option>');
+                                        }
+                                        else {
+                                            county.append('<option value=' + item[0]+ '>' + item[1] + '</option>');
+                                        }
+
+                                });
+                            });
+
+                    });
+            });
             //获取市信息
             $('#pro').change(function () {
                 $.get('/city_' + $(this).val() + '/', function (dict) {
@@ -77,7 +114,8 @@
                         city.append('<option value=' + item[0] + '>' + item[1] + '</option>');
                     })
                 });
-            });
+             });
+
             //获取区县信息
             $('#city').change(function () {
                 $.get('/county_' + $(this).val() + '/', function (dict) {
@@ -88,6 +126,12 @@
                     })
                 })
             });
+
+            $('#county').change(function () {
+                $('#city_addr').empty().append('<div style="display:none;" name="city_addr" value="'+ $('#county').val() + '"></div>');
+            });
+
+
         })
     </script>
 

@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+
 import json
 from datetime import datetime
 
@@ -256,15 +257,19 @@ class SettingView(View):
     个人信息
     """
     def get(self, request, setting_type):
-        city = request.user.city
-        user_prov = city.split('/')[0]
-        user_city = city.split('/')[1]
-        user_coun = city.split('/')[2]
+        city_id = request.user.city_addr
+
+        coun = AreaInfo.objects.filter(id=int(city_id))
+        user_coun = coun.values('title', 'Parent')[0]
+        city = AreaInfo.objects.filter(id=user_coun['Parent'])
+        user_city = city.values('title', 'Parent')[0]
+        prov = AreaInfo.objects.filter(id=user_city['Parent'])
+        user_prov = prov.values('title')[0]
         if setting_type == 'info':
             return render(request, 'my_info.html', {
-                'user_prov':user_prov,
-                'user_city': user_city,
-                'user_coun': user_coun,
+                'user_prov': user_prov['title'],
+                'user_city': user_city['title'],
+                'user_coun': user_coun['title'],
 
                 'setting_type': 'info',
             })
@@ -282,4 +287,10 @@ class SettingView(View):
             })
 
     def post(self, request, setting_type):
-        pass
+        if setting_type == 'info':
+            info_form = InfoForm(request.POST, instance=request.user)
+            if info_form.is_valid():
+                info_form.save()
+            return render(request, 'my_info.html', {
+                'setting_type': 'info',
+            })
