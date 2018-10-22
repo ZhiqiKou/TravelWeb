@@ -1,18 +1,20 @@
 {% extends 'userbase.html' %}
 {% load staticfiles %}
-{% block title %}我的信息{% endblock %}
+{% block title %}我的头像{% endblock %}
 {% block right %}
     <div class="w700 fr">
 		<div class="public_box">
 			<!-----------------我的头像---------------->
 			<div id="set_box">
 				<div class="title"><h2>我的头像</h2></div>
-				<div id="my_head">
-					<div class="pic"><img src="{{ MEDIA_URL }}{{ request.user.portrait }}"/></div>
-					<input class="file" type="file" />
-				</div>
-				<div class="operation"><input type="submit" class="save" value="保存" /></div>
-
+				<form method="post" action="{% url 'setting' 'head' %}" enctype="multipart/form-data">
+                    <div id="my_head">
+					    <div class="pic"><img src="{{ MEDIA_URL }}{{ request.user.portrait }}"/></div>
+					    <input class="file" name="portrait" type="file">
+				    </div>
+                    {% csrf_token %}
+				    <div class="operation"><input type="submit" class="save" value="保存" /></div>
+                </form>
 			</div>
 		</div>
 	</div>

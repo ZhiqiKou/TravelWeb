@@ -7,22 +7,24 @@
 			<!-----------------修改密码---------------->
 			<div id="set_box">
 				<div class="title"><h2>修改密码</h2></div>
+                <form method="post" action="{% url 'setting' 'security' %}">
 				<table class="table_list">
 					<tr>
 						<th>旧密码：</th>
-						<td><input class="text" type="password" value=""/></td>
+						<td><input class="text" name="oldpwd" type="password" value=""/></td>
 					</tr>
 					<tr>
 						<th>新密码：</th>
-						<td><input class="text" type="password" value=""/></td>
+						<td><input class="text" name="newpwd1" type="password" value=""/></td>
 					</tr>
 					<tr>
 						<th>再次输入：</th>
-						<td><input class="text" type="password" value=""/></td>
+						<td><input class="text" name="newpwd2" type="password" value=""/></td>
 					</tr>
 				</table>
+                {% csrf_token %}
 				<div class="operation"><input type="submit" class="save" value="保存" /></div>
-
+                </form>
 			</div>
 		</div>
 	</div>

@@ -47,7 +47,7 @@
 					<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
 					<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
 					<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
-					<li><a href="{% url 'setting' 'info' %}"><i class="i7"></i>设置</a></li>
+					<li><a href="{% url 'userinfo' 'info' %}"><i class="i7"></i>设置</a></li>
 					<li><a href="{% url 'logout' %}"><i class="i8"></i>退出</a></li>
 				</ul>
 			</div>
@@ -58,7 +58,7 @@
 <!-----------------用户banner---------------->
 <div id="user_banner">
 	<div class="pic">
-		<a href="my_head.html">
+		<a href="{% url 'userinfo' 'head' %}">
 			<img src="{{ MEDIA_URL }}{{ request.user.portrait }}"/>
 			<div>更换头像</div>
 		</a>
@@ -85,10 +85,10 @@
 			<!-----------------设置导航---------------->
 			<div id="set_nav">
 				<ul>
-					<li><a {% if setting_type == 'info' %}class="cur"{% endif %} href="{% url 'setting' 'info' %}"><i class="ico1"></i>我的信息</a></li>
-					<li><a {% if setting_type == 'head' %}class="cur"{% endif %} href="{% url 'setting' 'head' %}"><i class="ico2"></i>我的头像</a></li>
-					<li><a {% if setting_type == 'contact' %}class="cur"{% endif %} href="{% url 'setting' 'contact' %}"><i class="ico3"></i>常用联系人</a></li>
-					<li><a {% if setting_type == 'security' %}class="cur"{% endif %} href="{% url 'setting' 'security' %}"><i class="ico4"></i>修改密码</a></li>
+					<li><a {% if info_type == 'info' %}class="cur"{% endif %} href="{% url 'userinfo' 'info' %}"><i class="ico1"></i>我的信息</a></li>
+					<li><a {% if info_type == 'head' %}class="cur"{% endif %} href="{% url 'userinfo' 'head' %}"><i class="ico2"></i>我的头像</a></li>
+					<li><a {% if info_type == 'contact' %}class="cur"{% endif %} href="{% url 'userinfo' 'contact' %}"><i class="ico3"></i>常用联系人</a></li>
+					<li><a {% if info_type == 'security' %}class="cur"{% endif %} href="{% url 'userinfo' 'security' %}"><i class="ico4"></i>修改密码</a></li>
 				</ul>
 			</div>
 		</div>

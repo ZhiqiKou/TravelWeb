@@ -53,65 +53,43 @@
 				<div class="operation"><input type="submit" class="save" value="保存" /></div>
 				<!-----------------联系列表---------------->
 				<ul class="address">
-					<li class="title">已保存2条地址，还能保存8条</li>
+					<li class="title">已保存{{ user_all_contact.count }}条地址，还能保存{{ user_all_contact.count|add:-10| cut:'-' }}条</li>
+                    {% for contact in user_all_contact %}
 					<li>
 						<div>
 							<div class="dt">联系人：</div>
-							<div class="dd">撒旦撒</div>
+							<div class="dd">{{ contact.name }}</div>
 							<div class="clear"></div>
 						</div>
 						<div>
 							<div class="dt">详细地址：</div>
 							<div class="dd">
 								<p>澳门特别行政区 路氹城 </p>
-								<p>澳门特别行政区路氹城三顿饭都是富商大贾第三方</p>
+								<p>{{ contact.address }}</p>
 							</div>
 							<div class="clear"></div>
 						</div>
 						<div>
 							<div class="dt">邮政编码：</div>
-							<div class="dd">000000</div>
+							<div class="dd">{{ contact.zip_code }}</div>
 							<div class="clear"></div>
 						</div>
 						<div>
 							<div class="dt">手机号码：</div>
-							<div class="dd">13721656520</div>
+							<div class="dd">{{ contact.mobile }}</div>
 							<div class="clear"></div>
 						</div>
-						<div class="i-first">默认地址</div>
+						<div class="i-first">
+                            {% if contact.is_default == True %}
+						        默认地址
+                            {% else %}
+                                设为默认地址
+						    {% endif %}
+                        </div>
 							<div class="btns">
 							<a href="javascript:;" data-id="183590" class="modifyThis">修改</a> / <a href="javascript:;" data-id="183590" class="delThis">删除</a>
 						</div>
-					</li>
-					<li>
-						<div>
-							<div class="dt">联系人：</div>
-							<div class="dd">三顿饭都是但是速度复式的</div>
-							<div class="clear"></div>
-						</div>
-						<div>
-							<div class="dt">详细地址：</div>
-							<div class="dd">
-								<p>澳门特别行政区 路氹城 </p>
-								<p>澳门特别行政区路氹城似懂非懂双方的首发但是</p>
-							</div>
-							<div class="clear"></div>
-						</div>
-						<div>
-							<div class="dt">邮政编码：</div>
-							<div class="dd">000000</div>
-							<div class="clear"></div>
-						</div>
-						<div>
-							<div class="dt">手机号码：</div>
-							<div class="dd">15670382580</div>
-							<div class="clear"></div>
-						</div>
-						<div class="i-first"><a style="text-decoration:none;" href="javascript:;" data-id="183593" class="setThisDefault">设为默认地址</a></div>
-						<div class="btns">
-							<a href="javascript:;" data-id="183593" class="modifyThis">修改</a> / <a href="javascript:;" data-id="183593" class="delThis">删除</a>
-						</div>
-					</li>
+                    {% endfor %}
                 </ul>
 			</div>
 		</div>

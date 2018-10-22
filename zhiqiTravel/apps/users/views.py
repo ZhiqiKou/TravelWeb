@@ -252,11 +252,11 @@ class CountyView(View):
         return JsonResponse({'coun': county_list})
 
 
-class SettingView(View):
+class UserInfoView(View):
     """
-    个人信息
+    个人信息页面
     """
-    def get(self, request, setting_type):
+    def get(self, request, info_type):
         city_id = request.user.city_addr
 
         coun = AreaInfo.objects.filter(id=int(city_id))
@@ -265,32 +265,63 @@ class SettingView(View):
         user_city = city.values('title', 'Parent')[0]
         prov = AreaInfo.objects.filter(id=user_city['Parent'])
         user_prov = prov.values('title')[0]
-        if setting_type == 'info':
+        if info_type == 'info':
             return render(request, 'my_info.html', {
                 'user_prov': user_prov['title'],
                 'user_city': user_city['title'],
                 'user_coun': user_coun['title'],
 
-                'setting_type': 'info',
+                'info_type': 'info',
             })
-        elif setting_type == 'head':
+        elif info_type == 'head':
             return render(request, 'my_head.html', {
-                'setting_type': 'head',
+                'info_type': 'head',
             })
-        elif setting_type == 'contact':
+        elif info_type == 'contact':
+            user_all_contact = TheContact.objects.filter(user=request.user)
             return render(request, 'my_contact.html', {
-                'setting_type': 'contact',
+                'user_all_contact': user_all_contact,
+                'info_type': 'contact',
             })
         else:
             return render(request, 'security.html', {
-                'setting_type': 'security',
+                'info_type': 'security',
             })
 
+
+class SettingInfoView(View):
+    """
+    个人信息页面
+    """
     def post(self, request, setting_type):
         if setting_type == 'info':
             info_form = InfoForm(request.POST, instance=request.user)
             if info_form.is_valid():
                 info_form.save()
-            return render(request, 'my_info.html', {
-                'setting_type': 'info',
-            })
+
+        elif setting_type == 'head':
+            image_form = UploadPortraitForm(request.POST, request.FILES, instance=request.user)
+            if image_form.is_valid():
+                image_form.save()
+
+        else:
+            newpwd_form = InfoNewPwdForm(request.POST)
+            if newpwd_form.is_valid():
+                oldpwd = request.POST.get('oldpwd', '')
+                newpwd1 = request.POST.get('newpwd1', '')
+                newpwd2 = request.POST.get('newpwd2', '')
+                user = authenticate(username=request.user.username, password=oldpwd)
+                if user is not None:
+                    if newpwd1 != newpwd2:
+                        return render(request, 'security.html', {
+                            'msg': '两次输入的密码不一致',
+                        })
+                    user = MyUser.objects.get(email=request.user.email)
+                    user.password = make_password(newpwd1)
+                    user.save()
+                    return HttpResponseRedirect(reverse('login'))
+                else:
+                    # 用户密码错误
+                    pass
+
+        return HttpResponseRedirect(reverse('userinfo', kwargs={'info_type': setting_type}))

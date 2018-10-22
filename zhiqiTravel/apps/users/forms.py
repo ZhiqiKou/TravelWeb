@@ -33,3 +33,15 @@ class InfoForm(forms.ModelForm):
     class Meta:
         model = MyUser
         fields = ['nickname', 'gender', 'city_addr', 'birthday', 'signature']
+
+
+class UploadPortraitForm(forms.ModelForm):
+    class Meta:
+        model = MyUser
+        fields = ['portrait']
+
+
+class InfoNewPwdForm(forms.Form):
+    oldpwd = forms.CharField(required=True, min_length=8)
+    newpwd1 = forms.CharField(required=True, min_length=8)
+    newpwd2 = forms.CharField(required=True, min_length=8)

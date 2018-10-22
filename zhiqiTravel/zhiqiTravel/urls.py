@@ -58,8 +58,10 @@ urlpatterns = [
     path('new_pwd/', NewPwdView.as_view(), name='new_pwd'),
     # 签到页面
     path('check/', CheckView.as_view(), name='check'),
-    # 设置
-    path('setting/<slug:setting_type>', SettingView.as_view(), name='setting'),
+    # 设置页面
+    path('userinfo/<slug:info_type>', UserInfoView.as_view(), name='userinfo'),
+    # 信息修改
+    path('setting/<slug:setting_type>', SettingInfoView.as_view(), name='setting'),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root": MEDIA_ROOT}),
 ]

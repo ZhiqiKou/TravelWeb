@@ -36,8 +36,8 @@
                                     <select id="city" class="am-radio" style="padding: 0">
 {#                                        <option value="">{{ user_city }}</option>#}
                                     </select>
-                                    <select id="county" class="am-radio" style="padding: 0">
-                                        <option value="">{{ user_coun }}</option>
+                                    <select id="county" class="am-radio" style="padding: 0" name="city_addr">
+{#                                        <option value="">{{ user_coun }}</option>#}
                                     </select>
                                     <div id="city_addr"></div>
                                 </td>
@@ -92,7 +92,7 @@
                                 county = $('#county');
                                 county.empty();
                                 $.each(dict.coun, function (index, item) {
-                                        if(item[1] === '{{ user_city }}'){
+                                        if(item[1] === '{{ user_coun }}'){
                                             county.append('<option value=' + item[0]+ ' selected >' + item[1] + '</option>');
                                         }
                                         else {
@@ -127,9 +127,9 @@
                 })
             });
 
-            $('#county').change(function () {
-                $('#city_addr').empty().append('<div style="display:none;" name="city_addr" value="'+ $('#county').val() + '"></div>');
-            });
+            {#$('#county').change(function () {#}
+            {#    $('#city_addr').empty().append('<div style="hidden;" name="city_addr" value="'+ $('#county').val() + '"></div>');#}
+            {# });#}
 
 
         })

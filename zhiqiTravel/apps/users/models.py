@@ -8,7 +8,7 @@ from datetime import datetime
 def user_directory_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = '{}.{}'.format(uuid.uuid4().hex[:10], ext)
-    return os.path.join(instance.user.id, 'image', filename)
+    return os.path.join('image', str(instance.id), filename)
 
 
 
