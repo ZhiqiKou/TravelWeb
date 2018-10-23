@@ -6,55 +6,56 @@
 		<div class="public_box">
 			<!-----------------常用联系人---------------->
 			<div id="set_box">
+            <form method="post" action="{% url 'setting' 'contact' %}">
 				<div class="title"><h2>常用联系人</h2></div>
 				<table class="table_list">
 					<tr>
 						<th>姓名：</th>
-						<td><input class="text" type="text" value="Alpha"/></td>
+						<td><input class="text" type="text" name="name" value=""/></td>
 					</tr>
 					<tr>
 						<th>所在地区：</th>
-						<td>
-							<select>
-								<option value="">河南</option>
-								<option value="">广西</option>
-								<option value="">吉林</option>
-								<option value="">广东</option>
-							</select>
-							<select>
-								<option value="">洛阳</option>
-								<option value="">郑州</option>
-								<option value="">西安</option>
-								<option value="">南阳</option>
-							</select>
-						</td>
+                        <td>
+                            <select id="pro" class="am-radio" style="padding: 0">
+                                        <option value="">省</option>
+                            </select>
+                            <select id="city" class="am-radio" style="padding: 0">
+                                        <option value="">市</option>
+                            </select>
+                            <select id="county" class="am-radio" style="padding: 0" name="city_addr">
+                                        <option value="">区/县</option>
+                            </select>
+                            <div id="city_addr"></div>
+                        </td>
 					</tr>
 					<tr>
 						<th>详细地址：</th>
-						<td><textarea></textarea></td>
+						<td><textarea name="address"></textarea></td>
 					</tr>
 					<tr>
 						<th>手机号码：</th>
-						<td><input class="text" type="text" /></td>
+						<td><input class="text" type="text" name="mobile" /></td>
 					</tr>
 					<tr>
 						<th>邮政编码：</th>
-						<td><input class="text" type="text" /></td>
+						<td><input class="text" type="text" name="zip_code" /></td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<label class="am-checkbox">
-								<input type="checkbox" id="checkbox_a1" class="chk_1" />
+								<input name="is_default" type="checkbox" id="checkbox_a1" class="chk_1"  />
 								<label for="checkbox_a1"></label> 设置为默认
 							</label>
 						</td>
 					</tr>
 				</table>
+                {% csrf_token %}
 				<div class="operation"><input type="submit" class="save" value="保存" /></div>
+            </form>
 				<!-----------------联系列表---------------->
 				<ul class="address">
-					<li class="title">已保存{{ user_all_contact.count }}条地址，还能保存{{ user_all_contact.count|add:-10| cut:'-' }}条</li>
-                    {% for contact in user_all_contact %}
+					<li class="title">已保存{{ alreadycount }}条地址，还能保存{{ remainingcount }}条</li>
+                    {% for contact in all_contacts %}
 					<li>
 						<div>
 							<div class="dt">联系人：</div>
@@ -64,7 +65,7 @@
 						<div>
 							<div class="dt">详细地址：</div>
 							<div class="dd">
-								<p>澳门特别行政区 路氹城 </p>
+								<p>{{ contact.city }}</p>
 								<p>{{ contact.address }}</p>
 							</div>
 							<div class="clear"></div>
@@ -79,19 +80,57 @@
 							<div class="dd">{{ contact.mobile }}</div>
 							<div class="clear"></div>
 						</div>
-						<div class="i-first">
+						<a class="i-first" id="setdefault" href="{% url 'default_contact' contact.id %}">
                             {% if contact.is_default == True %}
 						        默认地址
                             {% else %}
                                 设为默认地址
 						    {% endif %}
-                        </div>
+                        </a>
 							<div class="btns">
-							<a href="javascript:;" data-id="183590" class="modifyThis">修改</a> / <a href="javascript:;" data-id="183590" class="delThis">删除</a>
+							<a href="{% url 'modify_contact' contact.id %}" data-id="183590" class="modifyThis">修改</a> / <a href="{% url 'delete_contact' contact.id %}" data-id="183590" class="delThis">删除</a>
 						</div>
                     {% endfor %}
                 </ul>
+
 			</div>
+
 		</div>
 	</div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(function () {
+            //获取所有省份
+            $.get('{% url "province" %}', function (dic) {
+                pro = $('#pro')
+                $.each(dic.prov, function (index, item) {
+                    pro.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                });
+            });
+            //获取市信息
+            $('#pro').change(function () {
+                $.get('/city_' + $(this).val() + '/', function (dict) {
+                    city = $('#city');
+                    city.empty().append('<option value="">市</option>');
+                    $('#county').empty().append('<option value="">区/县</option>');
+                    $.each(dict.city, function (index, item) {
+                        city.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                    })
+                });
+             });
+
+            //获取区县信息
+            $('#city').change(function () {
+                $.get('/county_' + $(this).val() + '/', function (dict) {
+                    county = $('#county');
+                    county.empty().append('<option value="">区/县</option>');
+                    $.each(dict.coun, function (index, item) {
+                        county.append('<option value=' + item[0]+ '>' + item[1] + '</option>');
+                    })
+                })
+            });
+        })
+    </script>
 {% endblock %}

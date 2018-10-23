@@ -257,15 +257,15 @@ class UserInfoView(View):
     个人信息页面
     """
     def get(self, request, info_type):
-        city_id = request.user.city_addr
-
-        coun = AreaInfo.objects.filter(id=int(city_id))
-        user_coun = coun.values('title', 'Parent')[0]
-        city = AreaInfo.objects.filter(id=user_coun['Parent'])
-        user_city = city.values('title', 'Parent')[0]
-        prov = AreaInfo.objects.filter(id=user_city['Parent'])
-        user_prov = prov.values('title')[0]
         if info_type == 'info':
+            city_id = request.user.city_addr
+            coun = AreaInfo.objects.filter(id=int(city_id))
+            user_coun = coun.values('title', 'Parent')[0]
+            city = AreaInfo.objects.filter(id=user_coun['Parent'])
+            user_city = city.values('title', 'Parent')[0]
+            prov = AreaInfo.objects.filter(id=user_city['Parent'])
+            user_prov = prov.values('title')[0]
+
             return render(request, 'my_info.html', {
                 'user_prov': user_prov['title'],
                 'user_city': user_city['title'],
@@ -273,16 +273,45 @@ class UserInfoView(View):
 
                 'info_type': 'info',
             })
+
         elif info_type == 'head':
             return render(request, 'my_head.html', {
                 'info_type': 'head',
             })
+
         elif info_type == 'contact':
-            user_all_contact = TheContact.objects.filter(user=request.user)
+            user_all_contact = TheContact.objects.filter(user=request.user).order_by('-is_default', '-id')
+            alreadycount = user_all_contact.count()
+            remainingcount = 10 - user_all_contact.count()
+
+            all_contacts = []
+            for contact in user_all_contact:
+                cont = {}
+                cont['id'] = contact.id
+                cont['name'] = contact.name
+
+                city_id = contact.city_addr
+                coun = AreaInfo.objects.filter(id=int(city_id))
+                coutact_coun = coun.values('title', 'Parent')[0]
+                city = AreaInfo.objects.filter(id=coutact_coun['Parent'])
+                coutact_city = city.values('title', 'Parent')[0]
+                prov = AreaInfo.objects.filter(id=coutact_city['Parent'])
+                coutact_prov = prov.values('title')[0]
+
+                cont['city'] = coutact_prov['title'] + ' ' + coutact_city['title'] + ' ' + coutact_coun['title']
+                cont['address'] = contact.address
+                cont['zip_code'] = contact.zip_code
+                cont['mobile'] = contact.mobile
+                cont['is_default'] = contact.is_default
+                all_contacts.append(cont)
+
             return render(request, 'my_contact.html', {
-                'user_all_contact': user_all_contact,
+                'all_contacts': all_contacts,
+                'alreadycount': alreadycount,
+                'remainingcount': remainingcount,
                 'info_type': 'contact',
             })
+
         else:
             return render(request, 'security.html', {
                 'info_type': 'security',
@@ -291,7 +320,7 @@ class UserInfoView(View):
 
 class SettingInfoView(View):
     """
-    个人信息页面
+    个人信息修改
     """
     def post(self, request, setting_type):
         if setting_type == 'info':
@@ -303,6 +332,36 @@ class SettingInfoView(View):
             image_form = UploadPortraitForm(request.POST, request.FILES, instance=request.user)
             if image_form.is_valid():
                 image_form.save()
+
+        elif setting_type == 'contact':
+            contact_form = ContactForm(request.POST)
+            if contact_form.is_valid():
+                contact = TheContact()
+                all_contact = request.user.thecontact_set.all()
+                if all_contact.count() <= 10:
+                    contact.user = request.user
+                    contact.name = request.POST.get('name', '')
+                    contact.city_addr = request.POST.get('city_addr', '')
+                    contact.address = request.POST.get('address', '')
+                    contact.mobile = request.POST.get('mobile', '')
+                    contact.zip_code = request.POST.get('zip_code', '')
+                    # None or on
+                    is_default = request.POST.get('is_default', '')
+                    if not is_default:
+                        contact.is_default = False
+                    else:
+                        for con in all_contact:
+                            if con != contact:
+                                # 别的设为非默认联系人地址
+                                con.is_default = False
+                                con.save()
+                            else:
+                                # 给自己设为默认
+                                contact.is_default = True
+                    contact.save()
+                else:
+                    # 联系人数量达到最大值
+                    pass
 
         else:
             newpwd_form = InfoNewPwdForm(request.POST)
@@ -325,3 +384,85 @@ class SettingInfoView(View):
                     pass
 
         return HttpResponseRedirect(reverse('userinfo', kwargs={'info_type': setting_type}))
+
+
+class ModifyContactView(View):
+    """
+    修改联系人
+    """
+    def get(self, request, contact_id):
+        contact = TheContact.objects.get(id=contact_id)
+
+        city_id = contact.city_addr
+        coun = AreaInfo.objects.filter(id=int(city_id))
+        coutact_coun = coun.values('title', 'Parent')[0]
+        city = AreaInfo.objects.filter(id=coutact_coun['Parent'])
+        coutact_city = city.values('title', 'Parent')[0]
+        prov = AreaInfo.objects.filter(id=coutact_city['Parent'])
+        coutact_prov = prov.values('title')[0]
+
+        return render(request, 'modify_contact.html', {
+            'coutact_prov': coutact_prov['title'],
+            'coutact_city': coutact_city['title'],
+            'coutact_coun': coutact_coun['title'],
+            'contact': contact,
+        })
+
+    def post(self, request, contact_id):
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
+            all_contact = request.user.thecontact_set.all()
+            contact = all_contact.get(id=contact_id)
+            contact.name = request.POST.get('name', '')
+            contact.city_addr = request.POST.get('city_addr', '')
+            contact.address = request.POST.get('address', '')
+            contact.mobile = request.POST.get('mobile', '')
+            contact.zip_code = request.POST.get('zip_code', '')
+
+            # None or on
+            is_default = request.POST.get('is_default', '')
+            if not is_default:
+                contact.is_default = False
+            else:
+                for con in all_contact:
+                    if con != contact:
+                        # 别的设为非默认联系人地址
+                        con.is_default = False
+                        con.save()
+                    else:
+                        # 给自己设为默认
+                        contact.is_default = True
+            contact.save()
+
+        return HttpResponseRedirect(reverse('userinfo', kwargs={'info_type': 'contact'}))
+
+
+class DeleteContactView(View):
+
+    """
+    删除联系人
+    """
+    def get(self, request, contact_id):
+        contact = TheContact.objects.get(id=contact_id)
+        contact.delete()
+        return HttpResponseRedirect(reverse('userinfo', kwargs={'info_type': 'contact'}))
+
+
+class DefaultContactView(View):
+    """
+    设置默认联系人
+    """
+    def get(self, request, contact_id):
+        contact = TheContact.objects.get(id=contact_id)
+        if contact.is_default:
+            contact.is_default = False
+        else:
+            all_contact = request.user.thecontact_set.all()
+            for cont in all_contact:
+                if cont != contact:
+                    cont.is_default = False
+                    cont.save()
+                else:
+                    contact.is_default = True
+        contact.save()
+        return HttpResponseRedirect(reverse('userinfo', kwargs={'info_type': 'contact'}))

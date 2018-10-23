@@ -62,6 +62,12 @@ urlpatterns = [
     path('userinfo/<slug:info_type>', UserInfoView.as_view(), name='userinfo'),
     # 信息修改
     path('setting/<slug:setting_type>', SettingInfoView.as_view(), name='setting'),
+    # 联系人信息修改
+    path('modify_contact/<int:contact_id>', ModifyContactView.as_view(), name='modify_contact'),
+    # 联系人信息删除
+    path('delete_contact/<int:contact_id>', DeleteContactView.as_view(), name='delete_contact'),
+    # 设置默认联系人
+    path('default_contact/<int:contact_id>', DefaultContactView.as_view(), name='default_contact'),
 
     re_path(r'media/(?P<path>.*)$',serve,{"document_root": MEDIA_ROOT}),
 ]

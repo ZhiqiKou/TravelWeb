@@ -45,3 +45,10 @@ class InfoNewPwdForm(forms.Form):
     oldpwd = forms.CharField(required=True, min_length=8)
     newpwd1 = forms.CharField(required=True, min_length=8)
     newpwd2 = forms.CharField(required=True, min_length=8)
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(required=True, min_length=2, max_length=15)
+    address = forms.CharField(required=True, max_length=100)
+    mobile = forms.CharField(required=True, min_length=11, max_length=11)
+    zip_code = forms.CharField(required=True, min_length=6, max_length=6)

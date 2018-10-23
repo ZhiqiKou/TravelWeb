@@ -1,0 +1,138 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>修改联系人</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-------------jquery库-------------->
+  	<script type="text/javascript" src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+	<!-------------Amazeui--------------->
+    <script type="text/javascript" src="{% static 'js/amazeui.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/amazeui.css' %}">
+    <!------------核心样式-------------->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+</head>
+<body>
+	<div class="w700">
+		<div class="public_box">
+			<!-----------------修改联系人---------------->
+			<div id="set_box">
+            <form method="post" action="{% url 'modify_contact' contact.id %}">
+				<div class="title"><h2>修改联系人</h2></div>
+				<table class="table_list">
+					<tr>
+						<th>姓名：</th>
+						<td><input class="text" type="text" name="name" value="{{ contact.name }}"/></td>
+					</tr>
+					<tr>
+						<th>所在地区：</th>
+						<td>
+                            <select id="pro" class="am-radio" style="padding: 0">
+{#
+                            </select>
+                            <select id="city" class="am-radio" style="padding: 0">
+{#
+                            </select>
+                            <select id="county" class="am-radio" style="padding: 0" name="city_addr">
+{#
+                            </select>
+                            <div id="city_addr"></div>
+                        </td>
+					</tr>
+					<tr>
+						<th>详细地址：</th>
+						<td><textarea name="address" >{{ contact.address }}</textarea></td>
+					</tr>
+					<tr>
+						<th>手机号码：</th>
+						<td><input class="text" type="text" name="mobile" value="{{ contact.mobile }}"/></td>
+					</tr>
+					<tr>
+						<th>邮政编码：</th>
+						<td><input class="text" type="text" name="zip_code" value="{{ contact.zip_code }}" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<label class="am-checkbox">
+								<input name="is_default" type="checkbox" id="checkbox_a1" class="chk_1" {% if contact.is_default %}checked{% endif %} />
+								<label for="checkbox_a1"></label> 设置为默认
+							</label>
+						</td>
+					</tr>
+				</table>
+				{% csrf_token %}
+				<div class="operation"><input type="submit" class="save" value="保存" /></div>
+            </form>
+			</div>
+		</div>	
+	</div>
+</body>
+<script>
+        $(function () {
+            //获取所有省份
+            $.get('{% url "province" %}', function (dic) {
+                pro = $('#pro')
+                $.each(dic.prov, function (index, item) {
+                    if(item[1] === '{{ coutact_prov }}'){
+                        pro.append('<option value=' + item[0] + ' selected >' + item[1] + '</option>');
+                    }
+                    else {
+                        pro.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                    }
+                });
+                    {# 获取市 #}
+                    $.get('/city_' + $('#pro').find("option:selected").val() + '/', function (dict) {
+                        city = $('#city');
+                        city.empty();
+                        $('#county').empty();
+                        $.each(dict.city, function (index, item) {
+                            if(item[1] === '{{ coutact_city }}'){
+                                city.append('<option value=' + item[0] + ' selected >' + item[1] + '</option>');
+                            }
+                            else {
+                                city.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                            }
+
+                         });
+                            {# 获取区/县 #}
+                            $.get('/county_' + $('#city').find("option:selected").val() + '/', function (dict) {
+                                county = $('#county');
+                                county.empty();
+                                $.each(dict.coun, function (index, item) {
+                                        if(item[1] === '{{ coutact_coun }}'){
+                                            county.append('<option value=' + item[0]+ ' selected >' + item[1] + '</option>');
+                                        }
+                                        else {
+                                            county.append('<option value=' + item[0]+ '>' + item[1] + '</option>');
+                                        }
+
+                                });
+                            });
+
+                    });
+            });
+            //获取市信息
+            $('#pro').change(function () {
+                $.get('/city_' + $(this).val() + '/', function (dict) {
+                    city = $('#city');
+                    city.empty().append('<option value="">市</option>');
+                    $('#county').empty().append('<option value="">区/县</option>');
+                    $.each(dict.city, function (index, item) {
+                        city.append('<option value=' + item[0] + '>' + item[1] + '</option>');
+                    })
+                });
+             });
+
+            //获取区县信息
+            $('#city').change(function () {
+                $.get('/county_' + $(this).val() + '/', function (dict) {
+                    county = $('#county');
+                    county.empty().append('<option value="">区/县</option>');
+                    $.each(dict.coun, function (index, item) {
+                        county.append('<option value=' + item[0]+ '>' + item[1] + '</option>');
+                    })
+                })
+            });
+        })
+    </script>
+</html>
