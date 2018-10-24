@@ -40,6 +40,8 @@ urlpatterns = [
     path('news/', include(('news.urls', 'news'))),
     # 旅游页面
     path('scenicspots/', include(('scenicspots.urls', 'scenicspots')), name='scenicspots'),
+    # 游记相关
+    path('diarys/', include(('diarys.urls', 'diarys')), name='diarys'),
 
     # 用户相关
     # 注册

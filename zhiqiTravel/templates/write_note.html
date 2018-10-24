@@ -1,78 +1,74 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>发布游记</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!-------------jquery库-------------->
-  	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-	<!-------------Amazeui--------------->
-    <script type="text/javascript" src="js/amazeui.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/amazeui.css">
-    <!------------核心样式-------------->
-    <link rel="stylesheet" type="text/css" href="css/user.css">    
-</head>
-<body>
-<!-------------------版头------------------->
-<div id="header">
-    <div class="cw1000">
-        <!-------------------logo------------------->
-        <div class="logo"><a title="" href="index.html"><img alt="" src="images/logo.jpg" /></a></div>
-		<!-------------------导航------------------->
-		<div class="nav">
-			<ul>
-				<li><a title="" href="index.html">首页</a><span>|</span></li>
-				<li><a title="" href="scenic_list.html">洛阳旅游</a><span>|</span></li>
-				<li><a title="" href="mall_list.html">特产商城</a><span>|</span></li>
-				<li><a title="" href="note_list.html">美丽乡村</a><span>|</span></li>
-				<li><a title="" href="news_list.html">新闻资讯</a></li>
-				<div class="clear"></div>
-			</ul>
-		</div>
-		<!-------------------用户------------------->
-		<div class="user">
-			<a class="user-hd" href="#">
-				<img src="images/user_head_pic.jpg"/><b></b>
-				<div class="clear"></div>
-			</a>
-			<div class="user-bd">
-				<div class="integral"><img src="images/integral_ico.png"/>当前积分 609</div>
-				<ul class="nav_sort">
-					<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
-					<li><a href="write_note.html"><i class="i2"></i>写游记</a></li>
-					<li><a href="my_note.html"><i class="i9"></i>我的游记</a></li>
-					<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
-					<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
-					<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
-					<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
-					<li><a href="my_info.html"><i class="i7"></i>设置</a></li>
-					<li><a href="#"><i class="i8"></i>退出</a></li>
-				</ul>
-			</div>
-		</div>
-        <div class="clear"></div>
-    </div>
-</div>
+{% extends 'userbase.html' %}
+{% load staticfiles %}
+{% block title %}发布游记{% endblock %}
+{% block content %}
 <!-----------------发布封面---------------->
-<div id="write_cover">
-	<div class="replace_cover"><a href="#">更换封面</a></div>
-	<div class="replace_name"><div class="cw1000"><input type="text" placeholder="填写游记标题" maxlength="48" /></div></div>
+
+    <form method="post" action="{% url 'diarys:write' %}" enctype="multipart/form-data">
+<div id="write_cover" style="background:url({% static 'images/1458530382234p1aebir9i21s4q2hiiso1ip6msf29.jpg' %});background-size: 100% 100%;">
+    <div class="replace_cover"><label><a>
+        更换封面
+        <input name="image" type="file" id="xdaTanFileImg" onchange="xmTanUploadImg(this)" style="display: none"/>
+        </a></label></div>
+	<div class="replace_name">
+        <div class="cw1000">
+            <input name="title" type="text" placeholder="填写游记标题" maxlength="48" />
+        </div>
+    </div>
 </div>
 <!-----------------框架---------------->
 <div class="cw1000">
-	<img style="margin-top:30px;" src="images/bjq.jpg"/>
+{{ forms.media }}
+    <form action="" method="post">
+<div class="formRow">
+    <div class="formRight">
+        {{ forms }}
+    </div>
+    <div class="clear"></div>
+</div>
+</form>
+{#	<img style="margin-top:30px;" src="images/bjq.jpg"/>#}
 	<!-----------------发布按钮---------------->
 	<div id="write_button">
-		<a class="exit" href="#">退出</a>
+		<a class="exit" href="#" onclick="javascript:history.back(-1);">退出</a>
+        {% csrf_token %}
 		<input class="express" type="submit" href="#" value="发表" />
 		<span>或</span>
 		<input class="save" type="submit" href="#" value="保存草稿" />
 		<div class="clear"></div>
 	</div>
 </div>
-<!-----------------版底---------------->
-<div id="footer">
-	<p>Zhiqi文化旅游发展有限公司 版权所有</p>
-	<p>Copyright 2019 zhiqi All Rights Reserved | 豫ICP备00000000号　技术支持：zhiqi</p>
-</div>
-</body>
-</html>
+    </form>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+            //选择图片，马上预览
+            function xmTanUploadImg(obj) {
+                var file = obj.files[0];
+
+                console.log(obj);console.log(file);
+                console.log("file.size = " + file.size);  //file.size 单位为byte
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var bg = document.getElementById("write_cover");
+                    bg.style.background = "url(" + e.target.result + ")";
+                    bg.style.backgroundSize = '100% 100%';
+                }
+
+                reader.readAsDataURL(file)
+            }
+        </script>
+
+    <script>
+    $(".express").click(function(){
+        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+        var ue = UE.getEditor('container');
+        content=ue.getContent();
+        $.post("{% url 'diarys:write' %}",{content:content},function(result){
+            $("span").html(result);
+        });
+    });
+    </script>
+{% endblock %}

@@ -146,6 +146,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_DIRS = (
+    os.path.join(BASE_DIR, 'media')
+)
 
 # 更改验证码类型
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
@@ -157,3 +160,4 @@ EMAIL_HOST_USER = 'zhiqiproject@163.com'
 EMAIL_HOST_PASSWORD = 'zhiqitravel123'
 EMAIL_USE_TLS= False
 EMAIL_FROM = 'ZhiqiTravel<zhiqiproject@163.com>'
+

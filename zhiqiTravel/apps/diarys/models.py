@@ -4,6 +4,7 @@ from datetime import datetime
 
 from users.models import user_directory_path, MyUser
 
+
 # Create your models here.
 class Diary(models.Model):
     """

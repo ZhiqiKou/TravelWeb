@@ -28,6 +28,7 @@ class NewsView(View):
 
 
 class NewsDetails(View):
+
     """
     新闻详情页
     """
@@ -48,6 +49,7 @@ class NewsDetails(View):
 
 
 def get_public_box():
+
     all_news = News.objects.all().order_by('-add_times')
     culture = all_news.filter(classification='culture')[:3]
     specialty = all_news.filter(classification='specialty')[:3]
