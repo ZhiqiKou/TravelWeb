@@ -7,5 +7,5 @@ from django.urls import path, re_path,include
 from .views import *
 
 urlpatterns = [
-    path('write/', WriteNoteView.as_view(), name='write'),
+    path('write/<slug:operation_type>/', WriteNoteView.as_view(), name='write'),
 ]

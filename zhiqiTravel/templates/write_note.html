@@ -4,29 +4,29 @@
 {% block content %}
 <!-----------------发布封面---------------->
 
-    <form method="post" action="{% url 'diarys:write' %}" enctype="multipart/form-data">
-<div id="write_cover" style="background:url({% static 'images/1458530382234p1aebir9i21s4q2hiiso1ip6msf29.jpg' %});background-size: 100% 100%;">
+    <form method="post" enctype="multipart/form-data">
+<div id="write_cover" style="background:url({{ MEDIA_URL }}{{ image }});background-size: 100% 100%;">
     <div class="replace_cover"><label><a>
         更换封面
         <input name="image" type="file" id="xdaTanFileImg" onchange="xmTanUploadImg(this)" style="display: none"/>
         </a></label></div>
 	<div class="replace_name">
         <div class="cw1000">
-            <input name="title" type="text" placeholder="填写游记标题" maxlength="48" />
+            <input name="title" type="text" placeholder="填写游记标题" maxlength="48" value="{{ title }}" />
         </div>
     </div>
 </div>
 <!-----------------框架---------------->
 <div class="cw1000">
-{{ forms.media }}
-    <form action="" method="post">
+    {{ forms.media }}
+{#    <script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>#}
+{#    <script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>#}
 <div class="formRow">
-    <div class="formRight">
-        {{ forms }}
+    <div class="formRight" id="editor">
+{#   {{ forms }}#}
     </div>
     <div class="clear"></div>
 </div>
-</form>
 {#	<img style="margin-top:30px;" src="images/bjq.jpg"/>#}
 	<!-----------------发布按钮---------------->
 	<div id="write_button">
@@ -46,10 +46,6 @@
             //选择图片，马上预览
             function xmTanUploadImg(obj) {
                 var file = obj.files[0];
-
-                console.log(obj);console.log(file);
-                console.log("file.size = " + file.size);  //file.size 单位为byte
-
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     var bg = document.getElementById("write_cover");
@@ -62,13 +58,35 @@
         </script>
 
     <script>
-    $(".express").click(function(){
-        $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
-        var ue = UE.getEditor('container');
-        content=ue.getContent();
-        $.post("{% url 'diarys:write' %}",{content:content},function(result){
-            $("span").html(result);
-        });
+
+    $(document).ready(function () {
+        {#var ue = UE.getEditor('container');#}
+        var ue = UE.getEditor('editor');
+        ue.ready(function() {
+            ue.setContent('{% autoescape off %}{{ content }}{% endautoescape %}');
+         });
+
+
     });
+
+
+    $(".express").click(function(){
+
+        submit("{% url 'diarys:write' 'express' %}");
+    });
+
+    $(".save").click(function(){
+
+        submit("{% url 'diarys:write' 'save' %}");
+    });
+
+    function submit(url) {
+            $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+            $.post(url, {
+                data: 'success'
+            }, function (result) {
+                $("span").html(result);
+            });
+        }
     </script>
 {% endblock %}
