@@ -41,7 +41,7 @@
 				<div class="integral"><img src="{% static 'images/integral_ico.png' %}"/>当前积分 {{ request.user.integral }}</div>
 				<ul class="nav_sort">
 					<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
-					<li><a href="{% url 'diarys:write' 'new' %}"><i class="i2"></i>写游记</a></li>
+					<li><a href="{% url 'diarys:getdiaray' 0 %}"><i class="i2"></i>写游记</a></li>
 					<li><a href="my_note.html"><i class="i9"></i>我的游记</a></li>
 					<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
 					<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
@@ -73,7 +73,7 @@
 <!-----------------快捷导航---------------->
 <div id="quick_nav">
 	<a href="my_index.html"><span class="ico1"><img src="{% static 'images/nav_ico1.png' %}"/></span>个人主页</a>
-	<a href="{% url 'diarys:write' 'new' %}"><span class="ico2"><img src="{% static 'images/nav_ico2.png' %}"/></span>发布游记</a>
+	<a href="{% url 'diarys:getdiaray' 0 %}"><span class="ico2"><img src="{% static 'images/nav_ico2.png' %}"/></span>发布游记</a>
 	<a href="my_note.html"><span class="ico7"><img src="{% static 'images/nav_ico7.png' %}"/></span>我的游记</a>
 	<a href="collection_list.html"><span class="ico3"><img src="{% static 'images/nav_ico3.png' %}"/></span>我的收藏</a>
 	<a href="project_order.html"><span class="ico4"><img src="{% static 'images/nav_ico4.png' %}"/></span>商品订单</a>

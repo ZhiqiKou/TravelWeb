@@ -3,8 +3,7 @@
 {% block title %}发布游记{% endblock %}
 {% block content %}
 <!-----------------发布封面---------------->
-
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" id="infoForm" action="" enctype="multipart/form-data">
 <div id="write_cover" style="background:url({{ MEDIA_URL }}{{ image }});background-size: 100% 100%;">
     <div class="replace_cover"><label><a>
         更换封面
@@ -12,17 +11,19 @@
         </a></label></div>
 	<div class="replace_name">
         <div class="cw1000">
-            <input name="title" type="text" placeholder="填写游记标题" maxlength="48" value="{{ title }}" />
+            <input name="title" type="text" placeholder="填写游记标题" maxlength="48" value="{% if diary %}{{ diary.title }}{% endif %}" />
         </div>
     </div>
 </div>
 <!-----------------框架---------------->
 <div class="cw1000">
 
-    {{ forms.media }}
-{#    <script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>#}
-{#    <script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>#}
-<div class="formRow">
+    <script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+
+
+
+    <div class="formRow">
     <div class="formRight" id="editor">
 
     <script type="text/javascript">
@@ -32,18 +33,18 @@
             initialFrameWidth:1000
         });
  </script>
+
     <div class="form-group">
         <label class="control-label col-md-3">内容:</label>
             <div class="col-md-4">
                 <script id="container" name="content" type="text/platin">
-                    {% autoescape off %}{{ content }}{% endautoescape %}
+                    {% if diary %}
+                        {% autoescape off %}{{ diary.content }}{% endautoescape %}
+                    {% endif %}
                 </script>
             </div>
     </div>
 
-
-
-{#   {{ forms }}#}
     </div>
     <div class="clear"></div>
 </div>
@@ -52,7 +53,7 @@
 	<div id="write_button">
 		<a class="exit" href="#" onclick="javascript:history.back(-1);">退出</a>
         {% csrf_token %}
-		<input class="express" type="submit" href="#" value="发表" />
+		<input class="express" type="button" href="#" value="发表" />
 		<span>或</span>
 		<input class="save" type="submit" href="#" value="保存草稿" />
 		<div class="clear"></div>
@@ -78,35 +79,18 @@
         </script>
 
     <script>
-
-    $(document).ready(function () {
-        {#var ue = UE.getEditor('container');#}
-        {#var ue = UE.getEditor('editor');#}
-        {#ue.ready(function() {#}
-        {#    ue.setContent('{% autoescape off %}{{ content }}{% endautoescape %}');#}
-        {# });#}
-
-
-    });
-
-
     $(".express").click(function(){
 
-        submit("{% url 'diarys:write' 'express' %}");
+        $("#infoForm").removeAttr('action');
+        $("#infoForm").attr('action', '{% url 'diarys:setdiaray' 'express' diary.id|default:0 %}');
+        $("#infoForm").submit();
     });
 
     $(".save").click(function(){
 
-        submit("{% url 'diarys:write' 'save' %}");
+        $("#infoForm").removeAttr('action');
+        $("#infoForm").attr('action', '{% url 'diarys:setdiaray' 'save' diary.id|default:0 %}');
+        $("#infoForm").submit();
     });
-
-    function submit(url) {
-            $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
-            $.post(url, {
-                data: 'success'
-            }, function (result) {
-                $("span").html(result);
-            });
-        }
     </script>
 {% endblock %}

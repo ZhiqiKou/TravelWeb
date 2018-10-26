@@ -1,0 +1,13 @@
+{% extends 'write_note.html' %}
+{% load staticfiles %}
+{% block title %}修改游记{% endblock %}
+{% block editor %}
+    $(".express").val("修改")
+    $(".save").val("保存修改")
+    $(".express").click(function(){
+        submit("{% url 'diarys:editor' 0 %}");
+    });
+    $(".save").click(function(){
+        submit("{% url 'diarys:editor' 0 %}");
+    });
+{% endblock %}
