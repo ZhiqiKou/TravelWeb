@@ -27,6 +27,8 @@ urlpatterns = [
     re_path(r'^captcha/', include('captcha.urls')),
     path('xadmin/', xadmin.site.urls),
     path('ueditor/', include('DjangoUeditor.urls')),
+
+
     # 获取省市区信息
     path('province/', ProvinceView.as_view(), name='province'),
     path('city_<int:pid>/', CityView.as_view(), name='city'),

@@ -15,7 +15,7 @@
     <session id="1985121251">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
+          <entry key="project.closed" value="7" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.17" value="1" />
@@ -25,34 +25,35 @@
           <entry key="project.open.time.26" value="1" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.41" value="1" />
+          <entry key="project.open.time.53" value="1" />
           <entry key="project.open.time.65" value="1" />
           <entry key="project.open.time.66" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="css" value="13" />
           <entry key="dtd" value="1" />
-          <entry key="html" value="73" />
+          <entry key="html" value="76" />
           <entry key="jpeg" value="1" />
           <entry key="jpg" value="4" />
-          <entry key="js" value="2" />
-          <entry key="json" value="1" />
+          <entry key="js" value="4" />
+          <entry key="json" value="3" />
           <entry key="php" value="1" />
-          <entry key="py" value="199" />
+          <entry key="py" value="202" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="13" />
           <entry key="DTD" value="1" />
-          <entry key="HTML" value="73" />
+          <entry key="HTML" value="76" />
           <entry key="Image" value="5" />
-          <entry key="JSON" value="1" />
-          <entry key="JavaScript" value="2" />
+          <entry key="JSON" value="3" />
+          <entry key="JavaScript" value="4" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="199" />
+          <entry key="Python" value="202" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -60,9 +61,10 @@
           <entry key="Django Console" value="17" />
           <entry key="css" value="17" />
           <entry key="dummy" value="14" />
-          <entry key="html" value="5691" />
-          <entry key="json" value="23" />
-          <entry key="py" value="10900" />
+          <entry key="html" value="5817" />
+          <entry key="js" value="3" />
+          <entry key="json" value="41" />
+          <entry key="py" value="10909" />
           <entry key="py@zhiqiTravel" value="356" />
         </counts>
       </usages-collector>
@@ -70,10 +72,11 @@
         <counts>
           <entry key="CSS" value="17" />
           <entry key="CommandLine" value="178" />
-          <entry key="HTML" value="5691" />
-          <entry key="JSON" value="23" />
+          <entry key="HTML" value="5817" />
+          <entry key="JSON" value="41" />
+          <entry key="JavaScript" value="3" />
           <entry key="PLAIN_TEXT" value="192" />
-          <entry key="Python" value="10917" />
+          <entry key="Python" value="10926" />
         </counts>
       </usages-collector>
     </session>
@@ -122,10 +125,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/zhiqiTravel/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="24">
+              <caret line="28" column="15" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="17" />
+              <folding>
+                <element signature="e#635#667#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/diarys/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
+            <state relative-caret-position="435">
+              <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -136,7 +151,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/diarys/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
+            <state relative-caret-position="360">
               <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -145,24 +160,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/write_note.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+            <state relative-caret-position="231">
+              <caret line="35" column="48" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
               <folding>
-                <element signature="e#228#306#0#HTML" expanded="true" />
-                <element signature="e#1537#2066#0#HTML" />
+                <element signature="e#1559#2088#0#HTML" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/article.html">
+        <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="29" column="47" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="47" />
+            <state relative-caret-position="168">
+              <caret line="10" column="25" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="25" />
+              <folding>
+                <element signature="e#24#37#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -170,17 +187,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/users/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
+            <state relative-caret-position="-120">
               <caret line="4" column="14" selection-start-line="4" selection-end-line="4" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/zhiqiTravel/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3600">
-              <caret line="151" selection-start-line="151" selection-end-line="151" />
             </state>
           </provider>
         </entry>
@@ -188,11 +196,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/diarys/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+            <state relative-caret-position="240">
+              <caret line="10" column="42" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="42" />
               <folding>
                 <element signature="e#79#103#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/forms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="28" lean-forward="true" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -232,6 +249,7 @@
       <find>写</find>
       <find>游记</find>
       <find>chon</find>
+      <find>s</find>
       <find>serverUrl</find>
     </findStrings>
     <replaceStrings>
@@ -244,8 +262,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/apps/news/xadmin.py" />
-        <option value="$PROJECT_DIR$/apps/news/urls.py" />
         <option value="$PROJECT_DIR$/extra_apps/xadmin/plugins/ueditor.py" />
         <option value="$PROJECT_DIR$/extra_apps/xadmin/plugins/__init__.py" />
         <option value="$PROJECT_DIR$/extra_apps/xadmin/views/dashboard.py" />
@@ -281,7 +297,6 @@
         <option value="$PROJECT_DIR$/templates/modify_contact.html" />
         <option value="$PROJECT_DIR$/templates/my_contact.html" />
         <option value="$PROJECT_DIR$/apps/diarys/models.py" />
-        <option value="$PROJECT_DIR$/zhiqiTravel/urls.py" />
         <option value="$PROJECT_DIR$/apps/news/views.py" />
         <option value="$PROJECT_DIR$/apps/diarys/form.py" />
         <option value="$PROJECT_DIR$/extra_apps/DjangoUeditor/forms.py" />
@@ -291,10 +306,13 @@
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/userbase.html" />
         <option value="$PROJECT_DIR$/apps/diarys/urls.py" />
-        <option value="$PROJECT_DIR$/apps/diarys/views.py" />
         <option value="$PROJECT_DIR$/static/ueditor/php/controller.php" />
         <option value="$PROJECT_DIR$/static/ueditor/php/config.json" />
+        <option value="$PROJECT_DIR$/extra_apps/DjangoUeditor/static/ueditor/php/config.json" />
+        <option value="$PROJECT_DIR$/zhiqiTravel/urls.py" />
+        <option value="$PROJECT_DIR$/extra_apps/DjangoUeditor/static/ueditor/ueditor.config.js" />
         <option value="$PROJECT_DIR$/templates/write_note.html" />
+        <option value="$PROJECT_DIR$/apps/diarys/views.py" />
       </list>
     </option>
   </component>
@@ -304,11 +322,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="549" />
-    <option name="y" value="82" />
-    <option name="width" value="1285" />
-    <option name="height" value="781" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="166" />
+    <option name="y" value="54" />
+    <option name="width" value="1210" />
+    <option name="height" value="662" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -318,6 +336,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -330,11 +349,41 @@
               <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
               <item name="apps" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
+              <item name="extra_apps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
+              <item name="extra_apps" type="462c0819:PsiDirectoryNode" />
+              <item name="DjangoUeditor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
+              <item name="extra_apps" type="462c0819:PsiDirectoryNode" />
+              <item name="DjangoUeditor" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
+              <item name="extra_apps" type="462c0819:PsiDirectoryNode" />
+              <item name="DjangoUeditor" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="ueditor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="zhiqiTravel" type="b2602c69:ProjectViewProjectNode" />
+              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
+              <item name="zhiqiTravel" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -418,15 +467,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="549" y="82" width="1285" height="781" extended-state="0" />
+    <frame x="67" y="25" width="1851" height="901" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23652454" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25096738" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.7703349" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.617945" />
-      <window_info active="true" anchor="bottom" x="67" y="455" width="1523" height="240" id="Debug" order="3" visible="true" weight="0.19512194" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36469072" />
+      <window_info active="true" anchor="bottom" x="67" y="455" width="1523" height="240" id="Debug" order="3" visible="true" weight="0.29639176" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3272727" />
@@ -462,36 +511,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/users/migrations/0004_auto_20181018_1601.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-144" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/migrations/0005_auto_20181018_1623.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="21" column="51" lean-forward="true" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/forget_pwd.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="40" column="62" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../zhiqiTravelenv/lib/python3.6/site-packages/django/forms/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="265" selection-start-line="265" selection-end-line="265" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/migrations/0008_auto_20181019_1416.py" />
-    <entry file="file://$PROJECT_DIR$/apps/diarys/migrations/0001_initial.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/operation/migrations/0002_auto_20181019_1432.py" />
     <entry file="file://$PROJECT_DIR$/apps/scenicspots/models.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -689,27 +708,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/zhiqiTravel/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
-          <folding>
-            <element signature="e#635#667#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/widgets.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="34" column="19" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -754,20 +756,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="14" selection-start-line="4" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/zhiqiTravel/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3600">
-          <caret line="151" selection-start-line="151" selection-end-line="151" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/news_list.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -775,51 +763,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/ueditor/php/controller.php" />
+    <entry file="file://$PROJECT_DIR$/static/ueditor/php/config.json" />
+    <entry file="file://$PROJECT_DIR$/static/ueditor/ueditor.config.js" />
     <entry file="file://$PROJECT_DIR$/templates/article.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
+        <state relative-caret-position="696">
           <caret line="29" column="47" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/ueditor/php/controller.php">
+    <entry file="file://$PROJECT_DIR$/zhiqiTravel/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/ueditor/php/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/ueditor/ueditor.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="29" column="29" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/diarys/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/diarys/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="3600">
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
         </state>
       </provider>
     </entry>
@@ -833,23 +790,113 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="28" lean-forward="true" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/templates/ueditor_old.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#style#0;n#textarea#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/templates/ueditor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" column="15" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="10" column="25" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="25" />
+          <folding>
+            <element signature="e#24#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/static/ueditor/ueditor.all.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-831">
+          <caret line="29314" column="4" selection-start-line="29314" selection-start-column="4" selection-end-line="29314" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/static/ueditor/php/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1644">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-120">
+          <caret line="4" column="14" selection-start-line="4" selection-end-line="4" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/diarys/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="44" lean-forward="true" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+        <state relative-caret-position="240">
+          <caret line="10" column="42" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="42" />
           <folding>
             <element signature="e#79#103#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/zhiqiTravel/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="28" column="15" selection-start-line="28" selection-start-column="10" selection-end-line="28" selection-end-column="17" />
+          <folding>
+            <element signature="e#635#667#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/extra_apps/DjangoUeditor/static/ueditor/ueditor.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3075">
+          <caret line="92" column="8" lean-forward="true" selection-start-line="92" selection-start-column="8" selection-end-line="92" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/diarys/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="21" column="15" selection-start-line="21" selection-start-column="15" selection-end-line="21" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/write_note.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
+        <state relative-caret-position="231">
+          <caret line="35" column="48" selection-start-line="35" selection-start-column="48" selection-end-line="35" selection-end-column="48" />
           <folding>
-            <element signature="e#228#306#0#HTML" expanded="true" />
-            <element signature="e#1537#2066#0#HTML" />
+            <element signature="e#1559#2088#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/diarys/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="52" lean-forward="true" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>

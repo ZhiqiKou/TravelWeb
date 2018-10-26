@@ -38,7 +38,7 @@ class WriteNoteView(View):
         diary.user = request.user
         diary.title = request.POST.get('title', '')
         diary.image = request.FILES.get('image', '')
-        diary.content = request.POST.get('editorValue', '')
+        diary.content = request.POST.get('content', '')
         if operation_type == 'express':
             diary.is_published = True
         elif operation_type == 'save':

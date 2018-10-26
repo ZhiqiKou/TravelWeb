@@ -18,11 +18,31 @@
 </div>
 <!-----------------框架---------------->
 <div class="cw1000">
+
     {{ forms.media }}
 {#    <script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>#}
 {#    <script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>#}
 <div class="formRow">
     <div class="formRight" id="editor">
+
+    <script type="text/javascript">
+        var ue = UE.getEditor('container',{
+            serverUrl: "/ueditor/controller/",
+            initialFrameHeight:600,
+            initialFrameWidth:1000
+        });
+ </script>
+    <div class="form-group">
+        <label class="control-label col-md-3">内容:</label>
+            <div class="col-md-4">
+                <script id="container" name="content" type="text/platin">
+                    {% autoescape off %}{{ content }}{% endautoescape %}
+                </script>
+            </div>
+    </div>
+
+
+
 {#   {{ forms }}#}
     </div>
     <div class="clear"></div>
@@ -61,10 +81,10 @@
 
     $(document).ready(function () {
         {#var ue = UE.getEditor('container');#}
-        var ue = UE.getEditor('editor');
-        ue.ready(function() {
-            ue.setContent('{% autoescape off %}{{ content }}{% endautoescape %}');
-         });
+        {#var ue = UE.getEditor('editor');#}
+        {#ue.ready(function() {#}
+        {#    ue.setContent('{% autoescape off %}{{ content }}{% endautoescape %}');#}
+        {# });#}
 
 
     });
