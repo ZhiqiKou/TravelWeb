@@ -70,7 +70,7 @@
           <entry key="html" value="6682" />
           <entry key="js" value="4" />
           <entry key="json" value="41" />
-          <entry key="py" value="11650" />
+          <entry key="py" value="11652" />
           <entry key="py@zhiqiTravel" value="390" />
         </counts>
       </usages-collector>
@@ -82,7 +82,7 @@
           <entry key="JSON" value="41" />
           <entry key="JavaScript" value="4" />
           <entry key="PLAIN_TEXT" value="192" />
-          <entry key="Python" value="11667" />
+          <entry key="Python" value="11669" />
         </counts>
       </usages-collector>
     </session>
@@ -160,23 +160,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/diarys/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="94" column="26" selection-start-line="94" selection-start-column="26" selection-end-line="94" selection-end-column="26" />
+            <state relative-caret-position="336">
+              <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <element signature="e#774#2212#0" />
-                <marker date="1540802852375" expanded="true" signature="789:794" ph="..." />
-                <marker date="1540802852375" expanded="true" signature="2293:2298" ph="..." />
-                <marker date="1540802852375" expanded="true" signature="2615:2620" ph="..." />
+                <marker date="1540804023152" expanded="true" signature="789:794" ph="..." />
+                <marker date="1540804023152" expanded="true" signature="2293:2298" ph="..." />
+                <marker date="1540804023152" expanded="true" signature="2615:2620" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/note.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
@@ -271,7 +271,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -325,8 +325,8 @@
         <option value="$PROJECT_DIR$/templates/my_note.html" />
         <option value="$PROJECT_DIR$/apps/diarys/urls.py" />
         <option value="$PROJECT_DIR$/apps/diarys/models.py" />
-        <option value="$PROJECT_DIR$/apps/diarys/views.py" />
         <option value="$PROJECT_DIR$/templates/note.html" />
+        <option value="$PROJECT_DIR$/apps/diarys/views.py" />
       </list>
     </option>
   </component>
@@ -464,12 +464,12 @@
     <frame x="67" y="25" width="1851" height="901" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16915423" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16915423" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.7703349" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23969072" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38015464" />
       <window_info anchor="bottom" x="67" y="455" width="1523" height="240" id="Debug" order="3" weight="0.46391752" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -480,7 +480,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32854864" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.6539075" />
-      <window_info anchor="bottom" id="manage.py@zhiqiTravel" order="13" visible="true" weight="0.19587629" />
+      <window_info anchor="bottom" id="manage.py@zhiqiTravel" order="13" weight="0.5060241" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -809,20 +809,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/diarys/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="94" column="26" selection-start-line="94" selection-start-column="26" selection-end-line="94" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#774#2212#0" />
-            <marker date="1540802852375" expanded="true" signature="789:794" ph="..." />
-            <marker date="1540802852375" expanded="true" signature="2293:2298" ph="..." />
-            <marker date="1540802852375" expanded="true" signature="2615:2620" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/users/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="317">
@@ -867,6 +853,20 @@
             <element signature="e#1836#4259#0#HTML" />
             <element signature="e#2353#4248#0#HTML" />
             <element signature="e#4345#7961#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/diarys/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#774#2212#0" />
+            <marker date="1540804023152" expanded="true" signature="789:794" ph="..." />
+            <marker date="1540804023152" expanded="true" signature="2293:2298" ph="..." />
+            <marker date="1540804023152" expanded="true" signature="2615:2620" ph="..." />
           </folding>
         </state>
       </provider>

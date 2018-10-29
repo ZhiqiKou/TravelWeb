@@ -86,7 +86,7 @@ class DetailsView(View):
     游记详情
     """
     def get(self, request, diary_id):
-        new_diarys = request.user.diary_set.all().order_by('-add_times')[:6]
+        new_diarys = request.user.diary_set.all().filter(is_published=True).order_by('-add_times')[:6]
         diary = Diary.objects.get(id=diary_id)
         diary.checknum += 1
         diary.save()
