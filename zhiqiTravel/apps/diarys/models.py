@@ -15,7 +15,9 @@ class Diary(models.Model):
     content = models.TextField(verbose_name='内容')
     image = models.ImageField(upload_to='diary/%Y/%m', default='diary/default.jpg', max_length=100, verbose_name='封面图')
     checknum = models.IntegerField(verbose_name='查看数', default=0)
+    praisenum = models.IntegerField(verbose_name='点赞数', default=0)
     commentsnum = models.IntegerField(verbose_name='评论数', default=0)
+    collectnum = models.IntegerField(verbose_name='收藏数', default=0)
     is_published = models.BooleanField(verbose_name='是否发表', default=False)
     add_times = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 

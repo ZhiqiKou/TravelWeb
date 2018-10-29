@@ -157,7 +157,7 @@ body{width:100%;min-width:1280px;}
 #h_project .con li img{width:100%;}
 #h_project .con p{position:absolute;bottom:0;color:white;width:100%;text-align:center;line-height:30px;background:rgba(0,0,0,0.6) none repeat scroll !important; filter:Alpha(opacity=60);}
 
-/*-----------------首页美丽乡村----------------*/
+/*-----------------首页游记文章----------------*/
 #h_note{height:650px;padding-top:50px;background:url(../images/h_bg4.png) repeat-x #fffcea;}
 #h_note .title{text-align:center;}
 #h_note .con{margin-top:30px;position:relative;}
@@ -271,7 +271,7 @@ body{width:100%;min-width:1280px;}
 #article .con img{max-width:100%;}
 
 
-/*-----------------美丽乡村----------------*/
+/*-----------------游记文章----------------*/
 #note_list{background:url(../images/g_bg.jpg) repeat-y;}
 #note_list .banner{text-align:center;height:370px;background:url(../images/64695-2679221.jpg) no-repeat center;}
 #note_list .banner h2{font-size:60px;padding-top:110px;color:white;font-weight:400;text-shadow:0 2px 0px #000;}

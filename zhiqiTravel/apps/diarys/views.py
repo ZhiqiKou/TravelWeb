@@ -29,6 +29,9 @@ class GetdiarayView(View):
 
 
 class SetdiarayView(View):
+    """
+    提交游记
+    """
     def post(self, request, operation_type, diary_id):
         if diary_id == 0:
             # 新建游记
@@ -66,20 +69,28 @@ class SetdiarayView(View):
         return HttpResponseRedirect(reverse('diarys:getdiaray', kwargs={'diary_id': editor_diary.id}))
 
 
-# class EditorView(View):
-#
-#     def get(self,request, diary_id):
-#             diary = Diary.objects.get(id=diary_id, user=request.user)
-#             title = diary.title
-#             image = diary.image
-#             content = diary.content
-#
-#             return render(request, 'editor_note.html', {
-#                 'id': diary_id,
-#                 'title': title,
-#                 'image': image,
-#                 'content': content,
-#             })
-#
-#     def post(self, request, diary_id):
-#         pass
+class PublishedView(View):
+    """
+    当前登陆用户已发表游记
+    """
+    def get(self, request):
+        all_diary = request.user.diary_set.all().order_by('-add_times')
+        published_diary = all_diary.filter(is_published=True)
+        return render(request, 'my_note.html', {
+            'published_diary': published_diary,
+        })
+
+
+class DetailsView(View):
+    """
+    游记详情
+    """
+    def get(self, request, diary_id):
+        new_diarys = request.user.diary_set.all().order_by('-add_times')[:6]
+        diary = Diary.objects.get(id=diary_id)
+        diary.checknum += 1
+        diary.save()
+        return render(request, 'note.html', {
+            'diary': diary,
+            'new_diarys': new_diarys,
+        })

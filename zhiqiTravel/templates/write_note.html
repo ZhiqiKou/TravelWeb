@@ -8,7 +8,8 @@
     <div class="replace_cover"><label><a>
         更换封面
         <input name="image" type="file" id="xdaTanFileImg" onchange="xmTanUploadImg(this)" style="display: none"/>
-        </a></label></div>
+        </a></label>
+    </div>
 	<div class="replace_name">
         <div class="cw1000">
             <input name="title" type="text" placeholder="填写游记标题" maxlength="48" value="{% if diary %}{{ diary.title }}{% endif %}" />
@@ -20,7 +21,6 @@
 
     <script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>
     <script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
-
 
 
     <div class="formRow">
@@ -55,7 +55,7 @@
         {% csrf_token %}
 		<input class="express" type="button" href="#" value="发表" />
 		<span>或</span>
-		<input class="save" type="submit" href="#" value="保存草稿" />
+		<input class="save" type="button" href="#" value="保存草稿" />
 		<div class="clear"></div>
 	</div>
 </div>
@@ -76,7 +76,7 @@
 
                 reader.readAsDataURL(file)
             }
-        </script>
+    </script>
 
     <script>
     $(".express").click(function(){

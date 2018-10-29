@@ -89,7 +89,7 @@ function() {
 						<ul class="nav_sort">
 							<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
 							<li><a href="{% url 'diarys:getdiaray' 0 %}"><i class="i2"></i>写游记</a></li>
-							<li><a href="my_note.html"><i class="i9"></i>我的游记</a></li>
+							<li><a href="{% url 'diarys:published' %}"><i class="i9"></i>我的游记</a></li>
 							<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
 							<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
 							<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
@@ -138,7 +138,7 @@ function() {
                     <li><a title="" {% if now_type == 'index' %}class="cur"{% endif %} href="{% url 'index' %}">首页</a></li>
                     <li><a title="" {% if now_type == 'scenic' %}class="cur"{% endif %} href="{% url 'scenicspots:all' %}">洛阳旅游</a></li>
                     <li><a title="" href="mall_list.html">特产商城</a></li>
-                    <li><a title="" href="note_list.html">美丽乡村</a></li>
+                    <li><a title="" href="note_list.html">游记文章</a></li>
                     <li><a title="" {% if now_type == 'news' %}class="cur"{% endif %} href="{% url 'news:all' %}">新闻资讯</a></li>
 					<li><a title="" href="https://github.com/ZhiqiKou/TravelWeb">项目地址</a></li>
                 </ul>
