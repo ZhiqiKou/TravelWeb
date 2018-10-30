@@ -13,7 +13,8 @@ urlpatterns = [
     path('setdiaray/<slug:operation_type>/<int:diary_id>/', SetdiarayView.as_view(), name='setdiaray'),
     # 游记详情
     path('details/<int:diary_id>/', DetailsView.as_view(), name='details'),
-    # 已发表游记
-    path('published/', PublishedView.as_view(), name='published'),
-    #
+    # 用户的游记，已发表游记/草稿
+    path('mydetails/<slug:is_published>/', MyDetailsView.as_view(), name='mydetails'),
+    # 游记发表
+    path('publish/<int:diary_id>/', PublishView.as_view(), name='publish'),
 ]

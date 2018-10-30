@@ -5,19 +5,24 @@
 	<div class="public_box pd30">
 		<div class="public_tag">
 			<ul>
-				<li><a class="cur" href="my_note.html">已发表游记</a></li>
-				<li><a href="my_note2.html">我的草稿</a></li>
+				<li><a {% if is_published == 'published' %}class="cur"{% endif %} href="{% url 'diarys:mydetails' 'published' %}">已发表游记</a></li>
+				<li><a {% if is_published == 'draft' %}class="cur"{% endif %} href="{% url 'diarys:mydetails' 'draft' %}">我的草稿</a></li>
 				<div class="clear"></div>
 			</ul>
 		</div>
 		<!-----------------游记列表---------------->
 		<div class="note_list">
 			<ul>
-                {% for diary in published_diary %}
+                {% for diary in diarys %}
 				<li class="pd_r150">
 					<div class="pic"><img src="{{ MEDIA_URL }}{{ diary.image }}"/></div>
 					<div class="con">
-						<a href="{% url 'diarys:details' diary.id %}"><h3>{{ diary.title }}</h3></a>
+						<a href="{% if is_published == 'published' %}
+                                {% url 'diarys:details' diary.id %}
+                                {% elif is_published == 'draft' %}
+                                {% url 'diarys:getdiaray' diary.id %}
+                                {% endif %}">
+                            <h3>{{ diary.title }}</h3></a>
 						<div class="user">
 							<span><img src="{{ MEDIA_URL }}{{ diary.user.portrait }}" />作者：<font>{{ diary.user.nickname }}</font></span>
 							<label><img src="{% static 'images/state_icon1.png' %}" />{{ diary.checknum }}</label>
@@ -26,6 +31,9 @@
 						<p>{{ diary.content|striptags|truncatechars:"100"  }}</p>
 					</div>
 					<div class="operation">
+                        {% if is_published == 'draft' %}
+                            <a href="{% url 'diarys:publish' diary.id %}"><i class="express_ico"></i>发表</a>
+                        {% endif %}
 						<a href="{% url 'diarys:getdiaray' diary.id %}"><i class="edit_ico"></i>修改</a>
 						<a href="#"><i class="del_ico"></i>删除</a>
 					</div>

@@ -69,16 +69,34 @@ class SetdiarayView(View):
         return HttpResponseRedirect(reverse('diarys:getdiaray', kwargs={'diary_id': editor_diary.id}))
 
 
-class PublishedView(View):
+class MyDetailsView(View):
     """
     当前登陆用户已发表游记
     """
-    def get(self, request):
+    def get(self, request, is_published):
         all_diary = request.user.diary_set.all().order_by('-add_times')
-        published_diary = all_diary.filter(is_published=True)
+        diarys = []
+        if is_published == 'published':
+            diarys = all_diary.filter(is_published=True)
+        elif is_published == 'draft':
+            diarys = all_diary.filter(is_published=False)
+        else:
+            # 错误
+            pass
+
         return render(request, 'my_note.html', {
-            'published_diary': published_diary,
+            'diarys': diarys,
+            'is_published': is_published,
         })
+
+
+class PublishView(View):
+    def get(self, request, diary_id):
+        new_diarys = request.user.diary_set.all()
+        diary = new_diarys.get(id=diary_id)
+        diary.is_published = True
+        diary.save()
+        return HttpResponseRedirect(reverse('diarys:details', kwargs={'diary_id': diary_id}))
 
 
 class DetailsView(View):
