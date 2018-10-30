@@ -17,4 +17,6 @@ urlpatterns = [
     path('mydetails/<slug:is_published>/', MyDetailsView.as_view(), name='mydetails'),
     # 游记发表
     path('publish/<int:diary_id>/', PublishView.as_view(), name='publish'),
+    # 游记删除
+    path('delete/', DeleteView.as_view(), name='delete'),
 ]

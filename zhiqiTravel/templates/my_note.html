@@ -10,6 +10,34 @@
 				<div class="clear"></div>
 			</ul>
 		</div>
+
+            <script type="text/javascript">
+                function deldiary(diary_id)
+                    {
+                         $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+                         $.ajax({
+                             type: "POST",
+                             data: {'id': diary_id},
+                             url: '{% url 'diarys:delete' %}',
+                             cache: false,
+                             dataType: "json",
+                             success:function (data) {
+                                 if(data.status == "success"){
+                                     alert('删除成功！')
+                                     {#局部刷新#}
+                                     $(".note_list").load(location.href + " .note_list");
+                                 }
+                                 else
+                                 {
+                                     alert('删除失败！')
+                                 }
+                             },
+                             error:function (){
+                                 alert('error')
+                             },
+                        });
+                    }
+        </script>
 		<!-----------------游记列表---------------->
 		<div class="note_list">
 			<ul>
@@ -35,7 +63,7 @@
                             <a href="{% url 'diarys:publish' diary.id %}"><i class="express_ico"></i>发表</a>
                         {% endif %}
 						<a href="{% url 'diarys:getdiaray' diary.id %}"><i class="edit_ico"></i>修改</a>
-						<a href="#"><i class="del_ico"></i>删除</a>
+						<a href="javascript:void(0);" onclick="deldiary({{ diary.id }})"><i class="del_ico" ></i>删除</a>
 					</div>
 				</li>
                 {% endfor %}
@@ -44,4 +72,16 @@
 	</div>
 	<div class="clear"></div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function del1(diary_id)
+    {
+        alert(diary_id)
+    }
+
+
+
+</script>
 {% endblock %}

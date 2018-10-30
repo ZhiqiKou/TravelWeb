@@ -3,6 +3,9 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 from django.urls import reverse
 
+import json
+
+
 from .models import *
 from .forms import *
 
@@ -112,3 +115,16 @@ class DetailsView(View):
             'diary': diary,
             'new_diarys': new_diarys,
         })
+
+
+class DeleteView(View):
+    """
+    删除游记
+    """
+    def post(self, request):
+        diary_id = request.POST.get('id', '')
+        new_diarys = request.user.diary_set.all()
+        diary = new_diarys.get(id=diary_id)
+        diary.delete()
+        result = json.dumps({"status": "success", "msg": "签到成功"}, ensure_ascii=False)
+        return HttpResponse(result)
