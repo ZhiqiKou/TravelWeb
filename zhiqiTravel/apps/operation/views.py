@@ -68,7 +68,7 @@ class CommentsView(View):
             comment = request.POST.get('comment', '')
 
             diary = Diary.objects.get(id=int(diary_id))
-            diary.collectnum += 1
+            diary.commentsnum += 1
             diary.save()
 
             comm_diary = DiaryComments()

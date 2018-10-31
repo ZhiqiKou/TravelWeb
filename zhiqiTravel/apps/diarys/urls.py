@@ -19,4 +19,6 @@ urlpatterns = [
     path('publish/<int:diary_id>/', PublishView.as_view(), name='publish'),
     # 游记删除
     path('delete/', DeleteView.as_view(), name='delete'),
+
+    path('all/<slug:diary_type>/', AllDiaryView.as_view(), name='all')
 ]

@@ -147,3 +147,19 @@ class DeleteView(View):
         diary.delete()
         result = json.dumps({"status": "success"}, ensure_ascii=False)
         return HttpResponse(result)
+
+
+class AllDiaryView(View):
+    def get(self, request, diary_type):
+        diarys = []
+        if diary_type == 'new':
+            diarys = Diary.objects.all().order_by("-add_times")
+        elif diary_type == 'hot':
+            diarys = Diary.objects.all().order_by("-praisenum")
+        else:
+            # 链接错误！
+            pass
+
+        return render(request, 'note_list.html', {
+            'diarys': diarys,
+        })

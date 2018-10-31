@@ -4,7 +4,8 @@
 <!------------------游记版头-------------------->
 <div id="note_head">
 	<div class="head">
-		<div class="banner"><img src="{{ MEDIA_URL }}{{ diary.image }}"/></div>
+        <img src="{{ MEDIA_URL }}{{ diary.image }}" style="width:100%; height:100%;"/>
+		<div class="banner"></div>
 		<div class="title">
 			<div class="cw1200"><p>{{ diary.title }}</p></div>
 			<span><img src="{% static 'images/eye_ico.png' %}"/>{{ diary.checknum }}</span>

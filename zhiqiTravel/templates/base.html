@@ -138,7 +138,7 @@ function() {
                     <li><a title="" {% if now_type == 'index' %}class="cur"{% endif %} href="{% url 'index' %}">首页</a></li>
                     <li><a title="" {% if now_type == 'scenic' %}class="cur"{% endif %} href="{% url 'scenicspots:all' %}">洛阳旅游</a></li>
                     <li><a title="" href="mall_list.html">特产商城</a></li>
-                    <li><a title="" href="note_list.html">游记文章</a></li>
+                    <li><a title="" href="{% url 'diarys:all' 'new' %}">游记文章</a></li>
                     <li><a title="" {% if now_type == 'news' %}class="cur"{% endif %} href="{% url 'news:all' %}">新闻资讯</a></li>
 					<li><a title="" href="https://github.com/ZhiqiKou/TravelWeb">项目地址</a></li>
                 </ul>

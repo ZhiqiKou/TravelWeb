@@ -18,14 +18,14 @@
 <div id="header">
     <div class="cw1000">
         <!-------------------logo------------------->
-        <div class="logo"><a title="" href="index.html"><img alt="" src="{% static 'images/logo.jpg' %}" /></a></div>
+        <div class="logo"><a title="" href="{% url 'index' %}"><img alt="" src="{% static 'images/logo.jpg' %}" /></a></div>
 		<!-------------------导航------------------->
 		<div class="nav">
 			<ul>
 				<li><a title="" href="{% url 'index' %}">首页</a><span>|</span></li>
 				<li><a title="" href="{% url 'scenicspots:all' %}">洛阳旅游</a><span>|</span></li>
 				<li><a title="" href="mall_list.html">特产商城</a><span>|</span></li>
-				<li><a title="" href="note_list.html">游记文章</a><span>|</span></li>
+				<li><a title="" href="{% url 'diarys:all' 'new' %}">游记文章</a><span>|</span></li>
 				<li><a title="" href="{% url 'news:all' %}">新闻资讯</a><span>|</span></li>
                 <li><a title="" href="https://github.com/ZhiqiKou/TravelWeb">项目地址</a></li>
 				<div class="clear"></div>
