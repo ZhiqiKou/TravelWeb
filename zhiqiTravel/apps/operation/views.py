@@ -6,10 +6,12 @@ from django.urls import reverse
 import json
 
 from .models import *
+from .forms import *
 
 
 # Create your views here.
 class FavView(View):
+
     """
     游记点赞
     """
@@ -40,7 +42,7 @@ class CollView(View):
         diary_id = request.POST.get('id', '')
         diary = Diary.objects.get(id=diary_id)
         try:
-            coll_diary = UserCollect.objects.get(diary=diary, user=request.user)
+            coll_diary = DiaryComments.objects.get(diary=diary, user=request.user)
             diary.collectnum -= 1
             coll_diary.delete()
             result = json.dumps({"status": "discoll"}, ensure_ascii=False)
@@ -53,3 +55,28 @@ class CollView(View):
             result = json.dumps({"status": "coll"}, ensure_ascii=False)
         diary.save()
         return HttpResponse(result)
+
+
+class CommentsView(View):
+    """
+    游记评论
+    """
+    def post(self, request):
+        comments_form = CommentsForm(request.POST)
+        if comments_form.is_valid():
+            diary_id = request.POST.get('diaryid', '')
+            comment = request.POST.get('comment', '')
+
+            diary = Diary.objects.get(id=int(diary_id))
+            diary.collectnum += 1
+            diary.save()
+
+            comm_diary = DiaryComments()
+            comm_diary.diary = diary
+            comm_diary.comments = comment
+            comm_diary.user = request.user
+            comm_diary.save()
+            return HttpResponseRedirect(reverse('diarys:details', kwargs={'diary_id': diary_id}))
+        else:
+            result = json.dumps({"status": "failed"}, ensure_ascii=False)
+            return HttpResponse(result)

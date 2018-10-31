@@ -85,12 +85,8 @@
                     </div>
 				</a>
 			</div>
-
 		</div>
-
 	</div>
-
-
 </div>
 <!------------------子页框架-------------------->
 <div id="sub_from">
@@ -128,63 +124,85 @@
 					<div class="clear"></div>
 				</div>
 				<!------------------评论-------------------->
+
+
 				<div id="comment">
 					<div class="release">
 						<img src="{{ MEDIA_URL }}{{ request.user.portrait }}"/>
-						<input class="text" type="text" placeholder="说说你的看法..."/>
+                        <form method="post" action="{% url 'operation:comments' %}">
+                        <input name="diaryid" value="{{ diary.id }}" hidden/>
+						<input class="text" type="text" name="comment" placeholder="说说你的看法..."/>
+                        {% csrf_token %}
 						<input class="submit" type="submit" value="发表"/>
+                        </form>
 						<div class="clear"></div>
 					</div>
 					<div class="list">
 						<div class="tag">
-							<a class="cur" href="#">最新评论</a><span>|</span><a href="#">正序排列</a>
+
+
+                            <script>
+                                function newComments() {
+                                    $("#commentlist").html('{% for comm_diary in comm_diarys %}<li>'+
+                                        '<div class="pic"><img src="{{ MEDIA_URL }}{{ comm_diary.user.portrait }}"/></div>'
+                                        + '<div class="con"><label>{{ comm_diary.user.nickname }}</label>'
+                                        + '<p>{{ comm_diary.comments }}</p>'
+                                        + '<span>发表于：{{ comm_diary.add_time|date:"Y-m-d H:i"  }}</span>'
+                                        + '</div><div class="tip">{% if forloop.revcounter == 1 %}' +
+                                        '<span class="t_a t_box">沙发</span>{% elif forloop.revcounter == 2 %}<span class="t_b t_box">板凳</span>'
+                                        + '{% elif forloop.revcounter == 3 %}<span class="t_c t_box">地板</span>{% else %}'
+                                        + '<span>{{ forloop.revcounter }}#</span>{% endif %}</div></li>{% endfor %}')
+
+                                    $("#ordercomment").removeClass()
+                                    $("#newcomment").removeClass()
+                                    $("#newcomment").addClass('cur')
+                                }
+
+                                function order() {
+                                    $("#commentlist").html('{% for comm_diary in comm_diarys reversed %}<li>'+
+                                        '<div class="pic"><img src="{{ MEDIA_URL }}{{ comm_diary.user.portrait }}"/></div>'
+                                        + '<div class="con"><label>{{ comm_diary.user.nickname }}</label>'
+                                        + '<p>{{ comm_diary.comments }}</p>'
+                                        + '<span>发表于：{{ comm_diary.add_time|date:"Y-m-d H:i"  }}</span>'
+                                        + '</div><div class="tip">{% if forloop.counter == 1 %}' +
+                                        '<span class="t_a t_box">沙发</span>{% elif forloop.counter == 2 %}<span class="t_b t_box">板凳</span>'
+                                        + '{% elif forloop.counter == 3 %}<span class="t_c t_box">地板</span>{% else %}'
+                                        + '<span>{{ forloop.counter }}#</span>{% endif %}</div></li>{% endfor %}')
+
+                                    $("#ordercomment").removeClass()
+                                    $("#newcomment").removeClass()
+                                    $("#ordercomment").addClass('cur')
+                                }
+
+
+                            </script>
+
+							<a class="cur" id="newcomment" href="javascript:void(0);" onclick="newComments()">最新评论</a>
+                            <span>|</span>
+                            <a  id="ordercomment" href="javascript:void(0);" onclick="order()">正序排列</a>
 						</div>
-						<ul>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
+						<ul id="commentlist">
+                            {% for comm_diary in comm_diarys %}
+                            <li>
+								<div class="pic"><img src="{{ MEDIA_URL }}{{ comm_diary.user.portrait }}"/></div>
 								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
+									<label>{{ comm_diary.user.nickname }}</label>
+									<p>{{ comm_diary.comments }}</p>
+									<span>发表于：{{ comm_diary.add_time|date:"Y-m-d H:i"  }}</span>
 								</div>
-								<div class="tip"><span>5#</span></div>
+								<div class="tip">
+                                    {% if forloop.revcounter == 1 %}
+								        <span class="t_a t_box">沙发</span>
+                                    {% elif forloop.revcounter == 2 %}
+                                        <span class="t_b t_box">板凳</span>
+                                    {% elif forloop.revcounter == 3 %}
+                                        <span class="t_c t_box">地板</span>
+                                    {% else %}
+                                        <span>{{ forloop.revcounter }}#</span>
+								    {% endif %}
+                                </div>
 							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span>4#</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span class="t_c t_box">地板</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span class="t_b t_box">板凳</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span class="t_a t_box">沙发</span></div>
-							</li>
+                            {% endfor %}
 						</ul>
 					</div>
 				</div>

@@ -7,7 +7,7 @@ import json
 
 
 from .models import *
-from operation.models import UserFav,UserCollect
+from operation.models import UserFav,UserCollect, DiaryComments
 from .forms import *
 
 
@@ -112,6 +112,9 @@ class DetailsView(View):
         diary = Diary.objects.get(id=diary_id)
         diary.checknum += 1
         diary.save()
+
+        comm_diarys = DiaryComments.objects.filter(diary=diary).order_by('-add_time')
+
         try:
             fav_diary = UserFav.objects.get(diary=diary, user=request.user)
             hasfav = True
@@ -129,6 +132,7 @@ class DetailsView(View):
             'new_diarys': new_diarys,
             'hasfav': hasfav,
             'hascoll': hascoll,
+            'comm_diarys': comm_diarys,
         })
 
 

@@ -6,6 +6,11 @@ from django.urls import path, re_path,include
 from .views import *
 
 urlpatterns = [
+    # 游记点赞
     path('fav/', FavView.as_view(), name='fav'),
-    path('collect/', CollView.as_view(), name='collect')
+    # 游记收藏
+    path('collect/', CollView.as_view(), name='collect'),
+    # 游记评论
+    path('comments/', CommentsView.as_view(), name='comments'),
+
 ]
