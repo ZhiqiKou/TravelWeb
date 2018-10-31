@@ -7,5 +7,5 @@ from .views import *
 
 urlpatterns = [
     path('fav/', FavView.as_view(), name='fav'),
-
+    path('collect/', CollView.as_view(), name='collect')
 ]

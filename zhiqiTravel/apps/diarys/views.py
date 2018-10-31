@@ -7,7 +7,7 @@ import json
 
 
 from .models import *
-from operation.models import UserFav
+from operation.models import UserFav,UserCollect
 from .forms import *
 
 
@@ -112,17 +112,23 @@ class DetailsView(View):
         diary = Diary.objects.get(id=diary_id)
         diary.checknum += 1
         diary.save()
-
         try:
             fav_diary = UserFav.objects.get(diary=diary, user=request.user)
             hasfav = True
         except:
             hasfav = False
 
+        try:
+            coll_diary = UserCollect.objects.get(diary=diary, user=request.user)
+            hascoll = True
+        except:
+            hascoll = False
+
         return render(request, 'note.html', {
             'diary': diary,
             'new_diarys': new_diarys,
             'hasfav': hasfav,
+            'hascoll': hascoll,
         })
 
 

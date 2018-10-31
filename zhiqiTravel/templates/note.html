@@ -17,12 +17,11 @@
 				<label>作者：{{ diary.user.nickname }}。</label>
 				<span>发布于：{{ diary.add_times }}</span>
 			</div>
-
             <script type="text/javascript">
-                function fav(diary_id)
+                function operation(opertype, diary_id)
                     {
                          $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
-                         $.ajax({
+                         if(opertype === 'fav'){$.ajax({
                              type: "POST",
                              data: {'id': diary_id},
                              url: '{% url 'operation:fav' %}',
@@ -32,35 +31,58 @@
                                  if(data.status === "fav"){
                                      $(".favimg").attr("src", "{% static 'images/favour_ico2.png' %}");
                                      {#局部刷新#}
-                                     $(".favimg").load(location.href + " .favimg");
+                                     $(".fav").load(location.href + " .fav");
                                  }
                                  else
                                  {
                                      $(".favimg").attr("src", "{% static 'images/favour_ico.png' %}");
-                                     $(".favimg").load(location.href + " .favimg");
+                                     $(".fav").load(location.href + " .fav");
                                  }
                              },
                              error:function (){
                                  alert('error')
                              },
-                        });
+                        });}
+                         else {$.ajax({
+                             type: "POST",
+                             data: {'id': diary_id},
+                             url: '{% url 'operation:collect' %}',
+                             cache: false,
+                             dataType: "json",
+                             success:function (data) {
+                                 if(data.status === "coll"){
+                                     $(".collimg").attr("src", "{% static 'images/collection_ico2.png' %}");
+                                     {#局部刷新#}
+                                     $(".coll").load(location.href + " .coll");
+                                 }
+                                 else
+                                 {
+                                     $(".collimg").attr("src", "{% static 'images/collection_ico.png' %}");
+                                     $(".coll").load(location.href + " .coll");
+                                 }
+                             },
+                             error:function (){
+                                 alert('error')
+                             },
+                        });}
                     }
         </script>
-
-
-
 			<div class="operation">
-				<a href="javascript:void(0);" onclick="fav({{ diary.id }})">
-                    <div class="favimg">
-                        <img  src="{% if hasfav %}
+				<a href="javascript:void(0);" onclick="operation('fav',{{ diary.id }})">
+                    <div class="fav">
+                        <img class="favimg" src="{% if hasfav %}
                         {% static 'images/favour_ico2.png' %}{% else %}{% static 'images/favour_ico.png' %}
                         {% endif %}"/>
                         <p>{{ diary.praisenum }}个赞</p>
                     </div>
 				</a>
-				<a href="#">
-					<img src="{% static 'images/collection_ico.png' %}"/>
-					<p>{{ diary.collectnum }}个收藏</p>
+				<a href="javascript:void(0);" onclick="operation('coll',{{ diary.id }})">
+                    <div class="coll">
+                        <img class="collimg" src="{% if hascoll %}
+                            {% static 'images/collection_ico2.png' %}{% else %}{% static 'images/collection_ico.png' %}
+                            {% endif %}"/>
+                        <p>{{ diary.collectnum }}个收藏</p>
+                    </div>
 				</a>
 			</div>
 
