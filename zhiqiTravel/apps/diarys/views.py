@@ -7,6 +7,7 @@ import json
 
 
 from .models import *
+from operation.models import UserFav
 from .forms import *
 
 
@@ -111,9 +112,17 @@ class DetailsView(View):
         diary = Diary.objects.get(id=diary_id)
         diary.checknum += 1
         diary.save()
+
+        try:
+            fav_diary = UserFav.objects.get(diary=diary, user=request.user)
+            hasfav = True
+        except:
+            hasfav = False
+
         return render(request, 'note.html', {
             'diary': diary,
             'new_diarys': new_diarys,
+            'hasfav': hasfav,
         })
 
 
@@ -126,5 +135,5 @@ class DeleteView(View):
         new_diarys = request.user.diary_set.all()
         diary = new_diarys.get(id=diary_id)
         diary.delete()
-        result = json.dumps({"status": "success", "msg": "签到成功"}, ensure_ascii=False)
+        result = json.dumps({"status": "success"}, ensure_ascii=False)
         return HttpResponse(result)

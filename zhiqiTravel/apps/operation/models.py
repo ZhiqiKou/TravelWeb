@@ -18,6 +18,16 @@ class UserCollect(models.Model):
         verbose_name_plural = verbose_name
 
 
+class UserFav(models.Model):
+    user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE)
+    diary = models.ForeignKey(Diary, verbose_name='游记', on_delete=models.CASCADE)
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='点赞时间')
+
+    class Meta:
+        verbose_name = '游记点赞'
+        verbose_name_plural = verbose_name
+
+
 class DiaryComments(models.Model):
     user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE)
     diary = models.ForeignKey(Diary, verbose_name='游记', on_delete=models.CASCADE)

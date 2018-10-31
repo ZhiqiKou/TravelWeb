@@ -73,5 +73,9 @@ urlpatterns = [
     # 设置默认联系人
     path('default_contact/<int:contact_id>', DefaultContactView.as_view(), name='default_contact'),
 
+    # 其余操作相关
+    path('operation/', include(('operation.urls', 'operation')), name='operation'),
+
+    # 用户上传文件路径
     re_path(r'media/(?P<path>.*)$',serve,{"document_root": MEDIA_ROOT}),
 ]

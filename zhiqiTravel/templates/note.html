@@ -17,10 +17,46 @@
 				<label>作者：{{ diary.user.nickname }}。</label>
 				<span>发布于：{{ diary.add_times }}</span>
 			</div>
+
+            <script type="text/javascript">
+                function fav(diary_id)
+                    {
+                         $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+                         $.ajax({
+                             type: "POST",
+                             data: {'id': diary_id},
+                             url: '{% url 'operation:fav' %}',
+                             cache: false,
+                             dataType: "json",
+                             success:function (data) {
+                                 if(data.status === "fav"){
+                                     $(".favimg").attr("src", "{% static 'images/favour_ico2.png' %}");
+                                     {#局部刷新#}
+                                     $(".favimg").load(location.href + " .favimg");
+                                 }
+                                 else
+                                 {
+                                     $(".favimg").attr("src", "{% static 'images/favour_ico.png' %}");
+                                     $(".favimg").load(location.href + " .favimg");
+                                 }
+                             },
+                             error:function (){
+                                 alert('error')
+                             },
+                        });
+                    }
+        </script>
+
+
+
 			<div class="operation">
-				<a href="#">
-					<img src="{% static 'images/favour_ico.png' %}"/>
-					<p>{{ diary.praisenum }}个赞</p>
+				<a href="javascript:void(0);" onclick="fav({{ diary.id }})">
+                    <div class="favimg">
+                        <img  src="{% if hasfav %}
+                        {% static 'images/favour_ico2.png' %}{% else %}{% static 'images/favour_ico.png' %}
+                        {% endif %}"/>
+                        <p>{{ diary.praisenum }}个赞</p>
+                    </div>
 				</a>
 				<a href="#">
 					<img src="{% static 'images/collection_ico.png' %}"/>
