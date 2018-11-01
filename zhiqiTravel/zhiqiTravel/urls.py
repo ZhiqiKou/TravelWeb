@@ -42,6 +42,8 @@ urlpatterns = [
     path('news/', include(('news.urls', 'news'))),
     # 旅游页面
     path('scenicspots/', include(('scenicspots.urls', 'scenicspots')), name='scenicspots'),
+    # 商城相关
+    path('shop/', include(('shop.urls', 'shop')), name='shop'),
     # 游记相关
     path('diarys/', include(('diarys.urls', 'diarys')), name='diarys'),
 

@@ -9,8 +9,8 @@
 	</div>
 	<div class="tag">
 		<div class="cw1200">
-			<a class="cur" href="{% url 'diarys:all' 'new' %}">最新游记</a><span></span>
-			<a href="{% url 'diarys:all' 'hot' %}">发现精彩</a><span></span>
+			<a {% if diary_type == 'new' %}class="cur"{% endif %} href="{% url 'diarys:all' 'new' %}">最新游记</a><span></span>
+			<a {% if diary_type == 'hot' %}class="cur"{% endif %} href="{% url 'diarys:all' 'hot' %}">发现精彩</a><span></span>
 			<a href="{% url 'diarys:getdiaray' 0 %}">我要写游记</a>
 		</div>
 	</div>

@@ -1,5 +1,7 @@
 from django.db import models
 
+from DjangoUeditor.models import UEditorField
+
 from datetime import datetime
 
 
@@ -18,10 +20,16 @@ class Product(models.Model):
                                                        ('gyp', '工艺品'),
                                                        ('fsp', '副食品'),
                                                        ),
-                                verbose_name='分类',default='ncp')
+                                verbose_name='分类', default='ncp')
     buyers = models.IntegerField(default=0, verbose_name='购买人数')
     comments = models.IntegerField(default=0, verbose_name='评论人数')
-    details = models.TextField(verbose_name='商品详情')
+    details = UEditorField(verbose_name='商品详情',
+                           width=600,
+                           height=300,
+                           imagePath="shop/ueditor/",
+                           filePath="shop/ueditor/", default='')
+    mainimg = models.ImageField(upload_to='product/mainimg/%Y/%m',default='', verbose_name='商品主图')
+    remind = models.CharField(max_length=20, null=True,blank=True, verbose_name='提醒')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
@@ -34,7 +42,8 @@ class Product(models.Model):
 
 class ProPic(models.Model):
     product = models.ForeignKey(Product, verbose_name='商品', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=product.name, verbose_name='商品图')
+    image = models.ImageField(upload_to='product/%Y/%m', verbose_name='商品图')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
         verbose_name = '商品图片'

@@ -14,7 +14,7 @@ from .forms import *
 # Create your views here.
 class GetdiarayView(View):
     """
-    游记页面
+    编写游记页面
     """
     def get(self, request, diary_id):
 
@@ -133,6 +133,7 @@ class DetailsView(View):
             'hasfav': hasfav,
             'hascoll': hascoll,
             'comm_diarys': comm_diarys,
+            'now_type': 'diary',
         })
 
 
@@ -150,6 +151,9 @@ class DeleteView(View):
 
 
 class AllDiaryView(View):
+    """
+    所有游记
+    """
     def get(self, request, diary_type):
         diarys = []
         if diary_type == 'new':
@@ -162,4 +166,6 @@ class AllDiaryView(View):
 
         return render(request, 'note_list.html', {
             'diarys': diarys,
+            'diary_type': diary_type,
+            'now_type': 'diary',
         })
