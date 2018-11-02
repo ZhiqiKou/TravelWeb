@@ -7,6 +7,7 @@ import json
 
 from .models import *
 from .forms import *
+from operation.models import ShoppingCart
 
 
 # Create your views here.
@@ -80,3 +81,49 @@ class CommentsView(View):
         else:
             result = json.dumps({"status": "failed"}, ensure_ascii=False)
             return HttpResponse(result)
+
+
+class ShopcarView(View):
+    """
+    购物车
+    """
+    def post(self, request):
+        productid = request.POST.get('product_id', '')
+        num = request.POST.get('num', '')
+        user = request.user
+        # 商品存在：
+        try:
+            product = Product.objects.get(id=productid)
+            try:
+                # 购物车里已经有这个商品
+                shoppingcart = ShoppingCart.objects.get(product=product, user=user)
+                shoppingcart.num += int(num)
+
+                if shoppingcart.num <= product.num:
+                    shoppingcart.save()
+                    result = json.dumps({"status": "success", "msg": "添加成功！在购物车等你呦～～"}, ensure_ascii=False)
+                else:
+                    # 超出商品最大数量
+                    result = json.dumps({"status": "failed", "msg": "购物车中总数量超过商品总数，请重新添加！"}, ensure_ascii=False)
+            except:
+                # 购物车里没有这个商品
+                shoppingcart = ShoppingCart()
+                shoppingcart.user = user
+                shoppingcart.product = product
+                shoppingcart.num = num
+                shoppingcart.save()
+
+                result = json.dumps({"status": "success", "msg": "添加成功！在购物车等你呦～～"}, ensure_ascii=False)
+        # 商品不存在：
+        except:
+            # 报错
+            result = json.dumps({"status": "failed", "msg": "添加失败！商品不存在！"}, ensure_ascii=False)
+        return HttpResponse(result)
+
+    def get(self, request):
+        products = ShoppingCart.objects.filter(user=request.user)
+
+        return render(request,'shop_car.html', {
+            'products': products
+        })
+

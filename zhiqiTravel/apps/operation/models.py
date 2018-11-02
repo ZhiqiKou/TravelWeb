@@ -5,6 +5,7 @@ from datetime import datetime
 from users.models import MyUser
 from diarys.models import Diary
 from scenicspots.models import Spots, Active
+from shop.models import Product
 
 
 # Create your models here.
@@ -59,3 +60,11 @@ class ActiveComments(models.Model):
     class Meta:
         verbose_name = '活动评论'
         verbose_name_plural = verbose_name
+
+
+class ShoppingCart(models.Model):
+    user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='商品', on_delete=models.CASCADE)
+    num = models.IntegerField(verbose_name='商品数量')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+

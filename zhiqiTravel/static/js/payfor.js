@@ -141,20 +141,20 @@ var setAmount = {
             $(obj).focus();
         }
     },
-    add:function(obj) {
+    add:function(obj, num) {
         var x = this.amount(obj, true);
-        if (x <= this.max) {
+        if (x <= num) {
             $(obj).val(x);
             recalc();
         } else {
-            alert("商品数量最多为" + this.max);
-            $(obj).val(999);
+            alert("商品数量最多为" + num);
+            $(obj).val(num);
             $(obj).focus();
         }
     },
-    modify:function(obj) {
+    modify:function(obj, num) {
         var x = $(obj).val();
-        if (x < this.min || x > this.max || !this.reg(x)) {
+        if (x < this.min || x > num || !this.reg(x)) {
             alert("请输入正确的数量！");
             $(obj).val(1);
             $(obj).focus();

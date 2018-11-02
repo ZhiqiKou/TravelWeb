@@ -13,4 +13,7 @@ urlpatterns = [
     # 游记评论
     path('comments/', CommentsView.as_view(), name='comments'),
 
+    # 购物车
+    path('shopcar/', ShopcarView.as_view(), name='shopcar'),
+
 ]

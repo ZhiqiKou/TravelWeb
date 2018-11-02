@@ -51,16 +51,50 @@
 						<div class="add_chose">
 							<label>数量：</label>
 							<a class="reduce" onClick="setAmount.reduce('#qty_item_1')" href="javascript:void(0)">-</a>
-							<input type="text" name="qty_item_1" value="1" id="qty_item_1" onKeyUp="setAmount.modify('#qty_item_1')" class="text" />
-							<a class="add" onClick="setAmount.add('#qty_item_1')" href="javascript:void(0)">+</a>
+							<input type="text" name="qty_item_1" value="1" id="qty_item_1" onKeyUp="setAmount.modify('#qty_item_1', {{ product.num }})" class="text" />
+							<a class="add" onClick="setAmount.add('#qty_item_1', {{ product.num }})" href="javascript:void(0)">+</a>
 							<span>库存：{{ product.num }}件</span>
 							<div class="clear"></div>
 						</div>
+
+
+                    <script type="text/javascript">
+                        function addshopcar(product_id)
+                            {
+                                 $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+                                 $.ajax({
+                                     type: "POST",
+                                     data: {'product_id': product_id, 'num': $('#qty_item_1').val()},
+                                     url: '{% url 'operation:shopcar' %}',
+                                     cache: false,
+                                     dataType: "json",
+                                     success:function (data) {
+
+                                         alert(data.msg)
+                                         if(data.status === "success"){
+                                             {#   跳转到购物车#}
+                                         }
+                                         else
+                                         {
+                                             {#   重载本页面#}
+                                         }
+                                     },
+                                     error:function (){
+                                         alert('error')
+                                     },
+                                });
+                            }
+                    </script>
+
+
+
+
 						<div class="buy">
 							<ul>
 								<li>总价：<span class="total-font" id="total_item_1">￥{{ product.price|floatformat:"2" }}</span></li>
 								<li><span class="jifen">购买商品可获得：<b id="total_points">{{ product.price }}</b>积分</span></li>
-								<li><a class="go_buy" href="confirm_order.html">立即购买</a><a class="car_buy" href="shop_car.html">加入购物车</a></li>
+								<li><a class="go_buy" href="confirm_order.html">立即购买</a>
+                                    <a class="car_buy" href="javascript:void(0);" onclick="addshopcar({{ product.id }})">加入购物车</a></li>
 								<li>运费：<span class="tp_bg">{% if product.freight == 0 %}卖家承担运费{% else %}￥{{ product.freight|floatformat:"2" }}{% endif %}</span></li>
 								{% if product.remind %}<li>提醒：<span class="tp_bg">{{ product.remind }}</span></li>{% endif %}
 							</ul>

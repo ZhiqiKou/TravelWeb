@@ -101,7 +101,7 @@ function() {
 				</div>
 				<span>|</span>
 			</li>
-            <li class="tb"><a href="shop_car.html"><i class="cart_ico"></i>购物车</a><span>|</span></li>
+            <li class="tb"><a href="{% url 'operation:shopcar' %}"><i class="cart_ico"></i>购物车</a><span>|</span></li>
             <li class="tb"><a href="news_list.html">用户帮助中心</a>
             {% else %}
             <li class="tb"><img src="{% static 'images/tel_ico.gif' %}"/><font>40000-40000</font></li>

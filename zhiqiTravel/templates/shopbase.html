@@ -1,0 +1,63 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{% block title%}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-------------jquery库-------------->
+  	<script type="text/javascript" src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+	<!-------------Amazeui--------------->
+    <script type="text/javascript" src="{% static 'js/amazeui.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/amazeui.css' %}">
+    <!------------核心样式-------------->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+    {% block script %}{% endblock %}
+</head>
+<body>
+
+<!-------------------版头------------------->
+<div id="header">
+    <div class="cw1000">
+        <!-------------------logo------------------->
+        <div class="logo"><a title="" href="{% url 'index' %}"><img alt="" src="{% static 'images/logo.jpg' %}" /></a></div>
+		<!-------------------头部导航------------------->
+		<div class="head_title">
+			{% block head_title %}{% endblock %}
+		</div>
+		<!-------------------用户------------------->
+		<div class="user">
+					<a class="user-hd" href="#">
+						<img src="{{ MEDIA_URL }}{{ request.user.portrait }}"/><b></b>
+						<div class="clear"></div>
+					</a>
+					<div class="user-bd">
+						<div class="integral"><img src="{% static 'images/integral_ico.png' %}"/>当前积分 {{ request.user.integral }}</div>
+						<ul class="nav_sort">
+							<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
+							<li><a href="{% url 'diarys:getdiaray' 0 %}"><i class="i2"></i>写游记</a></li>
+							<li><a href="{% url 'diarys:mydetails' 'published' %}"><i class="i9"></i>我的游记</a></li>
+							<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
+							<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
+							<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
+							<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
+							<li><a href="{% url 'userinfo' 'info' %}"><i class="i7"></i>设置</a></li>
+							<li><a href="{% url 'logout' %}"><i class="i8"></i>退出</a></li>
+						</ul>
+					</div>
+				</div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!-----------------框架---------------->
+{% block content %}
+
+{% endblock %}
+
+<!-----------------版底---------------->
+<div id="footer">
+	<p>Zhiqi文化旅游发展有限公司 版权所有</p>
+	<p>Copyright 2019 zhiqi All Rights Reserved | 豫ICP备00000000号　技术支持：zhiqi</p>
+</div>
+</body>
+</html>
