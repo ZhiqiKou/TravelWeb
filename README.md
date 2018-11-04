@@ -1,6 +1,6 @@
 # TravelWeb
 + Django旅游网实战项目
-+ 欢迎交流，也可以在issues中向我提问
++ 欢迎交流，QQ群：429555565，也可以在issues中向我提问
 + 欢迎star
 
 ## 开发环境
