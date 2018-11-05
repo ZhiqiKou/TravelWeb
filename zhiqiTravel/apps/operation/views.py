@@ -121,7 +121,7 @@ class ShopcarView(View):
         return HttpResponse(result)
 
     def get(self, request):
-        products = ShoppingCart.objects.filter(user=request.user)
+        products = ShoppingCart.objects.filter(user=request.user).order_by('-add_time')
 
         return render(request,'shop_car.html', {
             'products': products

@@ -8,6 +8,8 @@ register = template.Library()
 
 
 @register.simple_tag
-def multiplication(multiplier1, multiplier2, figures):
-
-    return round(multiplier1 * multiplier2, figures)
+def CalculateThePrice(TheUnitPrice, num, freight):
+    # 单价*数量+邮费
+    price = TheUnitPrice * num + freight
+    # 保留两位小数
+    return '%.2f' % price
