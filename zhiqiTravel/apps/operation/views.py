@@ -121,9 +121,96 @@ class ShopcarView(View):
         return HttpResponse(result)
 
     def get(self, request):
-        products = ShoppingCart.objects.filter(user=request.user).order_by('-add_time')
+        user = request.user
+        products = ShoppingCart.objects.filter(user=user).order_by('-add_time')
 
-        return render(request,'shop_car.html', {
-            'products': products
+        # 总价
+        totalprice = 0
+        # 总运费
+        totalfreight = 0
+        checkgoods = ShoppingCart.objects.filter(user=user, is_check=True)
+        for checkgood in checkgoods:
+            # 总价 = 单价*数量+运费
+            totalprice += checkgood.product.price * checkgood.num + checkgood.product.freight
+            # 总运费 = 所有运费相加
+            totalfreight += checkgood.product.freight
+
+        allcheck = True
+        if ShoppingCart.objects.filter(user=user, is_check=False):
+            allcheck = False
+
+
+
+
+        return render(request, 'shop_car.html', {
+            'products': products,
+            'allcheck': allcheck,
+            # 价格保留两位小数
+            'totalprice': '%.2f' % totalprice,
+            'totalfreight': '%.2f' % totalfreight,
         })
 
+
+class ShopcarOperationView(View):
+    """
+    购物车中的一些操作
+    """
+    def post(self, request):
+        operation = request.POST.get('opera', '')
+        proid = request.POST.get('proid', '')
+        result = {}
+
+        # 有指定的商品，非全选
+        if int(proid) > 0:
+            goods = ShoppingCart.objects.get(id=int(proid))
+            if operation == 'add':
+                if goods.num < goods.product.num:
+                    goods.num += 1
+                    result = json.dumps({"status": "success", "msg": "数量增加成功！"}, ensure_ascii=False)
+                else:
+                    result = json.dumps({"status": "failed", "msg": "超出商品最大数量！"}, ensure_ascii=False)
+            elif operation == 'reduce':
+                if goods.num > 1:
+                    goods.num -= 1
+                    result = json.dumps({"status": "success", "msg": "数量减少成功！"}, ensure_ascii=False)
+                else:
+                    result = json.dumps({"status": "failed", "msg": "商品数量最少为1！"}, ensure_ascii=False)
+            elif operation == 'true':
+                goods.is_check = True
+                result = json.dumps({"status": "success", "msg": "商品选中！"}, ensure_ascii=False)
+
+            elif operation == 'false':
+                goods.is_check = False
+                result = json.dumps({"status": "success", "msg": "取消商品选中！"}, ensure_ascii=False)
+
+            elif operation.isdigit():
+                num = int(operation)
+                if num > goods.product.num:
+                    goods.num = goods.product.num
+                    result = json.dumps({"status": "failed", "msg": "超出商品最大数量！"}, ensure_ascii=False)
+                elif num < 1:
+                    goods.num = 1
+                    result = json.dumps({"status": "failed", "msg": "商品数量最少为1！"}, ensure_ascii=False)
+                else:
+                    goods.num = num
+                    result = json.dumps({"status": "success", "msg": "数量修改成功！"}, ensure_ascii=False)
+            else:
+                result = json.dumps({"status": "failed", "msg": "ERROR！"}, ensure_ascii=False)
+
+            goods.save()
+
+        # 没有指定的商品，全选
+        else:
+            goods = ShoppingCart.objects.filter(user=request.user)
+            if operation == 'true':
+                for good in goods:
+                    good.is_check = True
+                    good.save()
+                result = json.dumps({"status": "success", "msg": "全部商品选中！"}, ensure_ascii=False)
+
+            elif operation == 'false':
+                for good in goods:
+                    good.is_check = False
+                    good.save()
+                result = json.dumps({"status": "success", "msg": "取消全部商品选中！"}, ensure_ascii=False)
+        return HttpResponse(result)

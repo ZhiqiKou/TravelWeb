@@ -66,5 +66,10 @@ class ShoppingCart(models.Model):
     user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name='商品', on_delete=models.CASCADE)
     num = models.IntegerField(verbose_name='商品数量')
+    is_check = models.BooleanField(default=False, verbose_name='是否选中')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
+
+    class Meta:
+        verbose_name = '购物车'
+        verbose_name_plural = verbose_name
 

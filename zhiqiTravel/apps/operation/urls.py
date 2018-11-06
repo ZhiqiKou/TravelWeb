@@ -15,5 +15,7 @@ urlpatterns = [
 
     # 购物车
     path('shopcar/', ShopcarView.as_view(), name='shopcar'),
+    # 购物车操作,操作：add(数量加1)/reduce(数量减1)/checked(商品选中)/uncheck(商品不选中),以及正整数(直接修改数量)
+    path('shopcaroperation/', ShopcarOperationView.as_view(), name='shopcaroperation'),
 
 ]

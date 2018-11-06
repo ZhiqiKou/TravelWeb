@@ -3,86 +3,17 @@
 {% block head_title %}购物车{% endblock %}
 {% load operation_extras %}
 {% block content %}
-<script>
-    function finallyprice() {
-            allprice = 0
-            allfreight = 0
-            $(".list_box").find("input[type='checkbox']:checked").each(function() {
-                goodsprice = Number($(this).parents("li").find("div[class='price']").find("span").text().substring(1));
-                allprice += goodsprice
-
-                goodsfreight = Number($(this).parents("li").find("div[class='price']").find("p").text().substring(3));
-                allfreight += goodsfreight
-
-            });
-
-            $("#totalprice").html('合计（含运费'+ allfreight.toFixed(2) + '元）：<b>￥0.00</b>')
-            $("#totalprice").find("b").text('￥' + allprice.toFixed(2))
-        }
-
-
-        function addnum(priceobj,amountobj,num, price, freight) {
-            amount = Number($(amountobj).val());
-            if(amount < num){
-                amount += 1;
-                $(amountobj).val(amount)
-            }
-            else{
-                alert("超出商品最大数量！")
-            }
-            p = (amount * price + freight).toFixed(2)
-
-            $(priceobj).text('￥' + p)
-            finallyprice();
-        }
-
-        function reducenum(priceobj,amountobj, price, freight) {
-            amount = Number($(amountobj).val());
-            if(amount > 1){
-                amount -= 1;
-                $(amountobj).val(amount)
-            }
-            else{
-                alert("数量最少为1！")
-            }
-
-            p = (amount * price + freight).toFixed(2)
-
-            $(priceobj).text('￥' + p)
-            finallyprice();
-        }
-
-        function amountnum(priceobj,amountobj,num, price, freight) {
-            amount = Number($(amountobj).val());
-            if(amount < 1){
-                alert("数量最少为1！")
-                $(amountobj).val(1)
-            }
-            else if(amount > num){
-                alert("超出商品最大数量！")
-                $(amountobj).val(num)
-            }
-            else {
-                $(amountobj).val(amount)
-            }
-            p = (amount * price + freight).toFixed(2)
-            $(priceobj).text('￥' + p)
-            finallyprice();
-        }
-
-</script>
 
 
 
 
 <div id="shop_car">
 	<div class="cw1000">
-
 		<div class="main_title">
 			<ul>
 				<li style="width:35%;">
 					<label class="am-checkbox">
-						<input type="checkbox" id="checkbox_a1" class="chk_1">
+						<input type="checkbox" id="checkbox_a1" onchange="operation(this.checked, -1)" {% if allcheck %}checked="checked"{% endif %} class="chk_1">
 						<label for="checkbox_a1" style="margin-right:10px;"></label> 全选
 					</label>
 					商品信息
@@ -103,7 +34,7 @@
 {#								<input type="checkbox" id="checkbox_a2" class="chk_1">#}
 {#								<label for="checkbox_a2"></label>#}
 
-                                <input type="checkbox" id="cb{{ pro.id }}" class="chk_1">
+                                <input type="checkbox" id="cb{{ pro.id }}" onchange="operation(this.checked, {{ pro.id }})" class="chk_1" {% if pro.is_check %}checked="checked"{% endif %}>
 								<label for="cb{{ pro.id }}"></label>
 
 							</label>
@@ -117,9 +48,9 @@
                             <div class="price" style="width:15%;"><label>￥{{ pro.product.price|floatformat:"2" }}</label><p>邮费：{{ pro.product.freight|floatformat:"2" }}</p></div>
 						<div class="number" style="width:20%;">
 							<div class="Spinner">
-								<a class="DisDe" onclick="reducenum('#price{{ pro.id }}', '#amount{{ pro.id }}', {{ pro.product.price|floatformat:"2" }}, {{ pro.product.freight|floatformat:"2" }})" href="javascript:void(0)"><i>-</i></a>
-								<input class="Amount" onKeyUp="amountnum('#price{{ pro.id }}', '#amount{{ pro.id }}', {{ pro.product.num }}, {{ pro.product.price|floatformat:"2" }}, {{ pro.product.freight|floatformat:"2" }})" id="amount{{ pro.id }}" value="{{ pro.num }}" autocomplete="off" maxlength="4">
-								<a class="Increase" onclick="addnum('#price{{ pro.id }}', '#amount{{ pro.id }}', {{ pro.product.num }}, {{ pro.product.price|floatformat:"2" }}, {{ pro.product.freight|floatformat:"2" }})" href="javascript:void(0)" ><i>+</i></a>
+								<a class="DisDe" onclick="operation('reduce', {{ pro.id }})" href="javascript:void(0)"><i>-</i></a>
+								<input class="Amount" onchange="operation(this.value, {{ pro.id }})"  autocomplete="off" value="{{ pro.num }}" maxlength="4">
+								<a class="Increase" onclick="operation('add', {{ pro.id }})" href="javascript:void(0)" ><i>+</i></a>
 							</div>
 						</div>
 						<div class="price" style="width:15%;"><span id="price{{ pro.id }}">￥{% CalculateThePrice pro.product.price pro.num pro.product.freight %}</span></div>
@@ -134,35 +65,36 @@
 		</div>
 		<div class="calculation">
 			<label class="am-checkbox" style="float:left;padding-left:30px;margin-top:15px;">
-				<input type="checkbox" id="checkbox_a0" class="chk_1">
+				<input type="checkbox" id="checkbox_a0" onchange="operation(this.checked, -1)" {% if allcheck %}checked="checked"{% endif %} class="chk_1">
 				<label style="margin-right:10px;" for="checkbox_a0"></label> 全选
 			</label>
 			<a href="confirm_order.html">提交订单</a>
-            <span id="totalprice">合计（含运费0.00元）：<b>￥0.00</b></span>
+            <span id="totalprice">合计（含运费{{ totalfreight }}元）：<b>￥{{ totalprice }}</b></span>
 
 		</div>
 	</div>
 	<div class="clear"></div>
 </div>
-    <script>
-        {# 全选功能 #}
-        $("#checkbox_a1,#checkbox_a0").click(function(){
-            if(this.checked){
-                $(".chk_1").each(function () {
-                   $(".chk_1").attr("checked",true);
-                });
-            }else{
-                $(".chk_1").each(function () {
-                   $(".chk_1").attr("checked",false);
-                });
-            }
-
-        });
-
-        $(".chk_1").bind("change", finallyprice);
-
+    <script type="text/javascript">
+        function operation(opera, proid){
+             $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+             $.ajax({
+                 type: "POST",
+                 data: {'opera': opera, 'proid': proid},
+                 url: '{% url 'operation:shopcaroperation' %}',
+                 cache: false,
+                 dataType: "json",
+                 success:function (data) {
+                     if(data.status == "failed"){
+                         alert(data.msg)
+                     }
+                     $("#shop_car").load(location.href + " #shop_car");
+                 },
+                 error:function (){
+                     alert('error')
+                 },
+              });}
     </script>
-
 
 
 {% endblock %}
