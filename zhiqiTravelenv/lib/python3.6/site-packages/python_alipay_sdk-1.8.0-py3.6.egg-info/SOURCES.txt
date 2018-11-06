@@ -1,0 +1,11 @@
+README.md
+setup.cfg
+setup.py
+alipay/__init__.py
+alipay/compat.py
+alipay/exceptions.py
+python_alipay_sdk.egg-info/PKG-INFO
+python_alipay_sdk.egg-info/SOURCES.txt
+python_alipay_sdk.egg-info/dependency_links.txt
+python_alipay_sdk.egg-info/requires.txt
+python_alipay_sdk.egg-info/top_level.txt
