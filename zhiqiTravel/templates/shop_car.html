@@ -3,10 +3,6 @@
 {% block head_title %}购物车{% endblock %}
 {% load operation_extras %}
 {% block content %}
-
-
-
-
 <div id="shop_car">
 	<div class="cw1000">
 		<div class="main_title">
@@ -68,7 +64,7 @@
 				<input type="checkbox" id="checkbox_a0" onchange="operation(this.checked, -1)" {% if allcheck %}checked="checked"{% endif %} class="chk_1">
 				<label style="margin-right:10px;" for="checkbox_a0"></label> 全选
 			</label>
-			<a href="confirm_order.html">提交订单</a>
+			<a href="{% url 'operation:confirm' %}">提交订单</a>
             <span id="totalprice">合计（含运费{{ totalfreight }}元）：<b>￥{{ totalprice }}</b></span>
 
 		</div>

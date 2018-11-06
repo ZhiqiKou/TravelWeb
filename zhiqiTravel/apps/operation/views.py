@@ -8,6 +8,7 @@ import json
 from .models import *
 from .forms import *
 from operation.models import ShoppingCart
+from users.models import TheContact
 
 
 # Create your views here.
@@ -214,3 +215,23 @@ class ShopcarOperationView(View):
                     good.save()
                 result = json.dumps({"status": "success", "msg": "取消全部商品选中！"}, ensure_ascii=False)
         return HttpResponse(result)
+
+
+class ConfirmView(View):
+    def get(self, request):
+        user = request.user
+        contactinfo = TheContact.objects.filter(user=user)
+        goodsinfo = ShoppingCart.objects.filter(user=user, is_check=True)
+
+        totalprice = 0
+        totalfreight = 0
+        for good in goodsinfo:
+            totalprice += good.product.price * good.num + good.product.freight
+            totalfreight += good.product.freight
+
+        return render(request, 'confirm_order.html', {
+            'contactinfo': contactinfo,
+            'goodsinfo': goodsinfo,
+            'totalprice': '%.2f' % totalprice,
+            'totalfreight': '%.2f' % totalfreight,
+        })
