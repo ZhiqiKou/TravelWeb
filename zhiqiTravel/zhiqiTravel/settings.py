@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'scenicspots',
     'shop',
     'users',
+    'pay',
 
     'xadmin',
     'crispy_forms',
@@ -160,4 +161,16 @@ EMAIL_HOST_USER = 'zhiqiproject@163.com'
 EMAIL_HOST_PASSWORD = 'zhiqitravel123'
 EMAIL_USE_TLS= False
 EMAIL_FROM = 'ZhiqiTravel<zhiqiproject@163.com>'
+
+
+# 支付宝设置
+ALIPAY_APPID = '2016092000553427'
+# 公钥
+ALIPAY_PUBLIC_KEY_PATH = os.path.join(BASE_DIR, 'apps/pay/keys/alipay_public_key')
+# 私钥
+APP_PRIVATE_KEY_PATH = os.path.join(BASE_DIR, 'apps/pay/keys/alipay_app_private_key')
+# 接口
+ALIPAY_URL = 'https://openapi.alipaydev.com/gateway.do?'
+# 支付成功后返回地址：
+ALIPAY_RETURN_URL = 'http://127.0.0.1:8000/pay/alipayResultTest'
 

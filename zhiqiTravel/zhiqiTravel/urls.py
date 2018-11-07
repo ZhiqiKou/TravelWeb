@@ -18,6 +18,7 @@ from django.urls import path, re_path,include
 from django.views.static import serve
 import xadmin
 from users.views import *
+from pay.views import AliPayTestView
 from zhiqiTravel.settings import MEDIA_ROOT
 
 urlpatterns = [
@@ -77,6 +78,9 @@ urlpatterns = [
 
     # 其余操作相关
     path('operation/', include(('operation.urls', 'operation')), name='operation'),
+
+    # 支付相关
+    path('pay/', include(('pay.urls', 'pay')), name='pay'),
 
     # 用户上传文件路径
     re_path(r'media/(?P<path>.*)$',serve,{"document_root": MEDIA_ROOT}),
