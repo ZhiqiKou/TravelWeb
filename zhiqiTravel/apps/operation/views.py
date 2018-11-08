@@ -218,6 +218,9 @@ class ShopcarOperationView(View):
 
 
 class ConfirmView(View):
+    """
+    确认订单
+    """
     def get(self, request):
         user = request.user
         contactinfo = TheContact.objects.filter(user=user)

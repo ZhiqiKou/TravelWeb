@@ -73,3 +73,4 @@ class ShoppingCart(models.Model):
         verbose_name = '购物车'
         verbose_name_plural = verbose_name
 
+

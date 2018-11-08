@@ -171,6 +171,6 @@ ALIPAY_PUBLIC_KEY_PATH = os.path.join(BASE_DIR, 'apps/pay/keys/alipay_public_key
 APP_PRIVATE_KEY_PATH = os.path.join(BASE_DIR, 'apps/pay/keys/alipay_app_private_key')
 # 接口
 ALIPAY_URL = 'https://openapi.alipaydev.com/gateway.do?'
-# 支付成功后返回地址：
-ALIPAY_RETURN_URL = 'http://127.0.0.1:8000/pay/alipayResultTest'
+# 支付关闭时间：
+ALIPAY_CLOSE_TIME = '60m'
 
