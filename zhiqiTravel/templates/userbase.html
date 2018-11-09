@@ -24,7 +24,7 @@
 			<ul>
 				<li><a title="" href="{% url 'index' %}">首页</a><span>|</span></li>
 				<li><a title="" href="{% url 'scenicspots:all' %}">洛阳旅游</a><span>|</span></li>
-				<li><a title="" href="mall_list.html">特产商城</a><span>|</span></li>
+				<li><a title="" href="{% url 'shop:all' %}">特产商城</a><span>|</span></li>
 				<li><a title="" href="{% url 'diarys:all' 'new' %}">游记文章</a><span>|</span></li>
 				<li><a title="" href="{% url 'news:all' %}">新闻资讯</a><span>|</span></li>
                 <li><a title="" href="https://github.com/ZhiqiKou/TravelWeb">项目地址</a></li>
@@ -44,7 +44,7 @@
 					<li><a href="{% url 'diarys:getdiaray' 0 %}"><i class="i2"></i>写游记</a></li>
 					<li><a href="{% url 'diarys:mydetails' 'published' %}"><i class="i9"></i>我的游记</a></li>
 					<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
-					<li><a href="project_order.html"><i class="i4"></i>商品订单</a></li>
+					<li><a href="{% url 'pay:project_order' %}"><i class="i4"></i>商品订单</a></li>
 					<li><a href="scenic_order.html"><i class="i5"></i>旅游订单</a></li>
 					<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
 					<li><a href="{% url 'userinfo' 'info' %}"><i class="i7"></i>设置</a></li>
@@ -76,7 +76,7 @@
 	<a href="{% url 'diarys:getdiaray' 0 %}"><span class="ico2"><img src="{% static 'images/nav_ico2.png' %}"/></span>发布游记</a>
 	<a href="{% url 'diarys:mydetails' 'published' %}"><span class="ico7"><img src="{% static 'images/nav_ico7.png' %}"/></span>我的游记</a>
 	<a href="collection_list.html"><span class="ico3"><img src="{% static 'images/nav_ico3.png' %}"/></span>我的收藏</a>
-	<a href="project_order.html"><span class="ico4"><img src="{% static 'images/nav_ico4.png' %}"/></span>商品订单</a>
+	<a href="{% url 'pay:project_order' %}"><span class="ico4"><img src="{% static 'images/nav_ico4.png' %}"/></span>商品订单</a>
 	<a href="scenic_order.html"><span class="ico5"><img src="{% static 'images/nav_ico5.png' %}"/></span>旅游订单</a>
 	<a href="note_comments.html"><span class="ico6"><img src="{% static 'images/nav_ico6.png' %}"/></span>我的评论</a>
 </div>
