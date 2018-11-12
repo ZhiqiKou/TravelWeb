@@ -6,7 +6,7 @@ from alipay import AliPay
 import time
 import random
 
-from operation.models import ShoppingCart
+from operation.models import ShoppingCart, Shopping
 from .models import *
 from utils.mixin_utils import LoginRequiredMixin
 
@@ -75,6 +75,9 @@ class AliPayResultTestView(View):
 
 
 class SubmitOrderView(LoginRequiredMixin, View):
+    """
+    提交订单
+    """
     def post(self, request):
         # 价格和商品要从后台读取
         # 商品是购物车中选中的商品，价格计算参考确认订单页面
@@ -83,39 +86,61 @@ class SubmitOrderView(LoginRequiredMixin, View):
         address = request.POST.get('address', '')
         mobile = request.POST.get('mobile', '')
         zip_code = request.POST.get('zip_code', '')
-        goodsinfo = ShoppingCart.objects.filter(user=user, is_check=True)
-
-        # 订单描述信息
-        if goodsinfo.count() > 1:
-            order_describe = goodsinfo.first().product.name + '等多件商品'
-        else:
-            order_describe = goodsinfo.first().product.name
+        frompage = request.GET.get('from', '')
 
         # 商户订单号
         out_trade_no = creat_order_num(request.user.id)
-        totalprice = 0
-        for good in goodsinfo:
-            # 总价计算
-            totalprice += good.product.price * good.num + good.product.freight
 
-            # 商品信息表存储
+        if frompage == 'detail':
+
+            goods = Shopping.objects.filter(user=user).order_by("-add_time").first()
+            totalprice = goods.product.price * goods.num + goods.product.freight
+            order_describe = goods.product.name
             order_items = OrderItems()
-            order_items.good_name = good.product.name
-            order_items.good_num = good.num
+            order_items.good_name = goods.product.name
+            order_items.good_num = goods.num
             order_items.order_num = out_trade_no
-            order_items.good_price = good.product.price
-            order_items.good_image = good.product.mainimg
-            order_items.good_id = good.product.id
+            order_items.good_price = goods.product.price
+            order_items.good_image = goods.product.mainimg
+            order_items.good_id = goods.product.id
             order_items.save()
 
             # 商品减库存
-            good.product.num -= good.num
+            goods.product.num -= goods.num
             # 商品购买人数加1
-            good.product.buyers += 1
-            good.product.save()
+            goods.product.buyers += 1
+            goods.product.save()
 
-        # 从购物车中删除
-        # goodsinfo.delete()
+        else:
+            goodsinfo = ShoppingCart.objects.filter(user=user, is_check=True)
+            # 订单描述信息
+            if goodsinfo.count() > 1:
+                order_describe = goodsinfo.first().product.name + '等多件商品'
+            else:
+                order_describe = goodsinfo.first().product.name
+            totalprice = 0
+            for good in goodsinfo:
+                # 总价计算
+                totalprice += good.product.price * good.num + good.product.freight
+
+                # 商品信息表存储
+                order_items = OrderItems()
+                order_items.good_name = good.product.name
+                order_items.good_num = good.num
+                order_items.order_num = out_trade_no
+                order_items.good_price = good.product.price
+                order_items.good_image = good.product.mainimg
+                order_items.good_id = good.product.id
+                order_items.save()
+
+                # 商品减库存
+                good.product.num -= good.num
+                # 商品购买人数加1
+                good.product.buyers += 1
+                good.product.save()
+
+            # 从购物车中删除
+            # goodsinfo.delete()
 
         # 订单主表存储
         goods_orders_main_table = GoodsOrdersMainTable()
@@ -144,6 +169,9 @@ class SubmitOrderView(LoginRequiredMixin, View):
 
 
 class FinishPayView(View):
+    """
+    支付完成后执行的操作
+    """
     def get(self, request):
         out_trade_no = request.GET.get('out_trade_no', '')
         alipay = create_alipay()

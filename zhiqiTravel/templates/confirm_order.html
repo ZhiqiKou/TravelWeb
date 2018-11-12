@@ -31,9 +31,9 @@
 					<th>数量</th>
 					<th>小计</th>
 				</tr>
-
-                {% for good in goodsinfo %}
-                    <tr>
+                {% if goodsinfo %}
+                    {% for good in goodsinfo %}
+                        <tr>
 					<td>
 						<div class="pic"><a href="#"><img width=53 height=53 src="{{ MEDIA_URL }}{{ good.product.mainimg }}" /></a></div>
 						<div class="name">
@@ -46,7 +46,22 @@
 					<td style="text-align:center;">x{{ good.num }}</td>
 					<td style="text-align:center;">￥{% CalculateThePrice good.product.price good.num good.product.freight %}</td>
 				</tr>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+					<td>
+						<div class="pic"><a href="#"><img width=53 height=53 src="{{ MEDIA_URL }}{{ goods.product.mainimg }}" /></a></div>
+						<div class="name">
+							<a href="{% url 'shop:pro_detail' goods.product.id %}">{{ goods.product.name }}</a>
+							<p>添加日期：{% now "Y-m-d" %}</p>
+						</div>
+						<div class="clear"></div>
+					</td>
+					<td style="text-align:center;">￥{{ goods.product.price|floatformat:"2" }}</td>
+					<td style="text-align:center;">x{{ goods.num }}</td>
+					<td style="text-align:center;">￥{% CalculateThePrice goods.product.price goods.num goods.product.freight %}</td>
+				</tr>
+                {% endif %}
 			</table>
 
 		</div>
@@ -59,14 +74,14 @@
 		</div>
 		<div class="calculation">
 			<input type="button" id="settlement" value="结算" />
-			<span>应付金额（含运费{{ totalfreight }}元）： <b>￥{{ totalprice }}</b></span>
+			<span>应付金额（含运费{{ totalfreight }}{{ freight }}元）： <b>￥{{ totalprice }}{{ price }}</b></span>
 
 		</div>
 	</div>
 	<div class="clear"></div>
 
 
-    <form method="POST" action="{% url 'pay:submit_order' %}" hidden="hidden">
+    <form method="POST" action="{% url 'pay:submit_order' %}?from={{ frompage }}" hidden="hidden">
         {% csrf_token %}
         <input type="text" name="consignee" value="">
         <input type="text" name="mobile" value="">
@@ -95,12 +110,19 @@
             address = address_li.find("p").eq(0).text();
             zip_code = address_li.find("span").eq(2).text();
             pay_type = $(".pay").find("a[class='cur']").text();
-            $("input[name='consignee']").val(consignee);
-            $("input[name='mobile']").val(mobile);
-            $("input[name='address']").val(address);
-            $("input[name='zip_code']").val(zip_code);
-            $("input[name='pay_type']").val(pay_type);
-            $('form').submit()
+            if(pay_type == '支付宝支付'){
+                $("input[name='consignee']").val(consignee);
+                $("input[name='mobile']").val(mobile);
+                $("input[name='address']").val(address);
+                $("input[name='zip_code']").val(zip_code);
+                $("input[name='pay_type']").val(pay_type);
+                $('form').submit()
+            }
+            else {
+                alert('该支付方式暂未开通！')
+            }
+
+
          });
     </script>
 

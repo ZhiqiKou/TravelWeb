@@ -73,6 +73,7 @@
                                          alert(data.msg)
                                          if(data.status === "success"){
                                              {#   跳转到购物车#}
+                                             window.location.replace("{% url 'operation:shopcar' %}");
                                          }
                                          else
                                          {
@@ -84,16 +85,37 @@
                                      },
                                 });
                             }
+
+                        function buynow () {
+                            $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+                                 $.ajax({
+                                     type: "POST",
+                                     data: {'product_id': {{ product.id }}, 'num': $('#qty_item_1').val()},
+                                     url: '{% url 'operation:shoping' %}',
+                                     cache: false,
+                                     dataType: "json",
+                                     success:function (data) {
+                                         if(data.status === "success"){
+                                             {#   跳转到确认订单页面#}
+                                             window.location.replace("{% url 'operation:confirm' %}" + "?from=detail");
+                                         }
+                                         else
+                                         {
+                                             {#   重载本页面#}
+                                         }
+                                     },
+                                     error:function (){
+                                         alert('error')
+                                     },
+                                });
+                        }
                     </script>
-
-
-
 
 						<div class="buy">
 							<ul>
 								<li>总价：<span class="total-font" id="total_item_1">￥{{ product.price|floatformat:"2" }}</span></li>
 								<li><span class="jifen">购买商品可获得：<b id="total_points">{{ product.price }}</b>积分</span></li>
-								<li><a class="go_buy" href="confirm_order.html">立即购买</a>
+								<li><a class="go_buy" href="javascript:void(0);" onclick="buynow()">立即购买</a>
                                     <a class="car_buy" href="javascript:void(0);" onclick="addshopcar({{ product.id }})">加入购物车</a></li>
 								<li>运费：<span class="tp_bg">{% if product.freight == 0 %}卖家承担运费{% else %}￥{{ product.freight|floatformat:"2" }}{% endif %}</span></li>
 								{% if product.remind %}<li>提醒：<span class="tp_bg">{{ product.remind }}</span></li>{% endif %}

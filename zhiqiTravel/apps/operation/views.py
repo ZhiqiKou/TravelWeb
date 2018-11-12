@@ -139,10 +139,6 @@ class ShopcarView(View):
         allcheck = True
         if ShoppingCart.objects.filter(user=user, is_check=False):
             allcheck = False
-
-
-
-
         return render(request, 'shop_car.html', {
             'products': products,
             'allcheck': allcheck,
@@ -217,6 +213,36 @@ class ShopcarOperationView(View):
         return HttpResponse(result)
 
 
+class ShopingView(View):
+    """
+    直接购买的一些操作
+    """
+    def post(self, request):
+        productid = request.POST.get('product_id', '')
+        num = request.POST.get('num', '')
+        user = request.user
+        # 商品存在：
+        try:
+            product = Product.objects.get(id=productid)
+            shopping = Shopping.objects.filter(product=product, user=user)
+            # 如果直接购买表中已经有这个商品了
+            if shopping:
+                # 就把它删除
+                shopping.delete()
+            # Shoping表可以记录用户想买的商品
+            shopping = Shopping()
+            shopping.user = user
+            shopping.product = product
+            shopping.num = num
+            shopping.save()
+            result = json.dumps({"status": "success"}, ensure_ascii=False)
+        # 商品不存在：
+        except:
+            # 报错
+            result = json.dumps({"status": "failed", "msg": "添加失败！商品不存在！"}, ensure_ascii=False)
+        return HttpResponse(result)
+
+
 class ConfirmView(View):
     """
     确认订单
@@ -224,17 +250,29 @@ class ConfirmView(View):
     def get(self, request):
         user = request.user
         contactinfo = TheContact.objects.filter(user=user)
-        goodsinfo = ShoppingCart.objects.filter(user=user, is_check=True)
+        frompage = request.GET.get('from', '')
+        if frompage == 'detail':
+            goods = Shopping.objects.filter(user=user).order_by("-add_time").first()
+            price = goods.product.price * goods.num + goods.product.freight
+            freight = goods.product.freight
+            return render(request, 'confirm_order.html', {
+                'contactinfo': contactinfo,
+                'goods': goods,
+                'price': '%.2f' % price,
+                'freight': '%.2f' % freight,
+                'frompage': frompage,
+            })
+        else:
+            goodsinfo = ShoppingCart.objects.filter(user=user, is_check=True)
+            totalprice = 0
+            totalfreight = 0
+            for good in goodsinfo:
+                totalprice += good.product.price * good.num + good.product.freight
+                totalfreight += good.product.freight
 
-        totalprice = 0
-        totalfreight = 0
-        for good in goodsinfo:
-            totalprice += good.product.price * good.num + good.product.freight
-            totalfreight += good.product.freight
-
-        return render(request, 'confirm_order.html', {
-            'contactinfo': contactinfo,
-            'goodsinfo': goodsinfo,
-            'totalprice': '%.2f' % totalprice,
-            'totalfreight': '%.2f' % totalfreight,
-        })
+            return render(request, 'confirm_order.html', {
+                'contactinfo': contactinfo,
+                'goodsinfo': goodsinfo,
+                'totalprice': '%.2f' % totalprice,
+                'totalfreight': '%.2f' % totalfreight,
+            })
