@@ -4,6 +4,7 @@ from django.views.generic import View
 
 from .models import *
 from news.views import get_public_box
+from pay.models import *
 
 
 # Create your views here.
@@ -45,4 +46,32 @@ class ProDetailsView(View):
             'propic': propic,
             'recommendpros': recommendpros,
             'now_type': 'shop',
+        })
+
+class OrderDetailsView(View):
+    """
+    订单详情页
+    """
+    def get(self, request, order_num):
+
+        order = GoodsOrdersMainTable.objects.get(order_num=order_num)
+        order_state = order.order_state
+        consignee = order.consignee
+        mobile = order.mobile
+        address = order.address
+        zip_code = order.zip_code
+        create_time = order.create_time
+        price = order.total_amount
+
+        goods = OrderItems.objects.filter(order_num=order_num)
+
+        return render(request,'order_details.html', {
+            'order_state': order_state,
+            'consignee': consignee,
+            'mobile': mobile,
+            'address': address,
+            'zip_code': zip_code,
+            'create_time': create_time,
+            'goods': goods,
+            'price': price,
         })

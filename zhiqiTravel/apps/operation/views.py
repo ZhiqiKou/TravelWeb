@@ -276,3 +276,11 @@ class ConfirmView(View):
                 'totalprice': '%.2f' % totalprice,
                 'totalfreight': '%.2f' % totalfreight,
             })
+
+
+class ConfirmGoodsView(View):
+    """
+    确认收货
+    """
+    def post(self, request):
+        pass

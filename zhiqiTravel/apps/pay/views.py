@@ -80,7 +80,6 @@ class SubmitOrderView(LoginRequiredMixin, View):
     """
     def post(self, request):
         # 价格和商品要从后台读取
-        # 商品是购物车中选中的商品，价格计算参考确认订单页面
         user = request.user
         consignee = request.POST.get('consignee', '')
         address = request.POST.get('address', '')
@@ -91,8 +90,9 @@ class SubmitOrderView(LoginRequiredMixin, View):
         # 商户订单号
         out_trade_no = creat_order_num(request.user.id)
 
+        # 如果是从商品页面过来的
         if frompage == 'detail':
-
+            # 商品是直接购买表中对应用户的最后一个商品，价格计算参考确认订单页面
             goods = Shopping.objects.filter(user=user).order_by("-add_time").first()
             totalprice = goods.product.price * goods.num + goods.product.freight
             order_describe = goods.product.name
@@ -111,7 +111,9 @@ class SubmitOrderView(LoginRequiredMixin, View):
             goods.product.buyers += 1
             goods.product.save()
 
+        # 否则是从购物车过来的
         else:
+            # 商品是购物车中选中的商品，价格计算参考确认订单页面
             goodsinfo = ShoppingCart.objects.filter(user=user, is_check=True)
             # 订单描述信息
             if goodsinfo.count() > 1:

@@ -19,9 +19,10 @@ urlpatterns = [
     path('shopcaroperation/', ShopcarOperationView.as_view(), name='shopcaroperation'),
     # 直接购买商品
     path('shoping/', ShopingView.as_view(), name='shoping'),
-
     # 确认订单页面
     path('confirm/', ConfirmView.as_view(), name='confirm'),
+    # 确认收货
+    path('confirmGoods/', ConfirmGoodsView.as_view(), name='confirmgoods'),
 
 
 ]
