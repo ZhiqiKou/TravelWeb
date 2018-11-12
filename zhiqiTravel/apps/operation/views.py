@@ -9,7 +9,7 @@ from .models import *
 from .forms import *
 from operation.models import ShoppingCart
 from users.models import TheContact
-
+from pay.models import *
 
 # Create your views here.
 class FavView(View):
@@ -242,7 +242,6 @@ class ShopingView(View):
             result = json.dumps({"status": "failed", "msg": "添加失败！商品不存在！"}, ensure_ascii=False)
         return HttpResponse(result)
 
-
 class ConfirmView(View):
     """
     确认订单
@@ -282,5 +281,64 @@ class ConfirmGoodsView(View):
     """
     确认收货
     """
+    def get(self, request):
+        order_num = request.GET.get('order_num', '')
+        order = GoodsOrdersMainTable.objects.get(order_num=order_num)
+        order_state = order.order_state
+        integral = int(order.total_amount)
+        if order_state == 'yzf':
+            # 用户积分增加,增加值：订单金额取整
+            request.user.integral += integral
+            request.user.save()
+            # 更改订单状态
+            order.order_state = 'ysh'
+            order.received_time = datetime.now()
+            order.save()
+        else:
+            pass
+        return HttpResponseRedirect(reverse('pay:project_order'))
+
+
+class CommentsGoodsView(View):
+    def get(self, request):
+        order_num = request.GET.get('order_num', '')
+        products = OrderItems.objects.filter(order_num=order_num)
+        return render(request, 'post_comment.html', {
+            'products': products
+        })
     def post(self, request):
-        pass
+        comments_form = CommentsForm(request.POST)
+        if comments_form.is_valid():
+            product_id = request.GET.get('product_id', '')
+            order_num = request.GET.get('order_num', '')
+            product = Product.objects.get(id=int(product_id))
+            comment = request.POST.get('comment', '')
+            # 检查用户这个订单中是否有这个物品
+            if OrderItems.objects.get(good_id=product_id, order_num=order_num):
+                # 检查是否确认收货
+                order = GoodsOrdersMainTable.objects.get(order_num=order_num)
+                if order.order_state == 'ysh':
+                    # 增加评论内容
+                    pro_com = ProductComments()
+                    pro_com.user = request.user
+                    pro_com.order_num = order_num
+                    pro_com.product = product
+                    pro_com.comments = comment
+                    pro_com.save()
+
+                    # 修改订单状态
+                    order.order_state = 'ywc'
+                    order.finish_time = datetime.now()
+                    order.save()
+
+                    return HttpResponseRedirect(reverse('pay:project_order'))
+
+                else:
+                    result = json.dumps({"status": "failed", "msg": "评论失败！请先确认收货！"}, ensure_ascii=False)
+                    return HttpResponse(result)
+            else:
+                result = json.dumps({"status": "failed", "msg": "评论失败！商品不存在！"}, ensure_ascii=False)
+                return HttpResponse(result)
+        else:
+            result = json.dumps({"status": "failed", "msg": "评论失败！评论为空！"}, ensure_ascii=False)
+            return HttpResponse(result)

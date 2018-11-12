@@ -169,6 +169,25 @@ class SubmitOrderView(LoginRequiredMixin, View):
         url = settings.ALIPAY_URL + query_params
         return HttpResponseRedirect(url)
 
+    def get(self, request):
+        frompage = request.GET.get('from', '')
+        if frompage == 'order_detail':
+            order_num = request.GET.get('order_num', '')
+            order = GoodsOrdersMainTable.objects.get(order_num=order_num)
+            order_describe = order.order_describe
+            total_amount = order.total_amount
+            alipay = create_alipay()
+            # 生成支付的url
+            query_params = alipay.api_alipay_trade_page_pay(
+                subject=order_describe,
+                out_trade_no=order_num,
+                total_amount=float(total_amount),
+                timeout_express=settings.ALIPAY_CLOSE_TIME,
+                return_url='http://127.0.0.1:8000/pay/finish_pay/',
+            )
+            url = settings.ALIPAY_URL + query_params
+            return HttpResponseRedirect(url)
+
 
 class FinishPayView(View):
     """

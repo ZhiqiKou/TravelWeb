@@ -85,3 +85,13 @@ class Shopping(models.Model):
         verbose_name_plural = verbose_name
 
 
+class ProductComments(models.Model):
+    user = models.ForeignKey(MyUser, verbose_name='下单用户', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name='商品', on_delete=models.CASCADE)
+    order_num = models.CharField(max_length=25, verbose_name='订单号')
+    comments = models.CharField(max_length=200, verbose_name='评论内容')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='评论时间')
+
+    class Meta:
+        verbose_name = '商品评论'
+        verbose_name_plural = verbose_name

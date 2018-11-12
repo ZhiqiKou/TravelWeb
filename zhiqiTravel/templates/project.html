@@ -130,82 +130,47 @@
 			<!------------------公共盒子-------------------->
 			<div class="public_box bg1">
 				<div class="public_title">
-					<div class="fl"><img src="images/from_title_left.png"/></div>
+					<div class="fl"><img src="{% static 'images/from_title_left.png' %}"/></div>
 					<div class="con">
-						<div class="lamp_ico"><img src="images/lamp_ico.png"/></div>
-						<div class="name"><img src="images/f_t_project_d.png"/></div>
+						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
+						<div class="name"><img src="{% static 'images/f_t_project_d.png' %}"/></div>
 					</div>
-					<div class="fr"><img src="images/from_title_right.png"/></div>
+					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
 				</div>
 				<!------------------特产详情-------------------->
 				<div id="project_details">
-					<img alt="" src="images/p1.jpg"/>
+					<p>{% autoescape off %}{{ product.details }}{% endautoescape %}</p>
 				</div>
 			</div>
 			<!------------------公共盒子-------------------->
 			<div class="public_box bg1">
 				<div class="public_title">
-					<div class="fl"><img src="images/from_title_left.png"/></div>
+					<div class="fl"><img src="{% static 'images/from_title_left.png' %}"/></div>
 					<div class="con">
-						<div class="lamp_ico"><img src="images/lamp_ico.png"/></div>
-						<div class="name"><img src="images/f_t_comment2.png"/></div>
+						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
+						<div class="name"><img src="{% static 'images/f_t_comment2.png' %}"/></div>
 					</div>
-					<div class="fr"><img src="images/from_title_right.png"/></div>
+					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
 				</div>
 				<!------------------评论-------------------->
 				<div id="comment">
 					<div class="list">
 						<div class="tag">
-							<a class="cur" href="#">最新评价</a><span>|</span><a href="#">正序排列</a>
+							<a class="cur" href="javascript:void(0);">商品评价</a>
 						</div>
 						<ul>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span>5#</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span>4#</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span class="t_c t_box">地板</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span class="t_b t_box">板凳</span></div>
-							</li>
-							<li>
-								<div class="pic"><img src="images/head1.jpg"/></div>
-								<div class="con">
-									<label>A monologue. 独白。</label>
-									<p>非常好</p>
-									<span>发表于：2017-02-05 14:20</span>
-								</div>
-								<div class="tip"><span class="t_a t_box">沙发</span></div>
-							</li>
+                            {% for comment in comments %}
+                                <li>
+                                    <div class="pic"><img src="{{ MEDIA_URL }}{{ comment.user.portrait }}"/></div>
+                                    <div class="con">
+                                        <label>{{ comment.user.nickname }}</label>
+                                        <p>{{ comment.comments }}</p>
+                                        <span>发表于：{{ comment.add_time|date:"Y-m-d H:i"}}</span>
+                                    </div>
+                                </li>
+                            {% endfor %}
 						</ul>
 					</div>
 				</div>

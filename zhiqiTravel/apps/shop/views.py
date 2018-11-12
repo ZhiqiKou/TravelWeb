@@ -5,6 +5,7 @@ from django.views.generic import View
 from .models import *
 from news.views import get_public_box
 from pay.models import *
+from operation.models import ProductComments
 
 
 # Create your views here.
@@ -38,6 +39,7 @@ class ProDetailsView(View):
 
         propic = ProPic.objects.filter(product=product)
 
+        comments = ProductComments.objects.filter(product=product).order_by('-add_time')
         # 销量前五设为推荐商品
         recommendpros = Product.objects.all().order_by('-buyers')[:5]
 
@@ -46,7 +48,9 @@ class ProDetailsView(View):
             'propic': propic,
             'recommendpros': recommendpros,
             'now_type': 'shop',
+            'comments': comments,
         })
+
 
 class OrderDetailsView(View):
     """

@@ -23,6 +23,8 @@ urlpatterns = [
     path('confirm/', ConfirmView.as_view(), name='confirm'),
     # 确认收货
     path('confirmGoods/', ConfirmGoodsView.as_view(), name='confirmgoods'),
+    # 商品评论
+    path('commentsGoods/', CommentsGoodsView.as_view(), name='commentsgoods'),
 
 
 ]
