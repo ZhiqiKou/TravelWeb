@@ -3,6 +3,7 @@ from django.views.generic import View
 
 from .models import *
 from news.views import get_public_box
+from shop.models import Product
 
 
 # Create your views here.
@@ -30,8 +31,10 @@ class ScenicDetails(View):
     def get(self,request, scenic_id):
         scenic = Spots.objects.get(id=int(scenic_id))
         gallerys = scenic.gallery_set.all()
+        products = Product.objects.all().order_by('-buyers')[:6]
         return render(request, 'scenic.html', {
             'scenic': scenic,
             'gallerys': gallerys,
             'now_type': 'scenic',
+            'products': products,
         })

@@ -26,5 +26,8 @@ urlpatterns = [
     # 商品评论
     path('commentsGoods/', CommentsGoodsView.as_view(), name='commentsgoods'),
 
+    # 购买门票
+    path('buytickets', BuyTicketsView.as_view(), name='buytickets'),
+
 
 ]

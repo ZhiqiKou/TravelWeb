@@ -8,6 +8,7 @@ import random
 
 from operation.models import ShoppingCart, Shopping
 from .models import *
+from scenicspots.models import Spots
 from utils.mixin_utils import LoginRequiredMixin
 
 from zhiqiTravel import settings
@@ -164,7 +165,7 @@ class SubmitOrderView(LoginRequiredMixin, View):
             out_trade_no=out_trade_no,
             total_amount=totalprice,
             timeout_express=settings.ALIPAY_CLOSE_TIME,
-            return_url='http://127.0.0.1:8000/pay/finish_pay/',
+            return_url='http://127.0.0.1:8000/pay/finish_pay?ordertype=goods',
         )
         url = settings.ALIPAY_URL + query_params
         return HttpResponseRedirect(url)
@@ -183,7 +184,7 @@ class SubmitOrderView(LoginRequiredMixin, View):
                 out_trade_no=order_num,
                 total_amount=float(total_amount),
                 timeout_express=settings.ALIPAY_CLOSE_TIME,
-                return_url='http://127.0.0.1:8000/pay/finish_pay/',
+                return_url='http://127.0.0.1:8000/pay/finish_pay?ordertype=goods',
             )
             url = settings.ALIPAY_URL + query_params
             return HttpResponseRedirect(url)
@@ -198,14 +199,27 @@ class FinishPayView(View):
         alipay = create_alipay()
         response = alipay.api_alipay_trade_query(out_trade_no=out_trade_no)
         code = response.get("code")  # 支付宝接口调用成功或者错误的标志
-        if code == '10000':
+        # 获取订单类型
+        ordertype = request.GET.get('ordertype', '')
+        # 如果订单类型是商品
+        if ordertype == 'goods':
             # 支付成功！
-            # 订单变为“已支付”状态
-            order = GoodsOrdersMainTable.objects.get(order_num=out_trade_no)
-            order.order_state = 'yzf'
-            order.pay_time = datetime.now()
-            order.save()
-        return HttpResponseRedirect(reverse('pay:project_order'))
+            if code == '10000':
+                # 订单变为“已支付”状态
+                order = GoodsOrdersMainTable.objects.get(order_num=out_trade_no)
+                order.order_state = 'yzf'
+                order.pay_time = datetime.now()
+                order.save()
+            # 跳转商品订单页
+            return HttpResponseRedirect(reverse('pay:project_order'))
+        elif ordertype == 'tickets':
+            # 支付成功！
+            if code == '10000':
+                order = TicketsOrdersMainTable.objects.get(order_num=out_trade_no)
+                order.order_state = 'yzf'
+                order.pay_time = datetime.now()
+                order.save()
+            pass
 
 
 class ProjectOrderView(View):
@@ -262,3 +276,47 @@ class ProjectOrderView(View):
             'all_orders_list': all_orders_list,
 
         })
+
+
+class SubmitTicketsOrderView(View):
+    def get(self, request):
+        user = request.user
+        spots_id = request.GET.get('spots_id', '')
+        amount = request.GET.get('amount', '')
+        conname = request.GET.get('conname', '')
+        conphone = request.GET.get('conphone', '')
+        spot = Spots.objects.get(id=int(spots_id))
+        out_trade_no = creat_order_num(user.id)
+        order_describe = spot.name + '门票'
+        price = int(amount) * spot.price
+
+        # 订单信息存储
+        tickets_order = TicketsOrdersMainTable()
+        tickets_order.user = user
+        tickets_order.spots_name = spot.name
+        tickets_order.buy_num = int(amount)
+        tickets_order.ticket_price = spot.price
+        tickets_order.spots_image = spot.image
+        tickets_order.spots_id = int(spots_id)
+        tickets_order.order_num = out_trade_no
+        tickets_order.order_describe = order_describe
+        tickets_order.total_amount = price
+        tickets_order.consignee = conname
+        tickets_order.mobile = conphone
+        tickets_order.save()
+
+        # 跳转支付宝支付页面
+        alipay = create_alipay()
+        # 生成支付的url
+        query_params = alipay.api_alipay_trade_page_pay(
+            subject=order_describe,
+            out_trade_no=out_trade_no,
+            total_amount=price,
+            timeout_express=settings.ALIPAY_CLOSE_TIME,
+            return_url='http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets',
+        )
+        url = settings.ALIPAY_URL + query_params
+        return HttpResponseRedirect(url)
+
+
+

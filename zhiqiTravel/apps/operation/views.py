@@ -10,6 +10,7 @@ from .forms import *
 from operation.models import ShoppingCart
 from users.models import TheContact
 from pay.models import *
+from scenicspots.models import Spots
 
 # Create your views here.
 class FavView(View):
@@ -306,6 +307,7 @@ class CommentsGoodsView(View):
         return render(request, 'post_comment.html', {
             'products': products
         })
+
     def post(self, request):
         comments_form = CommentsForm(request.POST)
         if comments_form.is_valid():
@@ -342,3 +344,17 @@ class CommentsGoodsView(View):
         else:
             result = json.dumps({"status": "failed", "msg": "评论失败！评论为空！"}, ensure_ascii=False)
             return HttpResponse(result)
+
+
+class BuyTicketsView(View):
+    """
+    门票购买
+    """
+    def get(self, request):
+        spots_id = request.GET.get('spots_id', '')
+        spots = Spots.objects.get(id=int(spots_id))
+        contacts = TheContact.objects.filter(user=request.user)
+        return render(request, 'submit_orders.html', {
+            'spots': spots,
+            'contacts': contacts,
+        })

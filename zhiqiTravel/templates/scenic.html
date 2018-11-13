@@ -195,94 +195,34 @@
 						<li>详细地址：<span>{{ scenic.address }}</span></li>
 						<li>费用：<label>￥{{ scenic.price }}</label></li>
 					</ul>
-					<a class="buy" href="submit_orders.html">立即预订</a>
+					<a class="buy" href="{% url 'operation:buytickets' %}?spots_id={{ scenic.id }}">立即预订</a>
 				</div>
 			</div>
 			<!------------------公共盒子-------------------->
 			<div class="public_box bg2">
 				<div class="public_title">
-					<div class="fl"><img src="images/from_title_left.png"/></div>
+					<div class="fl"><img src="{% static 'images/from_title_left.png' %}"/></div>
 					<div class="con">
-						<div class="lamp_ico"><img src="images/lamp_ico.png"/></div>
-						<div class="name"><img src="images/f_t_surrounding_specialty.png"/></div>
+						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
+						<div class="name"><img src="{% static 'images/f_t_surrounding_specialty.png' %}"/></div>
 					</div>
-					<div class="fr"><img src="images/from_title_right.png"/></div>
+					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
 					<div class="clear"></div>
 				</div>
 				<!------------------周边推荐-------------------->
 				<div class="peripheral_recom">
 					<ul>
-						<li>
-							<div class="pic"><a title="" href="#"><img alt="" class="scale-effect" src="images/nt_1.jpg"/></a></div>
+                        {% for product in products %}
+                            <li>
+							<div class="pic"><a title="" href="{% url 'shop:pro_detail' product.id %}"><img style="width: 100%;height: 100%" alt="" class="scale-effect" src="{{ MEDIA_URL }}{{ product.mainimg }}"/></a></div>
 							<div class="con">
-								<a href="#">春艳牡丹</a>
-								<p>志斋是研究唐代三百年文治武功和书法艺术的史料宝库</p>
-								<span>距离35公里</span>
+								<a href="{% url 'shop:pro_detail' product.id %}">{{ product.name }}</a>
+								<p>价格： ￥{{ product.price }}</p>
+								<span>销量: {{ product.buyers }}</span>
 							</div>
 							<div class="clear"></div>
 						</li>
-						<li>
-							<div class="pic"><a title="" href="#"><img alt="" class="scale-effect" src="images/nt_1.jpg"/></a></div>
-							<div class="con">
-								<a href="#">春艳牡丹</a>
-								<p>志斋是研究唐代三百年文治武功和书法艺术的史料宝库</p>
-								<span>距离35公里</span>
-							</div>
-							<div class="clear"></div>
-						</li>
-						<li>
-							<div class="pic"><a title="" href="#"><img alt="" class="scale-effect" src="images/nt_1.jpg"/></a></div>
-							<div class="con">
-								<a href="#">春艳牡丹</a>
-								<p>志斋是研究唐代三百年文治武功和书法艺术的史料宝库</p>
-								<span>距离35公里</span>
-							</div>
-							<div class="clear"></div>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!------------------公共盒子-------------------->
-			<div class="public_box bg2">
-				<div class="public_title">
-					<div class="fl"><img src="images/from_title_left.png"/></div>
-					<div class="con">
-						<div class="lamp_ico"><img src="images/lamp_ico.png"/></div>
-						<div class="name"><img src="images/f_t_surrounding_hotel.png"/></div>
-					</div>
-					<div class="fr"><img src="images/from_title_right.png"/></div>
-					<div class="clear"></div>
-				</div>
-				<!------------------周边推荐-------------------->
-				<div class="peripheral_recom">
-					<ul>
-						<li>
-							<div class="pic"><a title="" href="#"><img alt="" class="scale-effect" src="images/nt_1.jpg"/></a></div>
-							<div class="con">
-								<a href="#">春艳牡丹</a>
-								<p>志斋是研究唐代三百年文治武功和书法艺术的史料宝库</p>
-								<span>距离35公里</span>
-							</div>
-							<div class="clear"></div>
-						</li>
-						<li>
-							<div class="pic"><a title="" href="#"><img alt="" class="scale-effect" src="images/nt_1.jpg"/></a></div>
-							<div class="con">
-								<a href="#">春艳牡丹</a>
-								<p>志斋是研究唐代三百年文治武功和书法艺术的史料宝库</p>
-								<span>距离35公里</span>
-							</div>
-							<div class="clear"></div>
-						</li>
-						<li>
-							<div class="pic"><a title="" href="#"><img alt="" class="scale-effect" src="images/nt_1.jpg"/></a></div>
-							<div class="con">
-								<a href="#">春艳牡丹</a>
-								<p>志斋是研究唐代三百年文治武功和书法艺术的史料宝库</p>
-								<span>距离35公里</span>
-							</div>
-							<div class="clear"></div>
-						</li>
+                        {% endfor %}
 					</ul>
 				</div>
 			</div>
