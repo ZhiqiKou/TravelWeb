@@ -219,7 +219,8 @@ class FinishPayView(View):
                 order.order_state = 'yzf'
                 order.pay_time = datetime.now()
                 order.save()
-            pass
+            # 跳转旅游订单页
+            return HttpResponseRedirect(reverse('pay:scenic_order'))
 
 
 class ProjectOrderView(View):
@@ -319,4 +320,14 @@ class SubmitTicketsOrderView(View):
         return HttpResponseRedirect(url)
 
 
+class ScenicOrderView(View):
+    """
+    旅游订单页面
+    """
+    def get(self, request):
+        user = request.user
+        ticket_order = TicketsOrdersMainTable.objects.filter(user=user).order_by('-create_time')
+        return render(request, 'scenic_order.html', {
+            'ticket_order': ticket_order,
+        })
 
