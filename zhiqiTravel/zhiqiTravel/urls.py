@@ -75,6 +75,8 @@ urlpatterns = [
     path('delete_contact/<int:contact_id>', DeleteContactView.as_view(), name='delete_contact'),
     # 设置默认联系人
     path('default_contact/<int:contact_id>', DefaultContactView.as_view(), name='default_contact'),
+    # 我的评论
+    path('mycomments', MyCommentsView.as_view(), name='mycomments'),
 
     # 其余操作相关
     path('operation/', include(('operation.urls', 'operation')), name='operation'),

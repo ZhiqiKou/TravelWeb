@@ -95,6 +95,9 @@ class MyDetailsView(View):
 
 
 class PublishView(View):
+    """
+    游记发表
+    """
     def get(self, request, diary_id):
         new_diarys = request.user.diary_set.all()
         diary = new_diarys.get(id=diary_id)

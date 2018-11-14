@@ -1,0 +1,92 @@
+{% extends 'userbase.html' %}
+{% block title %}我的评论{% endblock %}
+{% block head_title %}我的评论{% endblock %}
+{% load staticfiles %}
+{% block framework %}
+    <div class="cw1000">
+	<div class="public_box pd30">
+		<div class="public_tag">
+			<ul>
+				<li><a {% if comments_type == 'note' %}class="cur"{% endif %} href="?comments_type=note">游记评论</a></li>
+				<li><a {% if comments_type == 'scenic' %}class="cur"{% endif %} href="?comments_type=scenic">景区评论</a></li>
+				<li><a href="javascript:void(0)">活动评论</a></li>
+				<li><a {% if comments_type == 'project' %}class="cur"{% endif %} href="?comments_type=project">商品评论</a></li>
+				<div class="clear"></div>
+			</ul>
+		</div>
+        {% if comments_type == 'note' %}
+            <!-----------------游记评论---------------->
+            <div class="comments_list">
+			<ul>
+                {% for comment in comments %}
+                    <li class="pd_r150">
+					<div class="note">
+						<div class="pic"><img src="{{ MEDIA_URL }}{{ comment.user.portrait }}"/></div>
+						<div class="con">
+							<a href="{% url 'diarys:details' comment.diary.id %}"><h3>{{ comment.diary.title }}</h3></a>
+							<p>作者：<span>{{ comment.user.nickname }}</span><label>{{ comment.diary.diarycomments_set.count }}个评论</label></p>
+						</div>
+					</div>
+					<div class="text">
+						<p>我评论：{{ comment.comments }}</p>
+					</div>
+					<div class="del" style="top:65px;">
+						<a href="#"><i class="del_ico"></i>删除评论</a>
+					</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+        {% elif comments_type == 'scenic' %}
+            <!-----------------景区评论---------------->
+            <div class="comments_list">
+			<ul>
+                {% for comment in comments %}
+				    <li class="pd_r150">
+					<div class="scenic">
+                        {% if comment.spots.classification == 'natural' %}
+                            <div class="tip"><img src="{% static 'images/scenic_ico.png' %}">景区</div>
+                        {% elif comment.spots.classification == 'leisure' %}
+                            <div class="tip"><img src="{% static 'images/leisure_ico.png' %}">休闲</div>
+                        {% else %}
+
+                        {% endif %}
+                    <a href="{% url 'scenicspots:scenic_detail' comment.spots.id %}"><h3>{{ comment.spots.name }}</h3></a>
+                    <div class="clear"></div>
+                    </div>
+					<div class="text">
+						<p>我评论：{{ comment.comments }}</p>
+					</div>
+					<div class="del" style="top:52px;">
+						<a href="#"><i class="del_ico"></i>删除评论</a>
+					</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+        {% elif comments_type == 'project' %}
+            <!-----------------商品评论---------------->
+		    <div class="comments_list">
+			<ul>
+                {% for comment in comments %}
+                    <li class="pd_r150">
+					<div class="project">
+						<a href="{% url 'shop:pro_detail' comment.product.id %}"><h3>{{ comment.product.name }}</h3></a>
+						<label>￥{{ comment.product.price }}</label>
+					</div>
+					<div class="text">
+						<p>我评论：{{ comment.comments }}</p>
+					</div>
+					<div class="del" style="top:65px;">
+						<a href="#"><i class="del_ico"></i>删除评论</a>
+					</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+        {% else %}
+        {% endif %}
+	</div>
+	<div class="clear"></div>
+</div>
+{% endblock %}

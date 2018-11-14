@@ -46,7 +46,7 @@
 					<li><a href="collection_list.html"><i class="i3"></i>我的收藏</a></li>
 					<li><a href="{% url 'pay:project_order' %}"><i class="i4"></i>商品订单</a></li>
 					<li><a href="{% url 'pay:scenic_order' %}"><i class="i5"></i>旅游订单</a></li>
-					<li><a href="note_comments.html"><i class="i6"></i>我的评论</a></li>
+					<li><a href="my_comments.html"><i class="i6"></i>我的评论</a></li>
 					<li><a href="{% url 'userinfo' 'info' %}"><i class="i7"></i>设置</a></li>
 					<li><a href="{% url 'logout' %}"><i class="i8"></i>退出</a></li>
 				</ul>
@@ -78,7 +78,7 @@
 	<a href="collection_list.html"><span class="ico3"><img src="{% static 'images/nav_ico3.png' %}"/></span>我的收藏</a>
 	<a href="{% url 'pay:project_order' %}"><span class="ico4"><img src="{% static 'images/nav_ico4.png' %}"/></span>商品订单</a>
 	<a href="{% url 'pay:scenic_order' %}"><span class="ico5"><img src="{% static 'images/nav_ico5.png' %}"/></span>旅游订单</a>
-	<a href="note_comments.html"><span class="ico6"><img src="{% static 'images/nav_ico6.png' %}"/></span>我的评论</a>
+	<a href="{% url 'mycomments' %}?comments_type=note"><span class="ico6"><img src="{% static 'images/nav_ico6.png' %}"/></span>我的评论</a>
 </div>
 <!-----------------框架---------------->
     {% block framework %}

@@ -14,6 +14,7 @@ from captcha.helpers import captcha_image_url
 
 from .forms import *
 from .models import *
+from operation.models import SpotsComments, DiaryComments, ProductComments, ActiveComments
 from utils.send_email import send_register_email
 
 
@@ -466,3 +467,24 @@ class DefaultContactView(View):
                     contact.is_default = True
         contact.save()
         return HttpResponseRedirect(reverse('userinfo', kwargs={'info_type': 'contact'}))
+
+
+class MyCommentsView(View):
+    """
+    我的评论
+    """
+    def get(self, request):
+        comments_type = request.GET.get('comments_type', '')
+        if comments_type == 'note':
+            comments = DiaryComments.objects.filter(user=request.user)
+        elif comments_type == 'scenic':
+            comments = SpotsComments.objects.filter(user=request.user)
+        elif comments_type == 'project':
+            comments = ProductComments.objects.filter(user=request.user)
+        else:
+            result = json.dumps({"status": "failed", "msg": "来源错误"}, ensure_ascii=False)
+            return HttpResponse(result)
+        return render(request, 'my_comments.html', {
+            'comments_type': comments_type,
+            'comments': comments,
+        })

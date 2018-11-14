@@ -37,4 +37,3 @@ def QueryTheAddress(id):
     coutact_prov = prov.values('title')[0]
 
     return coutact_prov['title'] + '  ' + coutact_city['title'] + '  ' + coutact_coun['title']
-
