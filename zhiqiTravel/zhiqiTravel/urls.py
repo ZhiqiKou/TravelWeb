@@ -77,6 +77,8 @@ urlpatterns = [
     path('default_contact/<int:contact_id>', DefaultContactView.as_view(), name='default_contact'),
     # 我的评论
     path('mycomments', MyCommentsView.as_view(), name='mycomments'),
+    # 我的收藏
+    path('mycollect', MyCollectView.as_view(), name='mycollect'),
 
     # 其余操作相关
     path('operation/', include(('operation.urls', 'operation')), name='operation'),

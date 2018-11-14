@@ -14,7 +14,7 @@ from captcha.helpers import captcha_image_url
 
 from .forms import *
 from .models import *
-from operation.models import SpotsComments, DiaryComments, ProductComments, ActiveComments
+from operation.models import SpotsComments, DiaryComments, ProductComments, ActiveComments, UserCollect
 from utils.send_email import send_register_email
 
 
@@ -487,4 +487,14 @@ class MyCommentsView(View):
         return render(request, 'my_comments.html', {
             'comments_type': comments_type,
             'comments': comments,
+        })
+
+class MyCollectView(View):
+    """
+    我的收藏
+    """
+    def get(self, request):
+        collects = UserCollect.objects.filter(user=request.user)
+        return render(request, 'collection_list.html', {
+            'collects': collects,
         })

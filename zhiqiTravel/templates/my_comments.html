@@ -21,10 +21,10 @@
                 {% for comment in comments %}
                     <li class="pd_r150">
 					<div class="note">
-						<div class="pic"><img src="{{ MEDIA_URL }}{{ comment.user.portrait }}"/></div>
+						<div class="pic"><img src="{{ MEDIA_URL }}{{ comment.diary.user.portrait }}"/></div>
 						<div class="con">
 							<a href="{% url 'diarys:details' comment.diary.id %}"><h3>{{ comment.diary.title }}</h3></a>
-							<p>作者：<span>{{ comment.user.nickname }}</span><label>{{ comment.diary.diarycomments_set.count }}个评论</label></p>
+							<p>作者：<span>{{ comment.diary.user.nickname }}</span><label>{{ comment.diary.diarycomments_set.count }}个评论</label></p>
 						</div>
 					</div>
 					<div class="text">
