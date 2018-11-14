@@ -10,15 +10,15 @@
                 {% if order_state == 'wzf' %}
                     <p>当前订单状态：<span>未付款</span></p>
                     <p>请及时付款，不然就被抢光啦！</p>
-                    <a class="buy" href="confirm_order.html">付款</a>
+                    <a class="buy" href="{% url 'pay:submit_order' %}?from=goods_order&order_num={{ order_num }}">付款</a>
                 {% elif order_state == 'yzf' %}
                     <p>当前订单状态：<span>已付款</span></p>
 				    <p>确认收货还有积分拿哦～！</p>
-				    <a class="buy" href="confirm_order.html">确认收货</a>
+				    <a class="buy" href="{% url 'operation:confirmgoods' %}?order_num={{ order_num }}">确认收货</a>
                 {% elif order_state == 'ysh' %}
                     <p>当前订单状态：<span>已收货</span></p>
 				    <p>商品怎么样？快去写下评价吧！</p>
-				    <a class="comment" href="post_comment.html">评价</a>
+				    <a class="comment" href="{% url 'operation:commentsgoods' %}?order_num={{ order_num }}">评价</a>
                 {% else %}
                     <p>当前订单状态：<span>已评价</span></p>
 				    <p>订单完成</p>

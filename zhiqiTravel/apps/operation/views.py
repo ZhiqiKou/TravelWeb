@@ -304,7 +304,7 @@ class CommentsGoodsView(View):
     def get(self, request):
         order_num = request.GET.get('order_num', '')
         products = OrderItems.objects.filter(order_num=order_num)
-        return render(request, 'post_comment.html', {
+        return render(request, 'goods_comment.html', {
             'products': products
         })
 
@@ -358,3 +358,51 @@ class BuyTicketsView(View):
             'spots': spots,
             'contacts': contacts,
         })
+
+
+class CommentsSpotsView(View):
+    """
+    景点评论
+    """
+    def get(self, request):
+        order_num = request.GET.get('order_num', '')
+        spots = TicketsOrdersMainTable.objects.get(order_num=order_num)
+        return render(request, 'spots_comment.html', {
+            'spots': spots,
+        })
+
+    def post(self, request):
+        comments_form = CommentsForm(request.POST)
+        if comments_form.is_valid():
+            spots_id = request.GET.get('spots_id', '')
+            order_num = request.GET.get('order_num', '')
+            spots = Spots.objects.get(id=int(spots_id))
+            comment = request.POST.get('comment', '')
+            # 检查用户这个订单中是否有这个物品
+            if TicketsOrdersMainTable.objects.get(spots_id=spots_id, order_num=order_num):
+                # 检查是否确认收货
+                order = TicketsOrdersMainTable.objects.get(order_num=order_num)
+                if order.order_state == 'yzf':
+                    # 增加评论内容
+                    spots_com = SpotsComments()
+                    spots_com.user = request.user
+                    spots_com.spots = spots
+                    spots_com.comments = comment
+                    spots_com.save()
+
+                    # 修改订单状态
+                    order.order_state = 'ywc'
+                    order.finish_time = datetime.now()
+                    order.save()
+
+                    return HttpResponseRedirect(reverse('pay:scenic_order'))
+
+                else:
+                    result = json.dumps({"status": "failed", "msg": "评论失败！请先支付订单！"}, ensure_ascii=False)
+                    return HttpResponse(result)
+            else:
+                result = json.dumps({"status": "failed", "msg": "评论失败！商品不存在！"}, ensure_ascii=False)
+                return HttpResponse(result)
+        else:
+            result = json.dumps({"status": "failed", "msg": "评论失败！评论为空！"}, ensure_ascii=False)
+            return HttpResponse(result)

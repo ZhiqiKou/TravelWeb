@@ -1,6 +1,6 @@
 {% extends 'userbase.html' %}
-{% block title %}景区订单{% endblock %}
-{% block head_title %}景区订单{% endblock %}
+{% block title %}旅游订单{% endblock %}
+{% block head_title %}旅游订单{% endblock %}
 {% block framework %}
 <div class="cw1000">
 	<div class="public_box pd10">
@@ -11,8 +11,7 @@
 			<ul>
 				<li><a {% if order_state == '' %}class="cur"{% endif %} href="?order_state=">全部订单</a></li>
 				<li><a {% if order_state == 'wzf' %}class="cur"{% endif %} href="?order_state=wzf">待付款</a></li>
-				<li><a {% if order_state == 'yzf' %}class="cur"{% endif %} href="?order_state=yzf">待收货</a></li>
-                <li><a {% if order_state == 'ysh' %}class="cur"{% endif %} href="?order_state=ysh">待评价</a></li>
+                <li><a {% if order_state == 'yzf' %}class="cur"{% endif %} href="?order_state=yzf">待评价</a></li>
 				<li><a {% if order_state == 'ywc' %}class="cur"{% endif %} href="?order_state=ywc">已完成</a></li>
 				<div class="clear"></div>
 			</ul>
@@ -37,9 +36,9 @@
 						<div class="cont">
 							<div class="con">
 								<div class="info" style="width:35%;">
-									<div class="pic"><a href="#"><img width=53 height=53 src="{{ MEDIA_URL }}{{ order.spots_image }}" /></a></div>
+									<div class="pic"><a href="{% url 'scenicspots:scenic_detail' order.spots_id %}"><img width=53 height=53 src="{{ MEDIA_URL }}{{ order.spots_image }}" /></a></div>
 									<div class="name">
-										<a href="#">{{ order.spots_name }}门票</a>
+										<a href="{% url 'scenicspots:scenic_detail' order.spots_id %}">{{ order.spots_name }}门票</a>
 										<p>下单日期：{{ order.create_time|date:"Y-m-d" }}</p>
 									</div>
 									<div class="clear"></div>
@@ -52,43 +51,31 @@
                                     <div class="state" style="width:20%;">
 									<div class="middle">
 										<p>未付款</p>
-										<a href="">订单详情</a>
+										<a href="{% url 'scenicspots:order_detail' order.order_num %}">订单详情</a>
 									</div>
 								</div>
 								    <div class="operation" style="width:15%;">
 									<div class="middle">
-										<a class="buy" href="">去付款</a>
+										<a class="buy" href="{% url 'pay:submit_order' %}?from=tickets_order&order_num={{ order.order_num }}">去付款</a>
 									</div>
 								</div>
                                 {% elif order.order_state == 'yzf' %}
-                                    <div class="state" style="width:20%;">
-									<div class="middle">
-										<p>待收货</p>
-										<a href="">订单详情</a>
-									</div>
-								</div>
-								    <div class="operation" style="width:15%;">
-									<div class="middle">
-										<a class="buy" href="">确认收货</a>
-									</div>
-								</div>
-                                {% elif order.order_state == 'ysh' %}
                                          <div class="state" style="width:20%;">
 									<div class="middle">
 										<p>待评价</p>
-										<a href="">订单详情</a>
+										<a href="{% url 'scenicspots:order_detail' order.order_num %}">订单详情</a>
 									</div>
 								</div>
 								    <div class="operation" style="width:15%;">
 									<div class="middle">
-										<a class="buy" href="">评价</a>
+										<a class="buy" href="{% url 'operation:commentspots' %}?order_num={{ order.order_num }}">评价</a>
 									</div>
 								</div>
                                 {% else %}
                                     <div class="state" style="width:20%;">
 									<div class="middle">
 										<p>已完成</p>
-										<a href="">订单详情</a>
+										<a href="{% url 'scenicspots:order_detail' order.order_num %}">订单详情</a>
 									</div>
 								</div>
 								    <div class="operation" style="width:15%;">

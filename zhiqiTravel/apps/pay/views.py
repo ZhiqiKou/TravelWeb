@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse,HttpResponse
 from alipay import AliPay
 
 import time
+import string
 import random
+import json
 
 from operation.models import ShoppingCart, Shopping
 from .models import *
@@ -12,6 +14,7 @@ from scenicspots.models import Spots
 from utils.mixin_utils import LoginRequiredMixin
 
 from zhiqiTravel import settings
+
 
 def create_alipay():
     """
@@ -34,10 +37,47 @@ def create_alipay():
 
 
 def creat_order_num(user_id):
+    """
+    生成订单号
+    :param user_id: 用户id
+    :return: 订单号
+    """
     time_stamp = int(round(time.time() * 1000))
     randomnum = '%04d' % random.randint(0, 100000)
     order_num = str(time_stamp) + str(randomnum) + str(user_id)
     return order_num
+
+
+def creat_cdk():
+    """
+    创建cdk
+    :return: cdk
+    """
+    cdk_area = string.digits + string.ascii_letters
+    cdk = ''
+    for i in range(1, 21):
+        cdk += random.choice(cdk_area)  # 获取随机字符或数字
+        if i % 5 == 0 and i != 20:  # 每隔4个字符增加'-'
+            cdk += '-'
+    return cdk
+
+
+def check_cdk():
+    """
+    cdk检测
+    :return: cdk
+    """
+    # 首先创建一个cdk
+    cdk = creat_cdk()
+    try:
+        # 如果能查到订单
+        order = TicketsOrdersMainTable.objects.get(cdk=cdk)
+        # 重新执行检测
+        check_cdk()
+    except:
+        # 没找到就返回这个cdk
+        return cdk
+
 
 # Create your views here.
 class AliPayTestView(View):
@@ -172,22 +212,31 @@ class SubmitOrderView(LoginRequiredMixin, View):
 
     def get(self, request):
         frompage = request.GET.get('from', '')
-        if frompage == 'order_detail':
-            order_num = request.GET.get('order_num', '')
+        order_num = request.GET.get('order_num', '')
+        if frompage == 'goods_order':
             order = GoodsOrdersMainTable.objects.get(order_num=order_num)
-            order_describe = order.order_describe
-            total_amount = order.total_amount
-            alipay = create_alipay()
-            # 生成支付的url
-            query_params = alipay.api_alipay_trade_page_pay(
-                subject=order_describe,
-                out_trade_no=order_num,
-                total_amount=float(total_amount),
-                timeout_express=settings.ALIPAY_CLOSE_TIME,
-                return_url='http://127.0.0.1:8000/pay/finish_pay?ordertype=goods',
-            )
-            url = settings.ALIPAY_URL + query_params
-            return HttpResponseRedirect(url)
+            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=goods'
+        elif frompage == 'tickets_order':
+            order = TicketsOrdersMainTable.objects.get(order_num=order_num)
+            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets'
+        else:
+            result = json.dumps({"status": "failed", "msg": "来源错误"}, ensure_ascii=False)
+            return HttpResponse(result)
+
+        order_describe = order.order_describe
+        total_amount = order.total_amount
+        alipay = create_alipay()
+        # 生成支付的url
+        query_params = alipay.api_alipay_trade_page_pay(
+            subject=order_describe,
+            out_trade_no=order_num,
+            total_amount=float(total_amount),
+            timeout_express=settings.ALIPAY_CLOSE_TIME,
+            return_url=return_url,
+        )
+
+        url = settings.ALIPAY_URL + query_params
+        return HttpResponseRedirect(url)
 
 
 class FinishPayView(View):
@@ -218,6 +267,7 @@ class FinishPayView(View):
                 order = TicketsOrdersMainTable.objects.get(order_num=out_trade_no)
                 order.order_state = 'yzf'
                 order.pay_time = datetime.now()
+                order.cdk = check_cdk()
                 order.save()
             # 跳转旅游订单页
             return HttpResponseRedirect(reverse('pay:scenic_order'))
@@ -327,7 +377,12 @@ class ScenicOrderView(View):
     def get(self, request):
         user = request.user
         ticket_order = TicketsOrdersMainTable.objects.filter(user=user).order_by('-create_time')
+        order_state = request.GET.get('order_state', '')
+        if order_state:
+            ticket_order = ticket_order.filter(order_state=order_state)
+
         return render(request, 'scenic_order.html', {
             'ticket_order': ticket_order,
+            'order_state': order_state,
         })
 

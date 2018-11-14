@@ -57,7 +57,6 @@ class OrderDetailsView(View):
     订单详情页
     """
     def get(self, request, order_num):
-
         order = GoodsOrdersMainTable.objects.get(order_num=order_num)
         order_state = order.order_state
         consignee = order.consignee
@@ -78,4 +77,5 @@ class OrderDetailsView(View):
             'create_time': create_time,
             'goods': goods,
             'price': price,
+            'order_num': order_num,
         })

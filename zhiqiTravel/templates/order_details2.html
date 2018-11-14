@@ -1,0 +1,81 @@
+﻿{% extends 'shopbase.html' %}
+{% block title %}订单详情{% endblock %}
+{% block head_title %}订单详情{% endblock %}
+{% block content %}
+<!-----------------订单详情---------------->
+<div id="order_details">
+	<div class="cw1000">
+		<div class="public_box pd30">
+			<div class="state">
+                {% if order.order_state == 'wzf' %}
+                    <p>当前订单状态：<span>未付款</span></p>
+                    <p>请及时付款，不然就被抢光啦！</p>
+                    <a class="buy" href="{% url 'pay:submit_order' %}?from=tickets_order&order_num={{ order.order_num }}">付款</a>
+                {% elif order.order_state == 'yzf' %}
+                    <p>当前订单状态：<span>已收货</span></p>
+				    <p>商品怎么样？快去写下评价吧！</p>
+				    <a class="comment" href="{% url 'operation:commentspots' %}?order_num={{ order.order_num }}">评价</a>
+                {% else %}
+                    <p>当前订单状态：<span>已评价</span></p>
+				    <p>订单完成</p>
+				    <a class="comment" href="#">申请售后</a>
+                {% endif %}
+			</div>
+
+        {% if order_state != 'wzf' %}
+			<div class="info">
+				<table>
+					<tr>
+						<th>订单信息</th>
+					</tr>
+					<tr>
+						<td><p>小提示：记下或拍下兑换码向商家出示即可消费，无需等待短信</p></td>
+					</tr>
+                    <tr>
+						<td>兑换码：{{ order.cdk }}</td>
+					</tr>
+				</table>
+			</div>
+        {% endif %}
+			<div class="info">
+				<table>
+					<tr>
+						<th colspan="3">收货人信息</th>
+					</tr>
+					<tr>
+						<td>收货人：{{ order.consignee }}</td>
+						<td>电话：{{ order.mobile }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="list_box">
+				<table>
+					<tbody>
+						<tr>
+							<th>商品名称</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>总价</th>
+						</tr>
+                            <tr>
+							<td>
+								<div class="pic"><a href="{% url 'scenicspots:scenic_detail' order.spots_id %}"><img width="53" height="53" src="{{ MEDIA_URL }}{{ order.spots_image }}"></a></div>
+								<div class="name">
+									<a href="{% url 'scenicspots:scenic_detail' order.spots_id %}">{{ order.spots_name }}门票</a>
+									<p>下单日期：{{ order.create_time }}</p>
+								</div>
+								<div class="clear"></div>
+							</td>
+							<td style="text-align:center;">￥{{ order.ticket_price }}</td>
+							<td style="text-align:center;">{{ order.buy_num }}</td>
+                            <td rowspan="2" style="text-align:center;">￥{{ order.total_amount }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+{% endblock %}

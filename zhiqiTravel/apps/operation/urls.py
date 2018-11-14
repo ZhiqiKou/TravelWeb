@@ -24,10 +24,11 @@ urlpatterns = [
     # 确认收货
     path('confirmGoods/', ConfirmGoodsView.as_view(), name='confirmgoods'),
     # 商品评论
-    path('commentsGoods/', CommentsGoodsView.as_view(), name='commentsgoods'),
+    path('commentsGoods', CommentsGoodsView.as_view(), name='commentsgoods'),
 
     # 购买门票
     path('buytickets', BuyTicketsView.as_view(), name='buytickets'),
-
+    # 景点评论
+    path('commentSpots', CommentsSpotsView.as_view(), name='commentspots'),
 
 ]

@@ -58,7 +58,7 @@
 								</div>
 								    <div class="operation" style="width:15%;">
 									<div class="middle">
-										<a class="buy" href="{% url 'pay:submit_order' %}?from=order_detail&order_num={{ order.order_num }}">去付款</a>
+										<a class="buy" href="{% url 'pay:submit_order' %}?from=goods_order&order_num={{ order.order_num }}">去付款</a>
 									</div>
 								</div>
                                 {% elif order.order_state == 'yzf' %}

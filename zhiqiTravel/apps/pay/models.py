@@ -56,13 +56,13 @@ class TicketsOrdersMainTable(models.Model):
     spots_image = models.ImageField(default='', verbose_name='景区主图')
     spots_id = models.IntegerField(verbose_name='景区id', default=0)
     order_num = models.CharField(max_length=25, verbose_name='订单号')
+    cdk = models.CharField(max_length=25, default='', verbose_name='兑换码')
     order_describe = models.CharField(max_length=50, verbose_name='订单描述')
     total_amount = models.DecimalField(max_digits=11, decimal_places=2, verbose_name="订单的资金总额")
     consignee = models.CharField(max_length=30, verbose_name='收货人')
     mobile = models.CharField(max_length=11, verbose_name='手机号')
     order_state = models.CharField(max_length=3, choices=(('wzf', '未支付'),
                                                           ('yzf', '已支付'),
-                                                          ('ysh', '已收货'),
                                                           ('ywc', '已完成'),
                                                           ), default='wzf', verbose_name='订单状态')
     create_time = models.DateTimeField(default=datetime.now, verbose_name='订单提交时间')
