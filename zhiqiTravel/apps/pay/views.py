@@ -290,7 +290,6 @@ class ProjectOrderView(View):
         # 获取订单号对应的详细信息
         all_orders_list = []
         for orders in all_orders:
-
             orders_dic = {}
             # 订单号
             orders_dic['order_num'] = orders.order_num

@@ -15,8 +15,8 @@ from captcha.helpers import captcha_image_url
 from .forms import *
 from .models import *
 from operation.models import SpotsComments, DiaryComments, ProductComments, ActiveComments, UserCollect
+from pay.models import OrderItems
 from utils.send_email import send_register_email
-
 
 # Create your views here.
 class IndexView(View):
@@ -489,6 +489,7 @@ class MyCommentsView(View):
             'comments': comments,
         })
 
+
 class MyCollectView(View):
     """
     我的收藏
@@ -497,4 +498,74 @@ class MyCollectView(View):
         collects = UserCollect.objects.filter(user=request.user)
         return render(request, 'collection_list.html', {
             'collects': collects,
+        })
+
+
+class HomePageView(View):
+    def get(self, request):
+        user = request.user
+        # 游记评论
+        diary_comments = user.diarycomments_set.all().order_by('-add_time')
+        # 景点评论
+        spots_comments = user.spotscomments_set.all().order_by('-add_time')
+        # 商品评论
+        project_comments = user.productcomments_set.all().order_by('-add_time')
+        # 我的游记[已发表]
+        diarys = user.diary_set.all().order_by('-add_times').filter(is_published=True)
+        # 我的收藏
+        collects = user.usercollect_set.all().order_by('-add_time')
+        # 门票订单
+        ticket_orders = user.ticketsordersmaintable_set.all().order_by('-create_time')
+        # 商品订单
+        pro_orders = user.goodsordersmaintable_set.all().order_by('-create_time')
+
+        # 获取订单号对应的详细信息
+        project_orders = []
+        for orders in pro_orders[:5]:
+            orders_dic = {}
+            # 订单号
+            orders_dic['order_num'] = orders.order_num
+            # 下单日期
+            orders_dic['create_time'] = orders.create_time
+            # 总价
+            orders_dic['totalprice'] = orders.total_amount
+            # 订单状态
+            orders_dic['order_state'] = orders.order_state
+
+            goods_list = []
+            goods = OrderItems.objects.filter(order_num=orders_dic['order_num'])
+            for good in goods:
+                goods_dic = {}
+                # 商品名
+                goods_dic['good_name'] = good.good_name
+                # 商品数量
+                goods_dic['good_num'] = good.good_num
+                # 商品单价
+                goods_dic['good_price'] = good.good_price
+                # 商品图片
+                goods_dic['good_image'] = good.good_image
+                # 商品id
+                goods_dic['good_id'] = good.good_id
+
+                goods_list.append(goods_dic)
+
+            orders_dic['goods_list'] = goods_list
+
+            project_orders.append(orders_dic)
+
+        return render(request, 'my_index.html', {
+            'diary_comments': diary_comments[:5],
+            'diary_comments_count': diary_comments.count(),
+            'spots_comments': spots_comments[:5],
+            'spots_comments_count': spots_comments.count(),
+            'project_comments': project_comments[:5],
+            'project_comments_count': project_comments.count(),
+            'diarys': diarys[:3],
+            'diarys_count': diarys.count(),
+            'collects': collects[:3],
+            'collects_count': collects.count(),
+            'ticket_orders': ticket_orders[:5],
+            'ticket_order_count': ticket_orders.count(),
+            'project_orders': project_orders,
+            'project_orders_count': pro_orders.count(),
         })

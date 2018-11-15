@@ -33,7 +33,7 @@
 					<div class="user-bd">
 						<div class="integral"><img src="{% static 'images/integral_ico.png' %}"/>当前积分 {{ request.user.integral }}</div>
 						<ul class="nav_sort">
-							<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
+							<li><a href="{% url 'homepage' %}"><i class="i1"></i>我的主页</a></li>
 							<li><a href="{% url 'diarys:getdiaray' 0 %}"><i class="i2"></i>写游记</a></li>
 							<li><a href="{% url 'diarys:mydetails' 'published' %}"><i class="i9"></i>我的游记</a></li>
 							<li><a href="{% url 'mycollect' %}"><i class="i3"></i>我的收藏</a></li>

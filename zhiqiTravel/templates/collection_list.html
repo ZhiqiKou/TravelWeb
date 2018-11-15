@@ -14,11 +14,11 @@
                     <li class="pd_r150">
 					<div class="pic"><img src="{{ MEDIA_URL }}{{ collect.diary.image }}"/></div>
 					<div class="con">
-						<a href="#"><h3>{{ collect.diary.title }}</h3></a>
+						<a href="{% url 'diarys:details' collect.diary_id %}"><h3>{{ collect.diary.title }}</h3></a>
 						<div class="user">
 							<span><img src="{{ MEDIA_URL }}{{ collect.diary.user.portrait }}" />作者：<font>{{ collect.diary.user.nickname }}</font></span>
 							<label><img src="{% static 'images/state_icon1.png' %}" />{{ collect.diary.checknum }}</label>
-							<label><img src="{% static 'images/state_icon2.png' %}" />{{ collect.diary.praisenum }}</label>
+							<label><img src="{% static 'images/state_icon2.png' %}" />{{ collect.diary.commentsnum }}</label>
 						</div>
 						<p>{{ collect.diary.content|striptags|truncatechars:"150" }}</p>
 					</div>

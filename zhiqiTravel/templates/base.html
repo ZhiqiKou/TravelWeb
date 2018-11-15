@@ -77,17 +77,17 @@ function() {
         <ul class="fr">
             {% if request.user.is_authenticated %}
             <li class="tb">
-				<a href="#">我的河洛</a>
+				<a href="{% url 'homepage' %}">我的河洛</a>
 				<!-------------------用户------------------->
 				<div class="user">
-					<a class="user-hd" href="#">
+					<a class="user-hd" href="{% url 'userinfo' 'info' %}">
 						<img src="{{ MEDIA_URL }}{{ request.user.portrait }}"/><b></b>
 						<div class="clear"></div>
 					</a>
 					<div class="user-bd">
 						<div class="integral"><img src="{% static 'images/integral_ico.png' %}"/>当前积分 {{ request.user.integral }}</div>
 						<ul class="nav_sort">
-							<li><a href="my_index.html"><i class="i1"></i>我的主页</a></li>
+							<li><a href="{% url 'homepage' %}"><i class="i1"></i>我的主页</a></li>
 							<li><a href="{% url 'diarys:getdiaray' 0 %}"><i class="i2"></i>写游记</a></li>
 							<li><a href="{% url 'diarys:mydetails' 'published' %}"><i class="i9"></i>我的游记</a></li>
 							<li><a href="{% url 'mycollect' %}"><i class="i3"></i>我的收藏</a></li>
@@ -102,10 +102,10 @@ function() {
 				<span>|</span>
 			</li>
             <li class="tb"><a href="{% url 'operation:shopcar' %}"><i class="cart_ico"></i>购物车</a><span>|</span></li>
-            <li class="tb"><a href="news_list.html">用户帮助中心</a>
-            {% else %}
-            <li class="tb"><img src="{% static 'images/tel_ico.gif' %}"/><font>40000-40000</font></li>
             {% endif %}
+            <li class="tb"><a href="news_list.html">用户帮助中心</a>
+            <span>|</span>
+            <li class="tb"><img src="{% static 'images/tel_ico.gif' %}"/><font>0379-00000000</font></li>
         </ul>
         <div class="clear"></div>
     </div>
@@ -114,7 +114,7 @@ function() {
 <div id="header">
     <div class="cw1200">
         <!-------------------logo------------------->
-        <div class="logo fl"><a title="" href="index.html"><img alt="" src="{% static 'images/t_logo.jpg' %}"></a></div>
+        <div class="logo fl"><a title="" href="{% url 'index' %}"><img alt="" src="{% static 'images/t_logo.jpg' %}"></a></div>
         <div class="search_nav fl">
             <!-------------------搜索------------------->
             <div class="search radius6">
