@@ -45,7 +45,7 @@ class CollView(View):
         diary_id = request.POST.get('id', '')
         diary = Diary.objects.get(id=diary_id)
         try:
-            coll_diary = DiaryComments.objects.get(diary=diary, user=request.user)
+            coll_diary = UserCollect.objects.get(diary=diary, user=request.user)
             diary.collectnum -= 1
             coll_diary.delete()
             result = json.dumps({"status": "discoll"}, ensure_ascii=False)
