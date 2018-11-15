@@ -1,0 +1,69 @@
+{% extends 'shopbase.html' %}
+{% block title %}搜索结果{% endblock %}
+{% block head_title %}搜索结果{% endblock %}
+{% load staticfiles %}
+{% block content %}
+<div id="shop_car">
+	<div class="cw1000">
+        <ul>
+        {% if search_type == 'jq' %}
+            {% for spot in results %}
+                <li>
+                <div style="text-align:center" class="pic"><a href="{% url 'scenicspots:scenic_detail' spot.id %}">
+                    <img style="width: 50px;height: 50px;" class="scale-effect" src="{{ MEDIA_URL }}{{ spot.image }}"/></a>
+                </div>
+                <div class="con">
+                    <h2 style="text-align:center"><a href="{% url 'scenicspots:scenic_detail' spot.id %}">{{ spot.name }}</a></h2>
+                    <p>{{ spot.content|striptags|truncatechars:"200"  }}</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            {% endfor %}
+        {% elif search_type == 'tc' %}
+            {% for product in results %}
+                <li>
+                <div style="text-align:center" class="pic"><a href="{% url 'shop:pro_detail' product.id %}">
+                    <img style="width: 50px;height: 50px;" class="scale-effect" src="{{ MEDIA_URL }}{{ product.mainimg }}"/></a>
+                </div>
+                <div class="con">
+                    <h2 style="text-align:center"><a href="{% url 'shop:pro_detail' product.id %}">{{ product.name }}</a></h2>
+                    <p>{{ product.details|striptags|truncatechars:"200"  }}</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            {% endfor %}
+        {% elif search_type == 'yj' %}
+            {% for diary in results %}
+                <li>
+                <div style="text-align:center" class="pic"><a href="{% url 'diarys:details' diary.id %}">
+                    <img style="width: 50px;height: 50px;" class="scale-effect" src="{{ MEDIA_URL }}{{ diary.image }}"/></a>
+                </div>
+                <div class="con">
+                    <h2 style="text-align:center"><a href="{% url 'diarys:details' diary.id %}">{{ diary.title }}</a></h2>
+                    <p>{{ diary.content|striptags|truncatechars:"200"  }}</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            {% endfor %}
+        {% elif search_type == 'xw' %}
+            {% for new in results %}
+                <li>
+                <div style="text-align:center" class="pic"><a href="{% url 'news:news_detail' new.id %}">
+                    <img style="width: 50px;height: 50px;" class="scale-effect" src="{{ MEDIA_URL }}{{ new.image }}"/></a>
+                </div>
+                <div class="con">
+                    <h2 style="text-align:center"><a href="{% url 'news:news_detail' new.id %}">{{ new.title }}</a></h2>
+                    <p>{{ new.content|striptags|truncatechars:"200"  }}</p>
+                </div>
+                <div class="clear"></div>
+            </li>
+            {% endfor %}
+        {% else %}
+            <h1>搜索失败！</h1>
+        {% endif %}
+
+        </ul>
+	</div>
+	<div class="clear"></div>
+</div>
+{% endblock %}

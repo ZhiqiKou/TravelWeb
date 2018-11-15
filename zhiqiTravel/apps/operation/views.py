@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
 from django.urls import reverse
+from django.db.models import Q
 
 import json
 
@@ -11,6 +12,7 @@ from operation.models import ShoppingCart
 from users.models import TheContact
 from pay.models import *
 from scenicspots.models import Spots
+from news.models import News
 
 # Create your views here.
 class FavView(View):
@@ -406,3 +408,24 @@ class CommentsSpotsView(View):
         else:
             result = json.dumps({"status": "failed", "msg": "评论失败！评论为空！"}, ensure_ascii=False)
             return HttpResponse(result)
+
+
+class SearchView(View):
+    def post(self, request):
+        keywords = request.POST.get('keywords', '')
+        search_type = request.POST.get('select_box', '')
+        if search_type == 'jq':
+            results = Spots.objects.filter(Q(name__icontains=keywords) | Q(content__icontains=keywords))
+        elif search_type == 'tc':
+            results = Product.objects.filter(Q(name__icontains=keywords) | Q(details__icontains=keywords))
+        elif search_type == 'yj':
+            results = Diary.objects.filter(Q(title__icontains=keywords) | Q(content__icontains=keywords))
+        elif search_type == 'xw':
+            results = News.objects.filter(Q(title__icontains=keywords) | Q(content__icontains=keywords))
+        else:
+            result = json.dumps({"status": "failed", "msg": "搜索失败！搜索类型错误！"}, ensure_ascii=False)
+            return HttpResponse(result)
+        return render(request, 'search_results.html', {
+            'results': results,
+            'search_type': search_type,
+        })

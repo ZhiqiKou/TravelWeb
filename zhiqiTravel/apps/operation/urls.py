@@ -31,4 +31,7 @@ urlpatterns = [
     # 景点评论
     path('commentSpots', CommentsSpotsView.as_view(), name='commentspots'),
 
+    # 搜索功能
+    path('search', SearchView.as_view(), name='search'),
+
 ]

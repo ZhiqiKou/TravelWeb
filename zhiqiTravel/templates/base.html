@@ -41,6 +41,7 @@ function() {
     <link rel="stylesheet" type="text/css" href="{% static 'css/amazeui.css' %}">
     <!------------核心样式-------------->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     {% block script1 %}{% endblock %}
     {% block css %}{% endblock %}
     {% block js %}{% endblock %}
@@ -118,16 +119,17 @@ function() {
         <div class="search_nav fl">
             <!-------------------搜索------------------->
             <div class="search radius6">
-				<form name="searchform" method="post" action="/e/search/index.php">
+				<form name="searchform" method="post" action="{% url 'operation:search' %}">
 					<input name='ecmsfrom' type='hidden' value='9'>
 					<input type="hidden" name="show" value="title,newstext">
-					<select name="classid" id="choose">
-						<option value="0">景区</option>
-						<option value="1">特产</option>
-						<option value="4">游记</option>
-						<option value="22">文章</option>
+					<select name="select_box" id="choose">
+						<option value="jq">景区</option>
+						<option value="tc">特产</option>
+						<option value="yj">游记</option>
+						<option value="xw">新闻</option>
 					</select> 
-					<input class="inp_srh" name="keyboard"  placeholder="请输入您要搜索的关键词" >
+					<input class="inp_srh" name="keywords"  placeholder="请输入您要搜索的关键词" >
+                    {% csrf_token %}
 					<input class="btn_srh" type="submit" name="submit" value="搜索">
 				</form>
 			</div>

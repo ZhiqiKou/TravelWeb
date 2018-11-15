@@ -38,6 +38,13 @@
 			var value=$(this).text();
 			select_showbox.text(value);
 			ul_option.hide();
+			// selects设置选中
+			selects.find('option').each(function () {
+				$(this).attr("selected",false);
+				if($(this).text()===value){
+					$(this).attr("selected",true);
+				}
+            })
 		});
 
 		li_option.hover(function(){
@@ -61,10 +68,11 @@
 			var tag_option=$('<li></li>'),//li相当于option
 				txt_option=options.eq(n).text();
 			tag_option.text(txt_option).appendTo(ul_list);
-
 			//为被选中的元素添加class为selected
 			if(n==selected_index){
 				tag_option.attr('class','selected');
+				// selects默认选中第一个
+				selects.find('option:eq(0)').attr("selected",true);
 			}
 		}
 	}
