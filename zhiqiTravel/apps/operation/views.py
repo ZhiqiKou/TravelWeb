@@ -348,18 +348,29 @@ class CommentsGoodsView(View):
             return HttpResponse(result)
 
 
-class BuyTicketsView(View):
+class TravelBuyView(View):
     """
-    门票购买
+    旅游产品购买
     """
     def get(self, request):
-        spots_id = request.GET.get('spots_id', '')
-        spots = Spots.objects.get(id=int(spots_id))
+        spots_id = request.GET.get('id', '')
+        list_type = request.GET.get('list_type', '')
         contacts = TheContact.objects.filter(user=request.user)
-        return render(request, 'submit_orders.html', {
-            'spots': spots,
-            'contacts': contacts,
-        })
+        if list_type == 'scenic':
+            spots = Spots.objects.get(id=int(spots_id))
+            return render(request, 'submit_spots_orders.html', {
+                'spots': spots,
+                'contacts': contacts,
+            })
+        elif list_type == 'active':
+            active = Active.objects.get(id=int(spots_id))
+            return render(request, 'submit_active_orders.html', {
+                'active': active,
+                'contacts': contacts,
+            })
+        else:
+            result = json.dumps({"status": "failed", "msg": "Error！"}, ensure_ascii=False)
+            return HttpResponse(result)
 
 
 class CommentsSpotsView(View):
@@ -368,7 +379,7 @@ class CommentsSpotsView(View):
     """
     def get(self, request):
         order_num = request.GET.get('order_num', '')
-        spots = TicketsOrdersMainTable.objects.get(order_num=order_num)
+        spots = ScenicOrdersMainTable.objects.get(order_num=order_num)
         return render(request, 'spots_comment.html', {
             'spots': spots,
         })
@@ -381,9 +392,9 @@ class CommentsSpotsView(View):
             spots = Spots.objects.get(id=int(spots_id))
             comment = request.POST.get('comment', '')
             # 检查用户这个订单中是否有这个物品
-            if TicketsOrdersMainTable.objects.get(spots_id=spots_id, order_num=order_num):
+            if ScenicOrdersMainTable.objects.get(spots_id=spots_id, order_num=order_num):
                 # 检查是否确认收货
-                order = TicketsOrdersMainTable.objects.get(order_num=order_num)
+                order = ScenicOrdersMainTable.objects.get(order_num=order_num)
                 if order.order_state == 'yzf':
                     # 增加评论内容
                     spots_com = SpotsComments()

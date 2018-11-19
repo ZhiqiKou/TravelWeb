@@ -51,15 +51,15 @@
                 <ul>
                     {% for active in all_spots %}
                         <li>
-                        <div class="pic"><a href="activities.html"><img class="scale-effect" src="{{ MEDIA_URL }}{{ active.image }}"/></a></div>
+                        <div class="pic"><a href="{% url 'scenicspots:active_detail' active.id %}"><img class="scale-effect" src="{{ MEDIA_URL }}{{ active.image }}"/></a></div>
                         <div class="con">
-                            <h3><a href="activities.html">{{ active.title }}</a></h3>
+                            <h3><a href="{% url 'scenicspots:active_detail' active.id %}">{{ active.title }}</a></h3>
                             <span>出发时间：<i class="am-icon-clock-o"></i>{{ active.go_time|date:"Y/m/d" }}<label>参团人数：{{ active.now_num }}/{{ active.all_num }}</label></span>
                             <p>{{ active.introduce|striptags|truncatechars:"100" }}</p>
                         </div>
                         <div class="price">
                             <label>￥{{ active.price }}</label>
-                            <a href="#">查看详情</a>
+                            <a href="{% url 'scenicspots:active_detail' active.id %}">查看详情</a>
                         </div>
                         <div class="clear"></div>
                     </li>

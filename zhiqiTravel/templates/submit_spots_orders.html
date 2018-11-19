@@ -1,0 +1,185 @@
+﻿{% extends 'shopbase.html' %}
+{% block title %}提交订单{% endblock %}
+{% block head_title %}提交订单{% endblock %}
+{% load operation_extras %}
+{% block content %}
+<!-----------------提交订单---------------->
+    <script type="text/javascript">
+     function reducenum() {
+            amount = Number($(".Amount").val());
+            if(amount > 1){
+                amount -= 1;
+                $(".Amount").val(amount)
+            }
+            else{
+                alert("数量最少为1！")
+            }
+            showprice(amount)
+        }
+    function addnum() {
+            amount = Number($(".Amount").val());
+            amount += 1;
+            $(".Amount").val(amount)
+           showprice(amount)
+        }
+
+    function amountnum() {
+            amount = Number($(".Amount").val());
+            if(amount < 1){
+                alert("数量最少为1！")
+                $(".Amount").val(1)
+            }
+            else {
+                $(".Amount").val(amount)
+            }
+            amount = Number($(".Amount").val());
+            showprice(amount)
+        }
+
+    function showprice(amount) {
+        p = (amount * {{ spots.price }}).toFixed(2)
+        $("#sprice").text("￥" + p);
+        $(".calculation").find("b").text("￥" + p);
+    }
+
+    </script>
+<div id="submit_orders">
+	<div class="cw1000">
+		<div class="main_title">
+			<ul>
+				<li style="width:35%;">商品信息</li>
+				<li style="width:15%;">单价</li>
+				<li style="width:30%;">数量</li>
+				<li style="width:20%;">总价</li>
+			</ul>
+		</div>
+		<div class="list_box">
+			<ul>
+				<li>
+					<div class="con">
+						<div class="info" style="width:35%;">
+							<div class="pic"><a href="{% url 'scenicspots:scenic_detail' spots.id %}"><img width=53 height=53 src="{{ MEDIA_URL }}{{ spots.image }}" /></a></div>
+							<div class="name">
+								<a href="{% url 'scenicspots:scenic_detail' spots.id %}">{{ spots.name }}门票</a>
+								<p>分类：{{ spots.get_classification_display }}</p>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="price" style="width:15%;"><label>￥{{ spots.price }}</label></div>
+						<div class="number" style="width:30%;">
+							<div class="Spinner">
+								<a class="DisDe" href="javascript:void(0)" onclick="reducenum()"><i>-</i></a>
+								<input class="Amount" onKeyUp="amountnum()" value="1" autocomplete="off" maxlength="3">
+								<a class="Increase" href="javascript:void(0)" onclick="addnum()"><i>+</i></a>
+							</div>
+						</div>
+
+						<div class="price" style="width:20%;"><span id="sprice">￥{{ spots.price }}</span></div>
+						<div class="clear"></div>
+					</div>
+				</li>
+
+			</ul>
+		</div>
+		<!-----------------景区信息---------------->
+		<div class="info_mo">
+			<table>
+				<tr>
+					<th colspan="2">景区信息</th>
+				</tr>
+				<tr>
+					<td>景区名称：{{ spots.name }}</td>
+					<td>联系方式：{{ spots.phone }}</td>
+				</tr>
+				<tr>
+					<td>开放时间：{{ spots.businessHours }}</td>
+					<td>详细地址：{{ spots.address }}</td>
+				</tr>
+			</table>
+		</div>
+		<div class="contact">
+			<ul>
+				<li class="title">
+					<h2><i class="am-icon-user"></i> 联系人信息</h2>
+					<a href="#" class="add_book" data-am-modal="{target: '#my-popup'}">选择已有联系人</a>
+					<div class="am-popup" id="my-popup">
+					  <div class="am-popup-inner">
+						<div class="am-popup-hd">
+						  <h4 class="am-popup-title">联系人列表</h4>
+						  <span data-am-modal-close
+								class="am-close">&times;</span>
+						</div>
+						<div class="am-popup-bd">
+						  <ul>
+                              {% for contact in contacts %}
+                                  <li><i class="am-icon-user"></i>
+                                      <span class="name">{{ contact.name }}</span>
+                                      <p style="font-size: 15px">{{ contact.mobile }}</p>
+                                        <label class="am-radio-inline">
+                                          <input type="radio" name="radio3" value="" data-am-ucheck>
+                                        </label>
+							      </li>
+                              {% endfor %}
+						  </ul>
+						  <input class="submit" type="button" value="确定"/>
+                            <script type="text/javascript">
+                                $(".submit").click(function () {
+                                    li = $("input[name='radio3']:checked").parent().parent();
+                                    conname = li.find("span").text();
+                                    conphone = li.find("p").text();
+                                    $("input[name='conname']").val(conname);
+                                    $("input[name='conphone']").val(conphone);
+                                    $(".am-close").click()
+                                });
+                            </script>
+
+						</div>
+					  </div>
+					</div>
+
+
+				</li>
+				<li>
+					<span class="name">姓名：</span>
+					<input type="text" class="text" name="conname" placeholder="请填写真实姓名">
+				</li>
+				<li>
+					<span class="name">手机：</span>
+					<input type="text"  class="text" name="conphone" placeholder="请填写手机号">
+					<p>（消费时所需的兑换码会发送至您的手机，请您保持手机畅通）</p>
+				</li>
+			</ul>
+
+		</div>
+		<div class="tip">
+			<h2>供应商信息</h2>
+			<p>本产品由zhiqiTravel或其关联公司旅行社及具有资质的合作旅行社提供相关服务</p>
+		</div>
+
+        <script type="text/javascript">
+            function submitOrder() {
+                amount = Number($(".Amount").val());
+                spots_id = {{ spots.id }};
+                conname = $("input[name='conname']").val();
+                conphone = $("input[name='conphone']").val();
+                if(amount && conname && conphone ){
+                    window.location.replace("{% url 'pay:submit_order2' %}?list_type=spots&amount=" + amount
+                        +"&spots_id=" + spots_id
+                        + "&conname=" + conname
+                        + "&conphone=" + conphone);
+                }
+                else {
+                    alert("请完整的填写信息！")
+                }
+            }
+
+        </script>
+
+		<div class="calculation">
+			<a href="javascript:void(0)" onclick="submitOrder()">提交订单</a>
+			<span>合计： <b>￥{{ spots.price }}</b></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+{% endblock %}

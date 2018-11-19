@@ -59,9 +59,9 @@
 						</tr>
                             <tr>
 							<td>
-								<div class="pic"><a href="{% url 'scenicspots:scenic_detail' order.spots_id %}"><img width="53" height="53" src="{{ MEDIA_URL }}{{ order.spots_image }}"></a></div>
+								<div class="pic"><a href="{% url 'scenicspots:scenic_detail' order.scenic_id %}"><img width="53" height="53" src="{{ MEDIA_URL }}{{ order.scenic_image }}"></a></div>
 								<div class="name">
-									<a href="{% url 'scenicspots:scenic_detail' order.spots_id %}">{{ order.spots_name }}门票</a>
+									<a href="{% url 'scenicspots:scenic_detail' order.scenic_id %}">{{ order.scenic_name }}门票</a>
 									<p>下单日期：{{ order.create_time }}</p>
 								</div>
 								<div class="clear"></div>

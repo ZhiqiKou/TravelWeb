@@ -160,7 +160,7 @@
 						<li>详细地址：<span>{{ scenic.address }}</span></li>
 						<li>费用：<label>￥{{ scenic.price }}</label></li>
 					</ul>
-					<a class="buy" href="{% url 'operation:buytickets' %}?spots_id={{ scenic.id }}">立即预订</a>
+					<a class="buy" href="{% url 'operation:travelbuy' %}?list_type=scenic&id={{ scenic.id }}">立即预订</a>
 				</div>
 			</div>
 			<!------------------公共盒子-------------------->

@@ -6,7 +6,7 @@ import json
 from .models import *
 from news.views import get_public_box
 from shop.models import Product
-from pay.models import TicketsOrdersMainTable
+from pay.models import ScenicOrdersMainTable
 from operation.models import SpotsComments
 
 
@@ -56,12 +56,27 @@ class ScenicDetails(View):
         })
 
 
+class ActiveDetails(View):
+    """
+    旅游活动详情
+    """
+    def get(self, request, active_id):
+        active = Active.objects.get(id=int(active_id))
+        other_actives = Active.objects.all().order_by('-add_time')[:5]
+        return render(request, 'activities.html', {
+            'now_type': 'scenic',
+            'active': active,
+            'other_actives': other_actives,
+
+        })
+
+
 class OrderDetailsView(View):
     """
     旅游订单详情页
     """
     def get(self, request, order_num):
-        order = TicketsOrdersMainTable.objects.get(user=request.user, order_num=order_num)
+        order = ScenicOrdersMainTable.objects.get(user=request.user, order_num=order_num)
         return render(request, 'order_details2.html', {
             'order': order,
         })

@@ -10,7 +10,7 @@ import json
 
 from operation.models import ShoppingCart, Shopping
 from .models import *
-from scenicspots.models import Spots
+from scenicspots.models import Spots, Active
 from utils.mixin_utils import LoginRequiredMixin
 
 from zhiqiTravel import settings
@@ -71,7 +71,7 @@ def check_cdk():
     cdk = creat_cdk()
     try:
         # 如果能查到订单
-        order = TicketsOrdersMainTable.objects.get(cdk=cdk)
+        order = ScenicOrdersMainTable.objects.get(cdk=cdk)
         # 重新执行检测
         check_cdk()
     except:
@@ -217,7 +217,7 @@ class SubmitOrderView(LoginRequiredMixin, View):
             order = GoodsOrdersMainTable.objects.get(order_num=order_num)
             return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=goods'
         elif frompage == 'tickets_order':
-            order = TicketsOrdersMainTable.objects.get(order_num=order_num)
+            order = ScenicOrdersMainTable.objects.get(order_num=order_num)
             return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets'
         else:
             result = json.dumps({"status": "failed", "msg": "来源错误"}, ensure_ascii=False)
@@ -261,10 +261,10 @@ class FinishPayView(View):
                 order.save()
             # 跳转商品订单页
             return HttpResponseRedirect(reverse('pay:project_order'))
-        elif ordertype == 'tickets':
+        elif ordertype == 'tickets' or ordertype == 'actives':
             # 支付成功！
             if code == '10000':
-                order = TicketsOrdersMainTable.objects.get(order_num=out_trade_no)
+                order = ScenicOrdersMainTable.objects.get(order_num=out_trade_no)
                 order.order_state = 'yzf'
                 order.pay_time = datetime.now()
                 order.cdk = check_cdk()
@@ -328,32 +328,55 @@ class ProjectOrderView(View):
         })
 
 
-class SubmitTicketsOrderView(View):
+class SubmitTravelsOrderView(View):
     def get(self, request):
         user = request.user
-        spots_id = request.GET.get('spots_id', '')
+        list_type = request.GET.get('list_type', '')
         amount = request.GET.get('amount', '')
         conname = request.GET.get('conname', '')
         conphone = request.GET.get('conphone', '')
-        spot = Spots.objects.get(id=int(spots_id))
         out_trade_no = creat_order_num(user.id)
-        order_describe = spot.name + '门票'
-        price = int(amount) * spot.price
+
+        if list_type == 'spots':
+            spots_id = request.GET.get('spots_id', '')
+            spot = Spots.objects.get(id=int(spots_id))
+            order_describe = spot.name + '门票'
+            price = int(amount) * spot.price
+            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets'
+            name = spot.name
+            unit_price = spot.price
+            image = spot.image
+            id = int(spots_id)
+            scenic_type = 'mp'
+        elif list_type == 'active':
+            active_id = request.GET.get('active_id', '')
+            active = Active.objects.get(id=int(active_id))
+            order_describe = active.title
+            price = int(amount) * active.price
+            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=actives'
+            name = active.title
+            unit_price = active.price
+            image = active.image
+            id = int(active_id)
+            scenic_type = 'hd'
+        else:
+            return
 
         # 订单信息存储
-        tickets_order = TicketsOrdersMainTable()
-        tickets_order.user = user
-        tickets_order.spots_name = spot.name
-        tickets_order.buy_num = int(amount)
-        tickets_order.ticket_price = spot.price
-        tickets_order.spots_image = spot.image
-        tickets_order.spots_id = int(spots_id)
-        tickets_order.order_num = out_trade_no
-        tickets_order.order_describe = order_describe
-        tickets_order.total_amount = price
-        tickets_order.consignee = conname
-        tickets_order.mobile = conphone
-        tickets_order.save()
+        scenic_order = ScenicOrdersMainTable()
+        scenic_order.user = user
+        scenic_order.scenic_name = name
+        scenic_order.buy_num = int(amount)
+        scenic_order.ticket_price = unit_price
+        scenic_order.scenic_image = image
+        scenic_order.scenic_id = id
+        scenic_order.order_num = out_trade_no
+        scenic_order.order_describe = order_describe
+        scenic_order.total_amount = price
+        scenic_order.consignee = conname
+        scenic_order.mobile = conphone
+        scenic_order.classification = scenic_type
+        scenic_order.save()
 
         # 跳转支付宝支付页面
         alipay = create_alipay()
@@ -363,7 +386,7 @@ class SubmitTicketsOrderView(View):
             out_trade_no=out_trade_no,
             total_amount=price,
             timeout_express=settings.ALIPAY_CLOSE_TIME,
-            return_url='http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets',
+            return_url=return_url,
         )
         url = settings.ALIPAY_URL + query_params
         return HttpResponseRedirect(url)
@@ -375,13 +398,13 @@ class ScenicOrderView(View):
     """
     def get(self, request):
         user = request.user
-        ticket_order = TicketsOrdersMainTable.objects.filter(user=user).order_by('-create_time')
+        orders = ScenicOrdersMainTable.objects.filter(user=user).order_by('-create_time')
         order_state = request.GET.get('order_state', '')
         if order_state:
-            ticket_order = ticket_order.filter(order_state=order_state)
+            orders = orders.filter(order_state=order_state)
 
         return render(request, 'scenic_order.html', {
-            'ticket_order': ticket_order,
+            'orders': orders,
             'order_state': order_state,
         })
 

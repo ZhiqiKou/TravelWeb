@@ -30,15 +30,29 @@
 			</div>
 			<div class="list_con">
 				<ul>
-                    {% for order in ticket_order %}
+                    {% for order in orders %}
                         <li>
 						<div class="serial">订单编号：{{ order.order_num }}<a href="#"><i class="del"></i>删除</a></div>
 						<div class="cont">
 							<div class="con">
 								<div class="info" style="width:35%;">
-									<div class="pic"><a href="{% url 'scenicspots:scenic_detail' order.spots_id %}"><img width=53 height=53 src="{{ MEDIA_URL }}{{ order.spots_image }}" /></a></div>
+									<div class="pic"><a href="{% if order.classification == 'mp' %}
+                                                                {% url 'scenicspots:scenic_detail' order.scenic_id %}
+                                                              {% elif order.classification == 'hd' %}
+                                                                {% url 'scenicspots:active_detail' order.scenic_id %}
+                                                              {% else %}
+                                                                #
+                                                              {% endif %}">
+                                        <img width=53 height=53 src="{{ MEDIA_URL }}{{ order.scenic_image }}" />
+                                    </a></div>
 									<div class="name">
-										<a href="{% url 'scenicspots:scenic_detail' order.spots_id %}">{{ order.spots_name }}门票</a>
+										<a href="{% if order.classification == 'mp' %}
+                                                                {% url 'scenicspots:scenic_detail' order.scenic_id %}
+                                                              {% elif order.classification == 'hd' %}
+                                                                {% url 'scenicspots:active_detail' order.scenic_id %}
+                                                              {% else %}
+                                                                #
+                                                              {% endif %}">{{ order.order_describe|truncatechars:"20" }}</a>
 										<p>下单日期：{{ order.create_time|date:"Y-m-d" }}</p>
 									</div>
 									<div class="clear"></div>

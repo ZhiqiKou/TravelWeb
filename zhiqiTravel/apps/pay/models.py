@@ -48,13 +48,13 @@ class GoodsOrdersMainTable(models.Model):
         return self.order_describe
 
 
-class TicketsOrdersMainTable(models.Model):
+class ScenicOrdersMainTable(models.Model):
     user = models.ForeignKey(MyUser, verbose_name='下单用户', on_delete=models.CASCADE)
-    spots_name = models.CharField(max_length=30, verbose_name='景区名称', default='')
+    scenic_name = models.CharField(max_length=30, verbose_name='景区名称/活动名称', default='')
     buy_num = models.IntegerField(verbose_name='购买数量', default=1)
     ticket_price = models.FloatField(verbose_name='单价', default=0)
-    spots_image = models.ImageField(default='', verbose_name='景区主图')
-    spots_id = models.IntegerField(verbose_name='景区id', default=0)
+    scenic_image = models.ImageField(default='', verbose_name='景区主图/活动主图')
+    scenic_id = models.IntegerField(verbose_name='景区id/活动id', default=0)
     order_num = models.CharField(max_length=25, verbose_name='订单号')
     cdk = models.CharField(max_length=25, default='', verbose_name='兑换码')
     order_describe = models.CharField(max_length=50, verbose_name='订单描述')
@@ -65,13 +65,16 @@ class TicketsOrdersMainTable(models.Model):
                                                           ('yzf', '已支付'),
                                                           ('ywc', '已完成'),
                                                           ), default='wzf', verbose_name='订单状态')
+    classification = models.CharField(max_length=2, choices=(('mp', '门票'),
+                                                             ('hd', '活动'),
+                                                             ), default='mp', verbose_name='订单类型')
     create_time = models.DateTimeField(default=datetime.now, verbose_name='订单提交时间')
     pay_time = models.DateTimeField(null=True, blank=True, verbose_name='订单支付时间')
     received_time = models.DateTimeField(null=True, blank=True, verbose_name='确认收货时间')
     finish_time = models.DateTimeField(null=True, blank=True, verbose_name='订单完成时间')
 
     class Meta:
-        verbose_name = '门票订单'
+        verbose_name = '旅游订单'
         verbose_name_plural = verbose_name
 
     def __str__(self):

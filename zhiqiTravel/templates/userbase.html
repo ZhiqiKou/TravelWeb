@@ -24,7 +24,7 @@
 		<div class="nav">
 			<ul>
 				<li><a title="" href="{% url 'index' %}">首页</a><span>|</span></li>
-				<li><a title="" href="{% url 'scenicspots:all' %}">洛阳旅游</a><span>|</span></li>
+				<li><a title="" href="{% url 'scenicspots:all' %}?list_type=scenic">洛阳旅游</a><span>|</span></li>
 				<li><a title="" href="{% url 'shop:all' %}">特产商城</a><span>|</span></li>
 				<li><a title="" href="{% url 'diarys:all' 'new' %}">游记文章</a><span>|</span></li>
 				<li><a title="" href="{% url 'news:all' %}">新闻资讯</a><span>|</span></li>
@@ -78,7 +78,7 @@
 	<a href="{% url 'diarys:mydetails' 'published' %}"><span class="ico7"><img src="{% static 'images/nav_ico7.png' %}"/></span>我的游记</a>
 	<a href="{% url 'mycollect' %}"><span class="ico3"><img src="{% static 'images/nav_ico3.png' %}"/></span>我的收藏</a>
 	<a href="{% url 'pay:project_order' %}"><span class="ico4"><img src="{% static 'images/nav_ico4.png' %}"/></span>商品订单</a>
-	<a href="{% url 'pay:scenic_order' %}"><span class="ico5"><img src="{% static 'images/nav_ico5.png' %}"/></span>旅游订单</a>
+	<a href="{% url 'pay:scenic_order'%}"><span class="ico5"><img src="{% static 'images/nav_ico5.png' %}"/></span>旅游订单</a>
 	<a href="{% url 'mycomments' %}?comments_type=note"><span class="ico6"><img src="{% static 'images/nav_ico6.png' %}"/></span>我的评论</a>
 </div>
 <!-----------------框架---------------->

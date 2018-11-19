@@ -18,31 +18,43 @@
         }
     function addnum() {
             amount = Number($(".Amount").val());
-            amount += 1;
-            $(".Amount").val(amount)
+            num={{ active.all_num }}-{{ active.now_num }};
+            if(amount < num){
+                amount += 1;
+                $(".Amount").val(amount);
+            }
+            else{
+                alert("当前剩余名额为：" + num);
+            }
            showprice(amount)
         }
 
     function amountnum() {
+         num={{ active.all_num }}-{{ active.now_num }};
             amount = Number($(".Amount").val());
             if(amount < 1){
-                alert("数量最少为1！")
-                $(".Amount").val(1)
+                $(".Amount").val(1);
+                alert("数量最少为1！");
+            }
+            else if(amount > num){
+                $(".Amount").val(num);
+                alert("当前剩余名额为：" + num);
             }
             else {
-                $(".Amount").val(amount)
+                $(".Amount").val(amount);
             }
+            {# 需要再一次获取值 #}
+            amount = Number($(".Amount").val());
             showprice(amount)
         }
 
     function showprice(amount) {
-        p = (amount * {{ spots.price }}).toFixed(2)
+        p = (amount * {{ active.price }}).toFixed(2)
         $("#sprice").text("￥" + p);
         $(".calculation").find("b").text("￥" + p);
     }
 
     </script>
-
 <div id="submit_orders">
 	<div class="cw1000">
 		<div class="main_title">
@@ -58,14 +70,14 @@
 				<li>
 					<div class="con">
 						<div class="info" style="width:35%;">
-							<div class="pic"><a href="#"><img width=53 height=53 src="{{ MEDIA_URL }}{{ spots.image }}" /></a></div>
+							<div class="pic"><a href="{% url 'scenicspots:active_detail' active.id %}"><img width=53 height=53 src="{{ MEDIA_URL }}{{ active.image }}" /></a></div>
 							<div class="name">
-								<a href="#">{{ spots.name }}门票</a>
-								<p>分类：{{ spots.get_classification_display }}</p>
+								<a href="{% url 'scenicspots:active_detail' active.id %}">{{ active.title|truncatechars:"20" }}</a>
+								<p>分类：{{ active.get_classification_display }}</p>
 							</div>
 							<div class="clear"></div>
 						</div>
-						<div class="price" style="width:15%;"><label>￥{{ spots.price }}</label></div>
+						<div class="price" style="width:15%;"><label>￥{{ active.price }}</label></div>
 						<div class="number" style="width:30%;">
 							<div class="Spinner">
 								<a class="DisDe" href="javascript:void(0)" onclick="reducenum()"><i>-</i></a>
@@ -74,45 +86,29 @@
 							</div>
 						</div>
 
-						<div class="price" style="width:20%;"><span id="sprice">￥{{ spots.price }}</span></div>
+						<div class="price" style="width:20%;"><span id="sprice">￥{{ active.price }}</span></div>
 						<div class="clear"></div>
 					</div>
 				</li>
 
 			</ul>
 		</div>
-		<!-----------------景区信息---------------->
+		<!-----------------活动信息---------------->
 		<div class="info_mo">
 			<table>
 				<tr>
-					<th colspan="2">景区信息</th>
+					<th colspan="2">活动信息</th>
 				</tr>
 				<tr>
-					<td>景区名称：{{ spots.name }}</td>
-					<td>联系方式：{{ spots.phone }}</td>
+					<td>{{ active.title }}</td>
+					<td>活动咨询：{{ active.phone }}</td>
 				</tr>
 				<tr>
-					<td>开放时间：{{ spots.businessHours }}</td>
-					<td>详细地址：{{ spots.address }}</td>
+					<td>出发时间：{{ active.go_time|date:"Y/m/d" }}</td>
+					<td>集合地点：{{ active.address }}</td>
 				</tr>
 			</table>
 		</div>
-		<!-----------------活动信息---------------->
-{#		<div class="info_mo">#}
-{#			<table>#}
-{#				<tr>#}
-{#					<th colspan="2">活动信息</th>#}
-{#				</tr>#}
-{#				<tr>#}
-{#					<td>活动：春节逛吃哪里去？看洛阳庙会、灯展集锦</td>#}
-{#					<td>活动咨询：0379-63789053</td>#}
-{#				</tr>#}
-{#				<tr>#}
-{#					<td>出发时间：2017/01/23</td>#}
-{#					<td>集合地点：洛阳市关林庙会</td>#}
-{#				</tr>#}
-{#			</table>#}
-{#		</div>#}
 		<div class="contact">
 			<ul>
 				<li class="title">
@@ -175,12 +171,12 @@
         <script type="text/javascript">
             function submitOrder() {
                 amount = Number($(".Amount").val());
-                spots_id = {{ spots.id }};
+                active_id = {{ active.id }};
                 conname = $("input[name='conname']").val();
                 conphone = $("input[name='conphone']").val();
                 if(amount && conname && conphone ){
-                    window.location.replace("{% url 'pay:submit_order2' %}?amount=" + amount
-                        +"&spots_id=" + spots_id
+                    window.location.replace("{% url 'pay:submit_order2' %}?list_type=active&amount=" + amount
+                        +"&active_id=" + active_id
                         + "&conname=" + conname
                         + "&conphone=" + conphone);
                 }
@@ -193,7 +189,7 @@
 
 		<div class="calculation">
 			<a href="javascript:void(0)" onclick="submitOrder()">提交订单</a>
-			<span>合计： <b>￥{{ spots.price }}</b></span>
+			<span>合计： <b>￥{{ active.price }}</b></span>
 		</div>
 	</div>
 	<div class="clear"></div>
