@@ -379,30 +379,43 @@ class CommentsSpotsView(View):
     """
     def get(self, request):
         order_num = request.GET.get('order_num', '')
-        spots = ScenicOrdersMainTable.objects.get(order_num=order_num)
+        scenic = ScenicOrdersMainTable.objects.get(order_num=order_num)
         return render(request, 'spots_comment.html', {
-            'spots': spots,
+            'scenic': scenic,
         })
 
     def post(self, request):
         comments_form = CommentsForm(request.POST)
         if comments_form.is_valid():
-            spots_id = request.GET.get('spots_id', '')
+            scenic_id = request.GET.get('scenic_id', '')
             order_num = request.GET.get('order_num', '')
-            spots = Spots.objects.get(id=int(spots_id))
+            scenic_type = request.GET.get('scenic_type', '')
             comment = request.POST.get('comment', '')
             # 检查用户这个订单中是否有这个物品
-            if ScenicOrdersMainTable.objects.get(spots_id=spots_id, order_num=order_num):
+            if ScenicOrdersMainTable.objects.get(scenic_id=scenic_id, order_num=order_num):
                 # 检查是否确认收货
                 order = ScenicOrdersMainTable.objects.get(order_num=order_num)
                 if order.order_state == 'yzf':
                     # 增加评论内容
-                    spots_com = SpotsComments()
-                    spots_com.user = request.user
-                    spots_com.spots = spots
-                    spots_com.comments = comment
-                    spots_com.save()
-
+                    if scenic_type == 'mp':
+                        # 景区评论
+                        spots = Spots.objects.get(id=int(scenic_id))
+                        spots_com = SpotsComments()
+                        spots_com.user = request.user
+                        spots_com.spots = spots
+                        spots_com.comments = comment
+                        spots_com.save()
+                    elif scenic_type == 'hd':
+                        # 活动评论
+                        active = Active.objects.get(id=int(scenic_id))
+                        active_com = ActiveComments()
+                        active_com.user = request.user
+                        active_com.active = active
+                        active_com.comments = comment
+                        active_com.save()
+                    else:
+                        result = json.dumps({"status": "failed", "msg": "评论失败！订单类型有误！"}, ensure_ascii=False)
+                        return HttpResponse(result)
                     # 修改订单状态
                     order.order_state = 'ywc'
                     order.finish_time = datetime.now()
@@ -422,6 +435,9 @@ class CommentsSpotsView(View):
 
 
 class SearchView(View):
+    """
+    全局搜索
+    """
     def post(self, request):
         keywords = request.POST.get('keywords', '')
         search_type = request.POST.get('select_box', '')

@@ -7,7 +7,7 @@ from .models import *
 from news.views import get_public_box
 from shop.models import Product
 from pay.models import ScenicOrdersMainTable
-from operation.models import SpotsComments
+from operation.models import SpotsComments, ActiveComments
 
 
 # Create your views here.
@@ -63,11 +63,12 @@ class ActiveDetails(View):
     def get(self, request, active_id):
         active = Active.objects.get(id=int(active_id))
         other_actives = Active.objects.all().order_by('-add_time')[:5]
+        comments = ActiveComments.objects.filter(active=active)
         return render(request, 'activities.html', {
             'now_type': 'scenic',
             'active': active,
             'other_actives': other_actives,
-
+            'comments': comments,
         })
 
 
