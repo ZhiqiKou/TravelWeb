@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views.generic import View
+
+import json
 
 from .models import *
 from news.views import get_public_box
@@ -11,11 +13,20 @@ from operation.models import SpotsComments
 # Create your views here.
 class ScenicListView(View):
     """
-    旅游景区列表
+    旅游列表
     """
     def get(self, request):
-        all_spots = Spots.objects.all().order_by('-add_times')
+        list_type = request.GET.get('list_type', '')
         public_box = get_public_box()
+        if list_type == 'scenic':
+            all_spots = Spots.objects.all().order_by('-add_times')
+
+        elif list_type == 'active':
+            all_spots = Active.objects.all().order_by('go_time')
+        else:
+            result = json.dumps({"status": "failed", "msg": "来源错误"}, ensure_ascii=False)
+            return HttpResponse(result)
+
         return render(request, 'scenic_list.html', {
             'all_spots': all_spots,
             'culture': public_box.get('culture'),
@@ -23,6 +34,7 @@ class ScenicListView(View):
             'food': public_box.get('food'),
             'life': public_box.get('life'),
             'now_type': 'scenic',
+            'list_type': list_type,
         })
 
 

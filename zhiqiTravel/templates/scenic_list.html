@@ -1,48 +1,72 @@
 {% extends 'news_list.html' %}
 {% load staticfiles %}
+{% block title %}{% if list_type == 'scenic' %}景区列表{% elif list_type == 'active' %}活动列表{% endif %}{% endblock %}
 {% block left %}
     <div class="public_box bg1">
-				<div class="public_title">
-					<div class="fl"><img src="{% static 'images/from_title_left.png' %}"/></div>
-					<div class="con">
-						<div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
-						<div class="name"><img src="{% static 'images/f_t_scenic.png' %}"/></div>
-					</div>
-					<div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
-					<div class="clear"></div>
-				</div>
-				<!------------------列表分类-------------------->
-				<div id="list_sort">
-					<span>产品类型：</span>
-					<div class="list_1">
-						<a class="cur" href="scenic_list.html">旅游景区</a>
-						<a href="activities_list.html">旅游活动</a>
-						<div class="clear"></div>
-					</div>
-				</div>
-				<!------------------景区列表-------------------->
-				<div id="scenic_list">
-					<ul>
-                        {% for spot in all_spots %}
-                            <li>
-							<div class="pic"><a href="{% url 'scenicspots:scenic_detail' spot.id %}"><img class="scale-effect" src="{{ MEDIA_URL }}{{ spot.image }}"/></a></div>
-							<div class="con">
-								<h3><a href="{% url 'scenicspots:scenic_detail' spot.id %}">{{ spot.name }}</a></h3>
-								<p>{{ spot.content|striptags|truncatechars:"100"  }}</p>
-							</div>
-							<div class="tip">
-                                {% if spot.classification == 'natural' %}
-								    <img src="{% static 'images/scenic_ico.png' %}"/>景区
-                                {% elif spot.classification == 'leisure' %}
-                                    <img src="{% static 'images/leisure_ico.png' %}"/>休闲
-                                {% endif %}
-							</div>
-							<div class="clear"></div>
-						</li>
-                        {% endfor %}
+        <div class="public_title">
+            <div class="fl"><img src="{% static 'images/from_title_left.png' %}"/></div>
+            <div class="con">
+                <div class="lamp_ico"><img src="{% static 'images/lamp_ico.png' %}"/></div>
+                <div class="name"><img src="{% if list_type == 'scenic' %}{% static 'images/f_t_scenic.png' %}{% elif list_type == 'active' %}{% static 'images/f_t_activity_introduce.png' %}{% endif %}"/></div>
+            </div>
+            <div class="fr"><img src="{% static 'images/from_title_right.png' %}"/></div>
+            <div class="clear"></div>
+        </div>
+        <!------------------列表分类-------------------->
+        <div id="list_sort">
+            <span>产品类型：</span>
+            <div class="list_1">
+                <a {% if list_type == 'scenic' %}class="cur"{% endif %} href="{% url 'scenicspots:all' %}?list_type=scenic">旅游景区</a>
+                <a {% if list_type == 'active' %}class="cur"{% endif %} href="{% url 'scenicspots:all' %}?list_type=active">旅游活动</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {% if list_type == 'scenic' %}
+            <!------------------景区列表-------------------->
+            <div id="scenic_list">
+            <ul>
+                {% for spot in all_spots %}
+                    <li>
+                    <div class="pic"><a href="{% url 'scenicspots:scenic_detail' spot.id %}"><img class="scale-effect" src="{{ MEDIA_URL }}{{ spot.image }}"/></a></div>
+                    <div class="con">
+                        <h3><a href="{% url 'scenicspots:scenic_detail' spot.id %}">{{ spot.name }}</a></h3>
+                        <p>{{ spot.content|striptags|truncatechars:"100"  }}</p>
+                    </div>
+                    <div class="tip">
+                        {% if spot.classification == 'natural' %}
+                            <img src="{% static 'images/scenic_ico.png' %}"/>景区
+                        {% elif spot.classification == 'leisure' %}
+                            <img src="{% static 'images/leisure_ico.png' %}"/>休闲
+                        {% endif %}
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                {% endfor %}
 
-					</ul>
-				</div>
-
-			</div>
+            </ul>
+        </div>
+        {% elif list_type == 'active' %}
+            <!------------------活动列表-------------------->
+            <div id="activities_list">
+                <ul>
+                    {% for active in all_spots %}
+                        <li>
+                        <div class="pic"><a href="activities.html"><img class="scale-effect" src="{{ MEDIA_URL }}{{ active.image }}"/></a></div>
+                        <div class="con">
+                            <h3><a href="activities.html">{{ active.title }}</a></h3>
+                            <span>出发时间：<i class="am-icon-clock-o"></i>{{ active.go_time|date:"Y/m/d" }}<label>参团人数：{{ active.now_num }}/{{ active.all_num }}</label></span>
+                            <p>{{ active.introduce|striptags|truncatechars:"100" }}</p>
+                        </div>
+                        <div class="price">
+                            <label>￥{{ active.price }}</label>
+                            <a href="#">查看详情</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
 {% endblock %}

@@ -60,7 +60,11 @@ class Active(models.Model):
     旅游活动
     """
     title = models.CharField(max_length=30, verbose_name='标题')
-    introduce = models.TextField(verbose_name='活动介绍')
+    introduce = UEditorField(verbose_name='活动介绍',
+                             width=600,
+                             height=300,
+                             imagePath="Active/ueditor/",
+                             filePath="Active/ueditor/", default='')
     image = models.ImageField(upload_to='active/%Y/%m', max_length=100, verbose_name='缩略图')
     classification = models.CharField(max_length=10, choices=(('natural', '景区'),
                                                               ('leisure', '休闲')),

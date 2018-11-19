@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.shortcuts import render, redirect, HttpResponseRedirect, reverse,HttpResponse
+from django.shortcuts import render, redirect, HttpResponseRedirect, reverse, HttpResponse
 from alipay import AliPay
 
 import time

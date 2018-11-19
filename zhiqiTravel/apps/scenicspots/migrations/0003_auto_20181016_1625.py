@@ -11,20 +11,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='gallery',
-            name='index',
-        ),
-        migrations.AddField(
-            model_name='spots',
-            name='x',
-            field=models.DecimalField(decimal_places=6, default=112.460033, max_digits=9, verbose_name='经度'),
-        ),
-        migrations.AddField(
-            model_name='spots',
-            name='y',
-            field=models.DecimalField(decimal_places=6, default=34.624376, max_digits=9, verbose_name='纬度'),
-        ),
+
         migrations.AlterField(
             model_name='spots',
             name='content',

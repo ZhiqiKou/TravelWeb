@@ -40,7 +40,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100, verbose_name='标题')),
                 ('image', models.ImageField(upload_to='spots/banner/%Y/%m', verbose_name='轮播图')),
-                ('index', models.IntegerField(default=100, verbose_name='顺序')),
                 ('add_time', models.DateTimeField(default=datetime.datetime.now, verbose_name='添加时间')),
             ],
             options={

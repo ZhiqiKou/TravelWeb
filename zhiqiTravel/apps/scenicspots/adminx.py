@@ -25,5 +25,19 @@ class GalleryAdmin:
     model_icon = 'fa fa-picture-o'
 
 
+class ActiveAdmin:
+    """
+    活动后台管理
+    """
+    list_display = ['title', 'classification', 'phone', 'all_num', 'price', 'add_time']
+    list_filter = ['price', 'classification', 'add_time']
+    search_fields = ['title', 'classification', 'phone', 'all_num', 'price', 'add_time']
+    fields = ['title', 'introduce', 'image', 'classification', 'phone', 'go_time', 'address', 'price',
+              'all_num', 'add_time']
+    model_icon = 'fa fa-clipboard'
+    style_fields = {"introduce": "ueditor"}
+
+
 xadmin.site.register(Spots, SpotsAdmin)
 xadmin.site.register(Gallery, GalleryAdmin)
+xadmin.site.register(Active, ActiveAdmin)
