@@ -219,6 +219,9 @@ class SubmitOrderView(LoginRequiredMixin, View):
         elif frompage == 'tickets_order':
             order = ScenicOrdersMainTable.objects.get(order_num=order_num)
             return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets'
+        elif frompage == 'actives_order':
+            order = ScenicOrdersMainTable.objects.get(order_num=order_num)
+            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=actives'
         else:
             result = json.dumps({"status": "failed", "msg": "来源错误"}, ensure_ascii=False)
             return HttpResponse(result)
@@ -269,6 +272,13 @@ class FinishPayView(View):
                 order.pay_time = datetime.now()
                 order.cdk = check_cdk()
                 order.save()
+                if ordertype == 'actives':
+                    # 支付成功了，再给购买人数加相应数量
+                    scenic_id = order.scenic_id
+                    num = order.buy_num
+                    active = Active.objects.get(id=scenic_id)
+                    active.now_num += num
+                    active.save()
             # 跳转旅游订单页
             return HttpResponseRedirect(reverse('pay:scenic_order'))
 
@@ -329,6 +339,9 @@ class ProjectOrderView(View):
 
 
 class SubmitTravelsOrderView(View):
+    """
+    旅游订单提交
+    """
     def get(self, request):
         user = request.user
         list_type = request.GET.get('list_type', '')
@@ -351,14 +364,20 @@ class SubmitTravelsOrderView(View):
         elif list_type == 'active':
             active_id = request.GET.get('active_id', '')
             active = Active.objects.get(id=int(active_id))
-            order_describe = active.title
-            price = int(amount) * active.price
-            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=actives'
-            name = active.title
-            unit_price = active.price
-            image = active.image
-            id = int(active_id)
-            scenic_type = 'hd'
+            # 购买数量小于等于剩余数量才可以生成订单
+            if int(amount) <= active.all_num - active.now_num:
+                order_describe = active.title
+                price = int(amount) * active.price
+                return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=actives'
+                name = active.title
+                unit_price = active.price
+                image = active.image
+                id = int(active_id)
+                scenic_type = 'hd'
+            else:
+                result = json.dumps({"status": "failed", "msg": "购买数量超出剩余最大数量！"}, ensure_ascii=False)
+                return HttpResponse(result)
+
         else:
             return
 

@@ -29,9 +29,5 @@ class News(models.Model):
         verbose_name = '新闻信息'
         verbose_name_plural = verbose_name
 
-    def get_content_text(self):
-
-        self.content
-
     def __str__(self):
         return self.title

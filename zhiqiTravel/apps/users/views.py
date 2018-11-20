@@ -18,13 +18,49 @@ from operation.models import SpotsComments, DiaryComments, ProductComments, Acti
 from pay.models import OrderItems
 from utils.send_email import send_register_email
 
+from scenicspots.models import Active, Spots
+from shop.models import Product
+from diarys.models import Diary
+from news.models import News
+
 # Create your views here.
 class IndexView(View):
     """
     首页
     """
     def get(self, request):
-        return render(request, 'index.html', {'now_type': 'index'})
+        # banner
+        banners = Banner.objects.all()
+
+        # 精彩活动
+        actives = Active.objects.order_by('-add_time')[:3]
+        # 热门景区
+        natural_spots = Spots.objects.filter(classification='natural')
+        # 休闲度假
+        leisure_spots = Spots.objects.filter(classification='leisure')
+        # 特产商城
+        products = Product.objects.order_by('-buyers')[:5]
+        # 游记文章
+        diarys = Diary.objects.order_by('-praisenum')[:4]
+        # 活动资讯
+        active_news = News.objects.filter(classification='active')[:4]
+        # 热点资讯
+        hot_news = News.objects.filter(classification='hot')[:3]
+        # 最新资讯
+        news = News.objects.order_by('-add_times')[:6]
+
+        return render(request, 'index.html', {
+            'now_type': 'index',
+            'banners': banners,
+            'actives': actives,
+            'natural_spots': natural_spots,
+            'leisure_spots': leisure_spots,
+            'products': products,
+            'diarys': diarys,
+            'active_news': active_news,
+            'hot_news': hot_news,
+            'news': news,
+        })
 
 
 class RegisterView(View):

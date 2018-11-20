@@ -70,7 +70,14 @@
 								</div>
 								    <div class="operation" style="width:15%;">
 									<div class="middle">
-										<a class="buy" href="{% url 'pay:submit_order' %}?from=tickets_order&order_num={{ order.order_num }}">去付款</a>
+										<a class="buy" href="{% if order.classification == 'mp' %}
+                                                            {% url 'pay:submit_order' %}?from=tickets_order&order_num={{ order.order_num }}
+                                                            {% elif order.classification == 'hd' %}
+                                                            {% url 'pay:submit_order' %}?from=actives_order&order_num={{ order.order_num }}
+                                                            {% else %}
+                                                            #
+                                                            {% endif %}
+                                                            ">去付款</a>
 									</div>
 								</div>
                                 {% elif order.order_state == 'yzf' %}

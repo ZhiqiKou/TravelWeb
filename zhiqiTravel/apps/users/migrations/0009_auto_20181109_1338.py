@@ -10,13 +10,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='thecontact',
-            name='city',
-        ),
-        migrations.AddField(
-            model_name='thecontact',
-            name='city_addr',
-            field=models.CharField(default='', max_length=50, verbose_name='所在地区'),
-        ),
     ]
