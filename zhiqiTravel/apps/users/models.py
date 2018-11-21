@@ -42,7 +42,7 @@ class TheContact(models.Model):
     常用联系人表
     """
     user = models.ForeignKey(MyUser, verbose_name='用户', on_delete=models.CASCADE)
-    name = models.CharField(max_length=30, verbose_name='姓名', default='')
+    name = models.CharField(max_length=30, verbose_name='name', default='')
     city_addr = models.CharField(max_length=50, verbose_name='所在地区', default='')
     address = models.CharField(max_length=100, verbose_name='详细地址', default='')
     mobile = models.CharField(max_length=11, verbose_name='手机号', null=True, blank=True)
