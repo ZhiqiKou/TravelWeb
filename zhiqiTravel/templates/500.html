@@ -1,0 +1,46 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ZhiqiTravel 500Page</title>
+	<link rel="stylesheet" href="{% static 'css/404style.css' %}">
+	<script src="{% static 'js/404jquery.js' %}"></script>
+	<script src="{% static 'js/404public.js' %}"></script>
+</head>
+<body>
+<div id="content" class="cf">
+	<div id="duobei_wrap">
+		<div class="logo_wrap cf">
+			<a href="{% url 'index' %}" style="background: url({% static 'images/b_logo.png' %});background-size: 100% 100%;"  id="logo"></a>
+			<div id="title"><i>Zhi</i><i>qi</i><i>Travel</i><i>Website</i></div>
+		</div>
+		<div class="reason">
+			<p class="not_found_tip">500 SERVER ERROR  :( 很抱歉，您访问的页面出错!)</p>
+			<p class="possible">提示信息：</p>
+			<ul>
+				<li>服务器内部错误</li>
+				<li>Looks like something went wrong.</li>
+			</ul>
+		</div>
+	</div>
+	<!-- #duobei_wrap -->
+	<div class="line"></div>
+
+	<div class="not_found">
+		<i class="ribbon"></i>
+		<div class="not_found_404 cf">
+			<span>5</span>
+			<span>0</span>
+			<span>0</span>
+		</div>
+		<div class="btn">
+			<a href="{% url 'index' %}" class="button button-rounded">看看首页</a>
+			<a href="#" class="button button-rounded cancle">返回上页</a>
+		</div>   
+	</div>
+	<!-- not_found -->
+
+</div>
+</body>
+</html>

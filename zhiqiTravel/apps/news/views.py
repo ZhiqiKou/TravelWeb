@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.views.generic import View
 from .models import *
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 class NewsView(View):
@@ -8,7 +9,6 @@ class NewsView(View):
     新闻列表
     """
     def get(self, request):
-
         all_news = News.objects.all().order_by('-add_times')
 
         news_type = request.GET.get('classification', '')
