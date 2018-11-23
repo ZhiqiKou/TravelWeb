@@ -298,7 +298,8 @@ class ConfirmGoodsView(View):
             order.received_time = datetime.now()
             order.save()
         else:
-            pass
+            result = json.dumps({"status": "failed", "msg": "订单状态有误！"}, ensure_ascii=False)
+            return HttpResponse(result)
         return HttpResponseRedirect(reverse('pay:project_order'))
 
 
@@ -451,6 +452,9 @@ class SearchView(View):
             results = News.objects.filter(Q(title__icontains=keywords) | Q(content__icontains=keywords))
         else:
             result = json.dumps({"status": "failed", "msg": "搜索失败！搜索类型错误！"}, ensure_ascii=False)
+            return HttpResponse(result)
+        if results.count() == 0:
+            result = json.dumps({"status": "failed", "msg": "搜索失败！搜索结果为空！"}, ensure_ascii=False)
             return HttpResponse(result)
         return render(request, 'search_results.html', {
             'results': results,

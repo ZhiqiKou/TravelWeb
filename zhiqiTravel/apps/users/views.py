@@ -23,6 +23,7 @@ from shop.models import Product
 from diarys.models import Diary
 from news.models import News
 
+
 # Create your views here.
 class IndexView(View):
     """
@@ -515,6 +516,8 @@ class MyCommentsView(View):
             comments = DiaryComments.objects.filter(user=request.user)
         elif comments_type == 'scenic':
             comments = SpotsComments.objects.filter(user=request.user)
+        elif comments_type == 'active':
+            comments = ActiveComments.objects.filter(user=request.user)
         elif comments_type == 'project':
             comments = ProductComments.objects.filter(user=request.user)
         else:
@@ -544,14 +547,16 @@ class HomePageView(View):
         diary_comments = user.diarycomments_set.all().order_by('-add_time')
         # 景点评论
         spots_comments = user.spotscomments_set.all().order_by('-add_time')
+        # 活动评论
+        actives_comments = user.activecomments_set.all().order_by('-add_time')
         # 商品评论
         project_comments = user.productcomments_set.all().order_by('-add_time')
         # 我的游记[已发表]
         diarys = user.diary_set.all().order_by('-add_times').filter(is_published=True)
         # 我的收藏
         collects = user.usercollect_set.all().order_by('-add_time')
-        # 门票订单
-        ticket_orders = user.ticketsordersmaintable_set.all().order_by('-create_time')
+        # 旅游订单
+        scenic_orders = user.scenicordersmaintable_set.all().order_by('-create_time')
         # 商品订单
         pro_orders = user.goodsordersmaintable_set.all().order_by('-create_time')
 
@@ -594,14 +599,16 @@ class HomePageView(View):
             'diary_comments_count': diary_comments.count(),
             'spots_comments': spots_comments[:5],
             'spots_comments_count': spots_comments.count(),
+            'actives_comments': actives_comments[:5],
+            'actives_comments_count': actives_comments.count(),
             'project_comments': project_comments[:5],
             'project_comments_count': project_comments.count(),
             'diarys': diarys[:3],
             'diarys_count': diarys.count(),
             'collects': collects[:3],
             'collects_count': collects.count(),
-            'ticket_orders': ticket_orders[:5],
-            'ticket_order_count': ticket_orders.count(),
+            'scenic_orders': scenic_orders[:5],
+            'scenic_orders_count': scenic_orders.count(),
             'project_orders': project_orders,
             'project_orders_count': pro_orders.count(),
         })

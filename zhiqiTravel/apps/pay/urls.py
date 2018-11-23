@@ -19,6 +19,6 @@ urlpatterns = [
 
     # 旅游订单提交
     path('submit_order2', SubmitTravelsOrderView.as_view(), name='submit_order2'),
-    # 门票订单页面
+    # 旅游订单页面
     path('scenic_order/', ScenicOrderView.as_view(), name='scenic_order'),
 ]

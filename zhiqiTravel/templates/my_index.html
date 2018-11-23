@@ -59,44 +59,28 @@
 				<div class="h_more"><a href="{% url 'mycomments' %}?comments_type=scenic">共<b>{{ spots_comments_count }}</b>条评论</a></div>
 			</div>
 		</div>
-{#		<div class="public_box">#}
-{#			<div class="public_title">#}
-{#				<h2>活动评论</h2>#}
-{#			</div>#}
-{#			<!-----------------首页活动评论---------------->#}
-{#			<div class="comments_list">#}
-{#				<ul>#}
-{#					<li>#}
-{#						<div class="activities">#}
-{#							<a href="#"><h3>龙门石窟白马寺一日游 包车包中午</h3></a>#}
-{#							<label>￥396.0</label>#}
-{#						</div>#}
-{#						<div class="text">#}
-{#							<p>我评论：长滩岛很小，但是怎么呆都不够，如果只是玩3天就够啦，如果有时间，一躺就是一整天</p>#}
-{#						</div>#}
-{#					</li>#}
-{#					<li>#}
-{#						<div class="activities">#}
-{#							<a href="#"><h3>龙门石窟白马寺一日游 包车包中午</h3></a>#}
-{#							<label>￥396.0</label>#}
-{#						</div>#}
-{#						<div class="text">#}
-{#							<p>我评论：长滩岛很小，但是怎么呆都不够，如果只是玩3天就够啦，如果有时间，一躺就是一整天</p>#}
-{#						</div>#}
-{#					</li>#}
-{#					<li>#}
-{#						<div class="activities">#}
-{#							<a href="#"><h3>龙门石窟白马寺一日游 包车包中午</h3></a>#}
-{#							<label>￥396.0</label>#}
-{#						</div>#}
-{#						<div class="text">#}
-{#							<p>我评论：长滩岛很小，但是怎么呆都不够，如果只是玩3天就够啦，如果有时间，一躺就是一整天</p>#}
-{#						</div>#}
-{#					</li>#}
-{#				</ul>#}
-{#				<div class="h_more"><a href="#">共<b>29</b>条评论</a></div>#}
-{#			</div>#}
-{#		</div>#}
+		<div class="public_box">
+			<div class="public_title">
+				<h2>活动评论</h2>
+			</div>
+			<!-----------------首页活动评论---------------->
+			<div class="comments_list">
+				<ul>
+                    {% for actives_comment in actives_comments %}
+                        <li>
+						<div class="activities">
+							<a href="{% url 'scenicspots:active_detail' actives_comment.active.id %}"><h3>{{ actives_comment.active.title }}</h3></a>
+							<label>￥{{ actives_comment.active.price }}</label>
+						</div>
+						<div class="text">
+							<p>我评论：{{ actives_comment.comments }}</p>
+						</div>
+					</li>
+                    {% endfor %}
+				</ul>
+				<div class="h_more"><a href="{% url 'mycomments' %}?comments_type=active">共<b>{{ actives_comments_count }}</b>条评论</a></div>
+			</div>
+		</div>
 		<div class="public_box">
 			<div class="public_title">
 				<h2>商品评论</h2>
@@ -163,7 +147,7 @@
 								<label><img src="{% static 'images/state_icon1.png' %}" />{{ collect.diary.checknum }}</label>
 								<label><img src="{% static 'images/state_icon2.png' %}" />{{ collect.diary.commentsnum }}</label>
 							</div>
-							<p>{{ collect.diary.content|striptags|truncatechars:"150" }}</p>
+							<p>{{ collect.diary.content|striptags|truncatechars:"100" }}</p>
 						</div>
 					</li>
                     {% endfor %}
@@ -173,9 +157,9 @@
 		</div>
 		<div class="public_box">
 			<div class="public_title">
-				<h2>门票订单</h2>
+				<h2>旅游订单</h2>
 			</div>
-			<!-----------------门票订单---------------->
+			<!-----------------旅游订单---------------->
 			<div class="order_list">
 				<div class="column_title">
 					<ul>
@@ -189,51 +173,70 @@
 				</div>
 				<div class="list_con">
 					<ul>
-                        {% for ticket_order in ticket_orders %}
+                        {% for order in scenic_orders %}
                             <li>
-							<div class="serial">订单编号：{{ ticket_order.order_num }}<a href="#"><i class="del"></i>删除</a></div>
+							<div class="serial">订单编号：{{ order.order_num }}<a href="#"><i class="del"></i>删除</a></div>
 							<div class="cont">
 								<div class="con">
 									<div class="info" style="width:35%;">
-										<div class="pic"><a href="{% url 'scenicspots:scenic_detail' ticket_order.spots_id %}"><img width=53 height=53 src="{{ MEDIA_URL }}{{ ticket_order.spots_image }}" /></a></div>
+										<div class="pic"><a href="{% if order.classification == 'mp' %}
+                                                                {% url 'scenicspots:scenic_detail' order.scenic_id %}
+                                                              {% elif order.classification == 'hd' %}
+                                                                {% url 'scenicspots:active_detail' order.scenic_id %}
+                                                              {% else %}
+                                                                #
+                                                              {% endif %}">
+                                            <img width=53 height=53 src="{{ MEDIA_URL }}{{ order.scenic_image }}" /></a></div>
 										<div class="name">
-											<a href="{% url 'scenicspots:scenic_detail' ticket_order.spots_id %}">{{ ticket_order.spots_name }}门票</a>
-											<p>下单日期：{{ ticket_order.create_time|date:"Y-m-d" }}</p>
+											<a href="{% if order.classification == 'mp' %}
+                                                                {% url 'scenicspots:scenic_detail' order.scenic_id %}
+                                                              {% elif order.classification == 'hd' %}
+                                                                {% url 'scenicspots:active_detail' order.scenic_id %}
+                                                              {% else %}
+                                                                #
+                                                              {% endif %}">{{ order.order_describe|truncatechars:"10" }}</a>
+											<p>下单日期：{{ order.create_time|date:"Y-m-d" }}</p>
 										</div>
 										<div class="clear"></div>
 									</div>
-									<div class="number" style="width:10%;">x{{ ticket_order.buy_num }}</div>
-									<div class="price" style="width:10%;">￥{{ ticket_order.ticket_price }}</div>
-									<div class="m_price" style="width:10%;"><div class="middle">￥{{ ticket_order.total_amount }}</div></div>
-									{% if ticket_order.order_state == 'wzf' %}
+									<div class="number" style="width:10%;">x{{ order.buy_num }}</div>
+									<div class="price" style="width:10%;">￥{{ order.ticket_price }}</div>
+									<div class="m_price" style="width:10%;"><div class="middle">￥{{ order.total_amount }}</div></div>
+									{% if order.order_state == 'wzf' %}
                                     <div class="state" style="width:20%;">
 									<div class="middle">
 										<p>未付款</p>
-										<a href="{% url 'scenicspots:order_detail' ticket_order.order_num %}">订单详情</a>
+										<a href="{% url 'scenicspots:order_detail' order.order_num %}">订单详情</a>
 									</div>
 								</div>
 								    <div class="operation" style="width:15%;">
 									<div class="middle">
-										<a class="buy" href="{% url 'pay:submit_order' %}?from=tickets_order&order_num={{ ticket_order.order_num }}">去付款</a>
+										<a class="buy" href="{% if order.classification == 'mp' %}
+                                                            {% url 'pay:submit_order' %}?from=tickets_order&order_num={{ order.order_num }}
+                                                            {% elif order.classification == 'hd' %}
+                                                            {% url 'pay:submit_order' %}?from=actives_order&order_num={{ order.order_num }}
+                                                            {% else %}
+                                                            #
+                                                            {% endif %}">去付款</a>
 									</div>
 								</div>
-                                {% elif ticket_order.order_state == 'yzf' %}
+                                {% elif order.order_state == 'yzf' %}
                                          <div class="state" style="width:20%;">
 									<div class="middle">
 										<p>待评价</p>
-										<a href="{% url 'scenicspots:order_detail' ticket_order.order_num %}">订单详情</a>
+										<a href="{% url 'scenicspots:order_detail' order.order_num %}">订单详情</a>
 									</div>
 								</div>
 								    <div class="operation" style="width:15%;">
 									<div class="middle">
-										<a class="buy" href="{% url 'operation:commentspots' %}?order_num={{ ticket_order.order_num }}">评价</a>
+										<a class="buy" href="{% url 'operation:commentspots' %}?order_num={{ order.order_num }}">评价</a>
 									</div>
 								</div>
                                 {% else %}
                                     <div class="state" style="width:20%;">
 									<div class="middle">
 										<p>已完成</p>
-										<a href="{% url 'scenicspots:order_detail' ticket_order.order_num %}">订单详情</a>
+										<a href="{% url 'scenicspots:order_detail' order.order_num %}">订单详情</a>
 									</div>
 								</div>
 								    <div class="operation" style="width:15%;">
@@ -249,123 +252,9 @@
                         {% endfor %}
 					</ul>
 				</div>
-				<div class="h_more"><a href="{% url 'pay:scenic_order'%}">共<b>{{ ticket_order_count }}</b>个订单</a></div>
+				<div class="h_more"><a href="{% url 'pay:scenic_order'%}">共<b>{{ scenic_orders_count }}</b>个订单</a></div>
 			</div>
-
 		</div>
-{#		<div class="public_box">#}
-{#			<div class="public_title">#}
-{#				<h2>活动订单</h2>#}
-{#			</div>#}
-{#			<!-----------------活动订单---------------->#}
-{#			<div class="order_list">#}
-{#				<div class="column_title">#}
-{#					<ul>#}
-{#						<li style="width:35%;">订单信息</li>#}
-{#						<li style="width:10%;">数量</li>#}
-{#						<li style="width:10%;">单价</li>#}
-{#						<li style="width:10%;">总价</li>#}
-{#						<li style="width:20%;">订单状态</li>#}
-{#						<li style="width:15%;">操作</li>#}
-{#					</ul>#}
-{#				</div>#}
-{#				<div class="list_con">#}
-{#					<ul>#}
-{#						<li>#}
-{#							<div class="serial">订单编号：3501417528<a href="#"><i class="del"></i>删除</a></div>#}
-{#							<div class="cont">#}
-{#								<div class="con">#}
-{#									<div class="info" style="width:35%;">#}
-{#										<div class="pic"><a href="#"><img width=53 height=53 src="images/09.jpg" /></a></div>#}
-{#										<div class="name">#}
-{#											<a href="#">龙潭大峡谷门票</a>#}
-{#											<p>下单日期：2017-03-06</p>#}
-{#										</div>#}
-{#										<div class="clear"></div>#}
-{#									</div>#}
-{#									<div class="number" style="width:10%;">x1</div>#}
-{#									<div class="price" style="width:10%;">￥80.9</div>#}
-{#									<div class="m_price" style="width:10%;"><div class="middle">￥160.9</div></div>#}
-{#									<div class="state" style="width:20%;">#}
-{#										<div class="middle">#}
-{#											<p>已付款</p>#}
-{#											<a href="order_details.html">订单详情</a>#}
-{#										</div>#}
-{#									</div>#}
-{#									<div class="operation" style="width:15%;">#}
-{#										<div class="middle">#}
-{#											<a class="evaluation" href="goods_comment.html">评价</a>#}
-{#										</div>#}
-{#									</div>#}
-{#									<div class="clear"></div>#}
-{#								</div>#}
-{#							</div>#}
-{#						</li>#}
-{#						<li>#}
-{#							<div class="serial">订单编号：3501417528<a href="#"><i class="del"></i>删除</a></div>#}
-{#							<div class="cont">#}
-{#								<div class="con">#}
-{#									<div class="info" style="width:35%;">#}
-{#										<div class="pic"><a href="#"><img width=53 height=53 src="images/09.jpg" /></a></div>#}
-{#										<div class="name">#}
-{#											<a href="#">龙潭大峡谷门票</a>#}
-{#											<p>下单日期：2017-03-06</p>#}
-{#										</div>#}
-{#										<div class="clear"></div>#}
-{#									</div>#}
-{#									<div class="number" style="width:10%;">x1</div>#}
-{#									<div class="price" style="width:10%;">￥80.9</div>#}
-{#									<div class="m_price" style="width:10%;"><div class="middle">￥160.9</div></div>#}
-{#									<div class="state" style="width:20%;">#}
-{#										<div class="middle">#}
-{#											<p>未付款</p>#}
-{#											<a href="order_details.html">订单详情</a>#}
-{#										</div>#}
-{#									</div>#}
-{#									<div class="operation" style="width:15%;">#}
-{#										<div class="middle">#}
-{#											<a class="buy" href="#">去付款</a>#}
-{#										</div>#}
-{#									</div>#}
-{#									<div class="clear"></div>#}
-{#								</div>#}
-{#							</div>#}
-{#						</li>#}
-{#						<li>#}
-{#							<div class="serial">订单编号：3501417528<a href="#"><i class="del"></i>删除</a></div>#}
-{#							<div class="cont">#}
-{#								<div class="con">#}
-{#									<div class="info" style="width:35%;">#}
-{#										<div class="pic"><a href="#"><img width=53 height=53 src="images/09.jpg" /></a></div>#}
-{#										<div class="name">#}
-{#											<a href="#">龙潭大峡谷门票</a>#}
-{#											<p>下单日期：2017-03-06</p>#}
-{#										</div>#}
-{#										<div class="clear"></div>#}
-{#									</div>#}
-{#									<div class="number" style="width:10%;">x1</div>#}
-{#									<div class="price" style="width:10%;">￥80.9</div>#}
-{#									<div class="m_price" style="width:10%;"><div class="middle">￥160.9</div></div>#}
-{#									<div class="state" style="width:20%;">#}
-{#										<div class="middle">#}
-{#											<p>已付款</p>#}
-{#											<a href="order_details.html">订单详情</a>#}
-{#										</div>#}
-{#									</div>#}
-{#									<div class="operation" style="width:15%;">#}
-{#										<div class="middle">#}
-{#											<a class="evaluation" href="goods_comment.html">评价</a>#}
-{#										</div>#}
-{#									</div>#}
-{#									<div class="clear"></div>#}
-{#								</div>#}
-{#							</div>#}
-{#						</li>#}
-{#					</ul>#}
-{#				</div>#}
-{#				<div class="h_more"><a href="#">共<b>29</b>个订单</a></div>#}
-{#			</div>#}
-{#		</div>#}
 		<div class="public_box">
 			<div class="public_title">
 				<h2>商品订单</h2>

@@ -175,3 +175,4 @@ ALIPAY_URL = 'https://openapi.alipaydev.com/gateway.do?'
 # 支付关闭时间：
 ALIPAY_CLOSE_TIME = '60m'
 
+DOMAIN_NAME = 'http://127.0.0.1:8000/'

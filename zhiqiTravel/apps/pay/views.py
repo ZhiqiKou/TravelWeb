@@ -98,7 +98,7 @@ class AliPayTestView(View):
             out_trade_no=creat_order_num(request.user.id),  # 商户订单号
             total_amount=money,  # 交易金额(单位: 元 保留俩位小数)
             timeout_express='60m',  # 订单关闭时间：60分钟
-            return_url='http://127.0.0.1:8000/pay/alipayResultTest',
+            return_url=settings.DOMAIN_NAME + 'pay/alipayResultTest',
         )
         # 让用户进行支付的支付宝页面网址
         url = settings.ALIPAY_URL + query_params
@@ -205,7 +205,7 @@ class SubmitOrderView(LoginRequiredMixin, View):
             out_trade_no=out_trade_no,
             total_amount=totalprice,
             timeout_express=settings.ALIPAY_CLOSE_TIME,
-            return_url='http://127.0.0.1:8000/pay/finish_pay?ordertype=goods',
+            return_url=settings.DOMAIN_NAME + 'pay/finish_pay?ordertype=goods',
         )
         url = settings.ALIPAY_URL + query_params
         return HttpResponseRedirect(url)
@@ -215,13 +215,13 @@ class SubmitOrderView(LoginRequiredMixin, View):
         order_num = request.GET.get('order_num', '')
         if frompage == 'goods_order':
             order = GoodsOrdersMainTable.objects.get(order_num=order_num)
-            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=goods'
+            return_url = settings.DOMAIN_NAME + 'pay/finish_pay?ordertype=goods'
         elif frompage == 'tickets_order':
             order = ScenicOrdersMainTable.objects.get(order_num=order_num)
-            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets'
+            return_url = settings.DOMAIN_NAME + 'pay/finish_pay?ordertype=tickets'
         elif frompage == 'actives_order':
             order = ScenicOrdersMainTable.objects.get(order_num=order_num)
-            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=actives'
+            return_url = settings.DOMAIN_NAME + 'pay/finish_pay?ordertype=actives'
         else:
             result = json.dumps({"status": "failed", "msg": "来源错误"}, ensure_ascii=False)
             return HttpResponse(result)
@@ -355,7 +355,7 @@ class SubmitTravelsOrderView(View):
             spot = Spots.objects.get(id=int(spots_id))
             order_describe = spot.name + '门票'
             price = int(amount) * spot.price
-            return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=tickets'
+            return_url = settings.DOMAIN_NAME + 'pay/finish_pay?ordertype=tickets'
             name = spot.name
             unit_price = spot.price
             image = spot.image
@@ -368,7 +368,7 @@ class SubmitTravelsOrderView(View):
             if int(amount) <= active.all_num - active.now_num:
                 order_describe = active.title
                 price = int(amount) * active.price
-                return_url = 'http://127.0.0.1:8000/pay/finish_pay?ordertype=actives'
+                return_url = settings.DOMAIN_NAME + 'pay/finish_pay?ordertype=actives'
                 name = active.title
                 unit_price = active.price
                 image = active.image

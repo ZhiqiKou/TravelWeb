@@ -9,7 +9,7 @@
 			<ul>
 				<li><a {% if comments_type == 'note' %}class="cur"{% endif %} href="?comments_type=note">游记评论</a></li>
 				<li><a {% if comments_type == 'scenic' %}class="cur"{% endif %} href="?comments_type=scenic">景区评论</a></li>
-				<li><a href="javascript:void(0)">活动评论</a></li>
+				<li><a {% if comments_type == 'active' %}class="cur"{% endif %} href="?comments_type=active">活动评论</a></li>
 				<li><a {% if comments_type == 'project' %}class="cur"{% endif %} href="?comments_type=project">商品评论</a></li>
 				<div class="clear"></div>
 			</ul>
@@ -58,6 +58,26 @@
 						<p>我评论：{{ comment.comments }}</p>
 					</div>
 					<div class="del" style="top:52px;">
+						<a href="#"><i class="del_ico"></i>删除评论</a>
+					</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+        {% elif comments_type == 'active' %}
+            <!-----------------活动评论---------------->
+		<div class="comments_list">
+			<ul>
+                {% for comment in comments %}
+				    <li class="pd_r150">
+					<div class="activities">
+						<a href="{% url 'scenicspots:active_detail' comment.active.id %}"><h3>{{ comment.active.title }}</h3></a>
+						<label>￥{{ comment.active.price }}</label>
+					</div>
+					<div class="text">
+						<p>我评论：{{ comment.comments }}</p>
+					</div>
+					<div class="del" style="top:65px;">
 						<a href="#"><i class="del_ico"></i>删除评论</a>
 					</div>
 				</li>

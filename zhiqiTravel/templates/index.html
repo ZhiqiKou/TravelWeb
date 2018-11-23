@@ -6,7 +6,7 @@
 <div class="h_banner">
 	<ul class="h_b_list">
         {% for banner in banners %}
-        <li><a style="background:url({{ MEDIA_URL }}{{ banner.image }}) no-repeat center;" href="http://127.0.0.1:8000{{ banner.url }}"></a></li>
+        <li><a style="background:url({{ MEDIA_URL }}{{ banner.image }}) no-repeat center;" href="{{ banner.url }}"></a></li>
         {% endfor %}
 	</ul>
 	<a class="prev" href="javascript:void(0)"></a>

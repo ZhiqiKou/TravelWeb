@@ -79,7 +79,7 @@ urlpatterns = [
     path('mycomments', MyCommentsView.as_view(), name='mycomments'),
     # 我的收藏
     path('mycollect', MyCollectView.as_view(), name='mycollect'),
-    # 个人主页
+    # 我的主页
     path('homepage', HomePageView.as_view(), name='homepage'),
 
     # 其余操作相关
